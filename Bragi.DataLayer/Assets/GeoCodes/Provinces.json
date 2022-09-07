@@ -1,0 +1,226 @@
+[
+  {
+    "GeoCode": "01010900000000000",
+    "MacroRegion": "01",
+    "Region": "01",
+    "Province": "09",
+    "ToponomyName": "Espaillat"
+  },
+  {
+    "GeoCode": "01011800000000000",
+    "MacroRegion": "01",
+    "Region": "01",
+    "Province": "18",
+    "ToponomyName": "Puerto Plata"
+  },
+  {
+    "GeoCode": "01012500000000000",
+    "MacroRegion": "01",
+    "Region": "01",
+    "Province": "25",
+    "ToponomyName": "Santiago"
+  },
+  {
+    "GeoCode": "01021300000000000",
+    "MacroRegion": "01",
+    "Region": "02",
+    "Province": "13",
+    "ToponomyName": "La Vega"
+  },
+  {
+    "GeoCode": "01022400000000000",
+    "MacroRegion": "01",
+    "Region": "02",
+    "Province": "24",
+    "ToponomyName": "Sanchez Ramírez"
+  },
+  {
+    "GeoCode": "01022800000000000",
+    "MacroRegion": "01",
+    "Region": "02",
+    "Province": "28",
+    "ToponomyName": "Monseñor Nouel"
+  },
+  {
+    "GeoCode": "01030600000000000",
+    "MacroRegion": "01",
+    "Region": "03",
+    "Province": "06",
+    "ToponomyName": "Duarte"
+  },
+  {
+    "GeoCode": "01031400000000000",
+    "MacroRegion": "01",
+    "Region": "03",
+    "Province": "14",
+    "ToponomyName": "María Trinidad Sánchez"
+  },
+  {
+    "GeoCode": "01031900000000000",
+    "MacroRegion": "01",
+    "Region": "03",
+    "Province": "19",
+    "ToponomyName": "Hermanas Mirabal"
+  },
+  {
+    "GeoCode": "01032000000000000",
+    "MacroRegion": "01",
+    "Region": "03",
+    "Province": "20",
+    "ToponomyName": "Samaná"
+  },
+  {
+    "GeoCode": "01040500000000000",
+    "MacroRegion": "01",
+    "Region": "04",
+    "Province": "05",
+    "ToponomyName": "Dajabón"
+  },
+  {
+    "GeoCode": "01041500000000000",
+    "MacroRegion": "01",
+    "Region": "04",
+    "Province": "15",
+    "ToponomyName": "Monte Crísti"
+  },
+  {
+    "GeoCode": "01042600000000000",
+    "MacroRegion": "01",
+    "Region": "04",
+    "Province": "26",
+    "ToponomyName": "Santiago Rodríguez"
+  },
+  {
+    "GeoCode": "01042700000000000",
+    "MacroRegion": "01",
+    "Region": "04",
+    "Province": "27",
+    "ToponomyName": "Valverde"
+  },
+  {
+    "GeoCode": "02050200000000000",
+    "MacroRegion": "02",
+    "Region": "05",
+    "Province": "02",
+    "ToponomyName": "Azua"
+  },
+  {
+    "GeoCode": "02051700000000000",
+    "MacroRegion": "02",
+    "Region": "05",
+    "Province": "17",
+    "ToponomyName": "Peravia"
+  },
+  {
+    "GeoCode": "02052100000000000",
+    "MacroRegion": "02",
+    "Region": "05",
+    "Province": "21",
+    "ToponomyName": "San Cristóbal"
+  },
+  {
+    "GeoCode": "02053100000000000",
+    "MacroRegion": "02",
+    "Region": "05",
+    "Province": "31",
+    "ToponomyName": "San José de Ocoa"
+  },
+  {
+    "GeoCode": "02060300000000000",
+    "MacroRegion": "02",
+    "Region": "06",
+    "Province": "03",
+    "ToponomyName": "Bahoruco"
+  },
+  {
+    "GeoCode": "02060400000000000",
+    "MacroRegion": "02",
+    "Region": "06",
+    "Province": "04",
+    "ToponomyName": "Barahona"
+  },
+  {
+    "GeoCode": "02061000000000000",
+    "MacroRegion": "02",
+    "Region": "06",
+    "Province": "10",
+    "ToponomyName": "Independencia"
+  },
+  {
+    "GeoCode": "02061600000000000",
+    "MacroRegion": "02",
+    "Region": "06",
+    "Province": "16",
+    "ToponomyName": "Pedernales"
+  },
+  {
+    "GeoCode": "02070700000000000",
+    "MacroRegion": "02",
+    "Region": "07",
+    "Province": "07",
+    "ToponomyName": "Elías Piña"
+  },
+  {
+    "GeoCode": "02072200000000000",
+    "MacroRegion": "02",
+    "Region": "07",
+    "Province": "22",
+    "ToponomyName": "San Juan"
+  },
+  {
+    "GeoCode": "03080800000000000",
+    "MacroRegion": "03",
+    "Region": "08",
+    "Province": "08",
+    "ToponomyName": "El Seibo"
+  },
+  {
+    "GeoCode": "03081100000000000",
+    "MacroRegion": "03",
+    "Region": "08",
+    "Province": "11",
+    "ToponomyName": "La Altagracia"
+  },
+  {
+    "GeoCode": "03081200000000000",
+    "MacroRegion": "03",
+    "Region": "08",
+    "Province": "12",
+    "ToponomyName": "La Romana"
+  },
+  {
+    "GeoCode": "03092300000000000",
+    "MacroRegion": "03",
+    "Region": "09",
+    "Province": "23",
+    "ToponomyName": "San Pedro de Macorís"
+  },
+  {
+    "GeoCode": "03092900000000000",
+    "MacroRegion": "03",
+    "Region": "09",
+    "Province": "29",
+    "ToponomyName": "Monte Plata"
+  },
+  {
+    "GeoCode": "03093000000000000",
+    "MacroRegion": "03",
+    "Region": "09",
+    "Province": "30",
+    "ToponomyName": "Hato Mayor"
+  },
+  {
+    "GeoCode": "03100100000000000",
+    "MacroRegion": "03",
+    "Region": "10",
+    "Province": "01",
+    "ToponomyName": "Distrito Nacional"
+  },
+  {
+    "GeoCode": "03103200000000000",
+    "MacroRegion": "03",
+    "Region": "10",
+    "Province": "32",
+    "ToponomyName": "Santo Domingo"
+  }
+]

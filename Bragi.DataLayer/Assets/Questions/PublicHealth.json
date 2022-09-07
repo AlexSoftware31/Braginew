@@ -1,0 +1,72 @@
+﻿[
+  {
+    "Spanish": "Fiebre",
+    "English": "Fever",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Fatiga",
+    "English": "Fatigue",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Dificultad respiratoria",
+    "English": "Breathing difficulty",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Escalofrios",
+    "English": "Shaking chills",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Tos",
+    "English": "Cough",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Secrecion nasal",
+    "English": "Runny nose",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Dolor de cabeza",
+    "English": "Headache",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Dolor muscular",
+    "English": "Muscle pain",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Dolor de garganta",
+    "English": "Sore throat",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  },
+  {
+    "Spanish": "Ninguno",
+    "English": "None",
+    "AgencyId": 2,
+    "IsBooleanResponse": true,
+    "QuestionTypeId": 4
+  }
+]

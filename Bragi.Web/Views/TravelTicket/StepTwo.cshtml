@@ -1,0 +1,157 @@
+﻿@using Bragi.DataLayer.Models.Enums
+@using Bragi.DataLayer.ViewModels.MigratoryInfo
+@model MigratoryInfoStepViewModel
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+@{
+    var viewModel = new MigratoryInfoView
+    {
+        MigratoryInformation = new MigratoryInformationViewModel { ApplicationId = ViewBag.ApplicationId, IsPrincipal = true },
+        Ports = ViewBag.Ports,
+        Countries = ViewBag.Countries,
+        MaritalStatus = ViewBag.MaritalStatus,
+        Ocupation = ViewBag.Ocupations,
+        Airline = ViewBag.Airlines,
+        Provinces = ViewBag.Provinces,
+        FlightMotives = ViewBag.FlightMotives,
+        Hotels = ViewBag.Hotels,
+        GenericInformation = ViewBag.GenericInfo,
+        Companions = ViewBag.Companions,
+        TotalCreated = Model.MigratoryInformations.Count,
+        Token = ViewBag.Token
+    };
+
+    if (Model.MigratoryInformations.Any() && Model.MigratoryInformations.Count < viewModel.Companions + 1) { Model.MigratoryInformations.Add(new MigratoryInformationViewModel { ApplicationId = ViewBag.ApplicationId, IsPrincipal = false }); }
+}
+
+<link href="~/css/step/style.css" rel="stylesheet" />
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PRE6LMZ2YR"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PRE6LMZ2YR');
+</script>
+
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', ' G-PRE6LMZ2YR');</script>
+<!-- End Google Tag Manager -->
+
+<section class="section-step-2">
+    <div class="container-fluid ">
+        <div class="row">
+            <partial name="_CardCodePartial" model="@ViewBag.Code" />
+            <partial name="_StepperPartial" model="@StepsEnum.MigratoryInformation" />
+            <div class="col-12 col-lg-12 migratory-info">
+                <div class="guide-2">
+                    <div class="row">
+                        <div class="col-lg-2 col-12 text-center">
+                            <img src="~/img/dgm.png" class="img-fluid justify-content-center" width="190" height="190" />
+                        </div>
+                        <div class="col-lg-10 col-12 ">
+                            <h1 class="mt-sm-5 mt-3 text-sm-left text-center title">@localizer["Step.Two"] <span><i class="fas fa-question-circle" style="cursor: pointer; font-size: 38px; color:#10439C;" onclick="migratoryInfomationGuide()"></i></span> </h1>
+                            <p class="text-left mb-2 mt-2" style="font-size: 18px;">@localizer["RequiredFields"] (<span class="text-danger">*</span>)</p>
+                        </div>
+                    </div>
+                    <div>
+                        <nav class="container-fluid ">
+                            <div class="nav nav-tabs mt-5 row" id="nav-tab" role="tablist">
+                                @{
+                                    if (Model.MigratoryInformations.Any())
+                                    {
+
+                                        int total = Model.MigratoryInformations.Count;
+                                        int index = 1;
+                                        foreach (var person in Model.MigratoryInformations)
+                                        {
+
+                                            var active = index == Model.CurrentIndex ? "active" : "";
+                                            var name = person != null ? $"{person?.Names} {person?.LastNames}" :
+                                            person.IsPrincipal ? localizer["Person"].ToString() : localizer["PersonSecond"].ToString();
+                                            //var name = viewModel.IsPrincipal ? localizer["Person"] : localizer["Passenger"];
+                                            var placeHolder = !string.IsNullOrEmpty(name.Trim()) ? name : person.IsPrincipal ? $"{localizer["Person"].Value} {index}" : $"{localizer["PersonSecond"].Value} {index}";
+                                            var inputName = $"nav-profile{index.ToString()}";
+                                            string elementId = $"nav-profile-tab{index.ToString()}";
+                                            string controls = $"nav-profile";
+                                            string icon = person.Id > 0 ? "<i class='fas fa-check text-success'></i>" : "";
+
+
+                                            <a class="nav-item nav-link @active col-sm mb-1 mt-1"
+                                               id="@elementId" data-toggle="tab"
+                                               href="#@inputName" role="tab"
+                                               aria-controls="@controls">
+                                                @placeHolder @Html.Raw(icon)
+                                            </a>
+                                            index++;
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                                            @localizer["Person"]
+                                        </a>
+
+                                    }
+                                }
+
+                            </div>
+                        </nav>
+
+                        <div class="tab-content" id="nav-tabContent">
+                            @{
+                                if (Model.MigratoryInformations.Any())
+                                {
+                                    int tabIndex = 1;
+                                    foreach (var person in Model.MigratoryInformations)
+                                    {
+                                        int total = Model.MigratoryInformations.Count;
+                                        var active = tabIndex == Model.CurrentIndex ? "active show" : "";
+                                        string inputName = $"nav-profile{tabIndex.ToString()}";
+                                        string labelname = $"nav-profile-tab{tabIndex}";
+                                        <div class="tab-pane fade @active" id="@inputName" role="tabpanel" aria-labelledby="@labelname">
+                                            @{
+                                                viewModel.MigratoryInformation = person;
+                                                viewModel.PersonIndex = tabIndex;
+                                                @await Html.PartialAsync("_MigratoryInformationPartial", viewModel)
+                                            }
+                                        </div>
+                                        tabIndex++;
+                                    }
+                                }
+                                else
+                                {
+                                    viewModel.PersonIndex = 1;
+                                    viewModel.IsPrincipal = !Model.MigratoryInformations.Any();
+                                    await Html.RenderPartialAsync("_MigratoryInformationPartial", viewModel);
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/TravelTiket/StepTwo/index.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+<script src="~/js/TravelTiket/Helpers/index.js"></script>
+<script src="~/js/Guide/TravelTicket/Traslation.js"></script>
+<script src="~/js/Guide/TravelTicket/TravelTicket.js"></script>
+<script src="~/js/TravelTiket/Traslations/index.js"></script>

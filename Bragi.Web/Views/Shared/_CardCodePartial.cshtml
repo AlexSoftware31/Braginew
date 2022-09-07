@@ -1,0 +1,13 @@
+﻿@model string
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+<div class="col-lg-3 pb-4 pt-4">
+    <div class="card border-0 rounded pb-4 pt-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+        <div class="card-title pl-3 pr-3">
+            <h4 style="font-weight: 300">@localizer["AppCode"] : <span class="font-weight-bold">@Model</span></h4>
+        </div>
+        <div>
+            <p class="text-justify pl-3 pr-3" style="font-weight: 300">@localizer["AppCode.Msg"]</p>
+            <a asp-controller="Home" asp-action="Index" class="pl-3 pr-3 font-weight-light">@localizer["LogOut"] </a>
+        </div>
+    </div>
+</div>

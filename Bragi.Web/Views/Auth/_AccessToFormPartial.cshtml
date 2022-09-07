@@ -1,0 +1,18 @@
+﻿@using Bragi.DataLayer.Resources.Views.Auth
+@using Bragi.DataLayer.ViewModels.Auth
+@using Bragi.DataLayer.ViewModels.Questions
+@using Microsoft.Extensions.Localization
+@model Bragi.DataLayer.ViewModels.Auth.AuthViewModel
+@inject IStringLocalizer<Bragi.DataLayer.SharedResource> Localizer;
+
+<form asp-action="TravelLogin" method="post" class="access-form">
+    <div class="content guide-10">
+        <label><b>@Localizer["Login.Enter.AppCode"]</b></label><span class="text-danger" style="font-size: 20px;"> *</span>
+        <input type="text" class="form-control" asp-for="ApplicationCode" />
+    </div>
+
+    <div class="content guide-13">
+        <button class="btn btn-request btn-block shadow-lg">@Localizer["Login.Enter"]</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary btn-block shadow-lg">@Localizer["Login.Cancel"]</a>
+    </div>
+</form>

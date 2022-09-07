@@ -1,0 +1,59 @@
+﻿@page
+@model Bragi.Web.Areas.Identity.Pages.Account.Manage.CreateAirlinesModel
+@{
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="container">
+
+    <div class="containerBox">
+        <div class="row">
+            <form class="col s12" id="reg-form" method="post">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" type="text" class="validate" asp-for="UserCreationViewModel.User.FullName" required>
+                        <label for="first_name">Full Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate" required asp-for="UserCreationViewModel.User.UserName">
+                        <label for="last_name">UserName</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="email" class="validate" required asp-for="UserCreationViewModel.User.Email">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" type="password" class="validate" minlength="6" required asp-for="UserCreationViewModel.User.PassWord">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 roleSelect">
+                        <select asp-for="UserCreationViewModel.Role">
+                            @{
+                                foreach (var role in Model.UserCreationViewModel.Roles)
+                                {
+                                    <option value="@role.Name">@role.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col m-8">
+                        <button class="btn btn-large btn-register waves-effect waves-light" type="submit" name="action">
+                            Create
+                            <i class="material-icons right">done</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<link href="~/css/register/register.css" rel="stylesheet" />

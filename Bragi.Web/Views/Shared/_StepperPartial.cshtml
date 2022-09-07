@@ -1,0 +1,61 @@
+﻿@using Bragi.DataLayer.Models.Enums
+@model StepsEnum
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+
+@{
+    string complete = "complete";
+}
+<link href="~/css/step/stepper.css" rel="stylesheet" />
+<div class="col-12 col-lg-12">
+    <!-------------------Steppers--------------------->
+    <div class="bs-stepper  text-center">
+        <div class="bs-stepper-header" role="tablist">
+
+            <div class="step " data-target="#logins-part">
+                <div>
+                    <div class="bs-stepper-circle content-1 shadow-lg @((Model > StepsEnum.GeneralInformation) ? complete:"")">
+                        <span class="bs-stepper-circle bg-white content-2">
+                            1
+                        </span>
+                    </div>
+                    <span class="bs-stepper-label">@localizer["Step.One"]</span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="step " data-target="#logins-part">
+                <div>
+                    <div class="bs-stepper-circle content-1 shadow-lg @((Model > StepsEnum.MigratoryInformation )? complete:"")">
+                        <span class="bs-stepper-circle bg-white content-2">
+                            2
+                        </span>
+                    </div>
+                    <span class="bs-stepper-label">@localizer["Step.Two"]</span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="step " data-target="#logins-part">
+                <div>
+                    <div class="bs-stepper-circle content-1 shadow-lg @((Model > StepsEnum.CustomsInformation)? complete:"")">
+                        <span class="bs-stepper-circle bg-white content-2">
+                            3
+                        </span>
+                    </div>
+                    <span class="bs-stepper-label">@localizer["Step.Three"]</span>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="step " data-target="#logins-part">
+                <div>
+                    <div class="bs-stepper-circle content-1 shadow-lg @((Model > StepsEnum.PublicHealth )? complete:"")">
+                        <span class="bs-stepper-circle bg-white content-2">
+                            4
+                        </span>
+                    </div>
+                    <span class="bs-stepper-label ">@localizer["Step.Four"]</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />

@@ -1,0 +1,119 @@
+﻿@using Bragi.DataLayer
+@using Bragi.Web.Assets.Resources.Home
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> Localizer;
+
+<link href="~/css/home/index.css" rel="stylesheet" />
+
+<section class="section-home" id="section-home">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-5">
+                <img src="~/img/home-ilustration.svg" alt="home-ilustration.svg" class="img-fluid" />
+            </div>
+            <div class="col-12 col-lg-6 text-center offset-lg-1 ">
+                <div>
+                    <div>
+                        <h2 class="titulo-header">@Localizer["Welcome"]</h2>
+                    </div>
+                    <div>
+                        <a asp-controller="Auth" type="button" asp-action="TravelRegister" class="btn btn-header popover-message mb-sm-5 mt-sm-5 mb-2 mt-2" data-placement="bottom" data-trigger="hover" data-toggle="popover" title="" data-content="@Localizer["Request.Info"] " data-original-title="@Localizer["Login.Title"]">@Localizer["Login.Title"]</a>
+                        <a asp-controller="Auth" type="button" asp-action="TravelLogin" class="btn btn-consult popover-message  mb-sm-5 mt-sm-5 mb-2 mt-2" data-placement="bottom" data-trigger="hover" data-toggle="popover" title="" data-content="@Localizer["ConsultCode"]" data-original-title="@Localizer["ConsultEticket"]">@Localizer["ConsultEticket"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-ticket">
+    <div class="container">
+        <div class="row text-center text-white">
+            <div class="col-12">
+                <div class="pt-3 pb-3">
+
+                    <h2>@Localizer["B1.T1"]</h2>
+                    <p>@Localizer["B1.P1"]</p>
+                    <p>@Localizer["B1.P2"]</p>
+                    <div>
+                        <p>@Localizer["PageTravel"]:</p>
+                        <a href="https://viajerodigital.mitur.gob.do/" target="_blank"><img src="~/img/Artboardnaranja.png" alt="Alternate Text" width="220" class="imagen-mitur" style="box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; "/></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-request">
+    <div class="container-fluid">
+        <h3 class="mt-4 mb-4 title-section-card">@Localizer["StepsToContinue"]</h3>
+        <div class="row">
+            <div class="col-12  col-md-6 col-lg-4 mt-4">
+                <div class="card bg-white shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center ">
+                            <i class="fas fa-user-friends fa-3x"></i>
+                        </div>
+                        <h5 class="card-title mr-4 ml-4">@Localizer["Request"]</h5>
+                        <div>
+                            <ul class="card-list d-flex flex-column">
+                                <li class="collection-item "> @Localizer["S1.P1"]</li>
+                                @*<li class="collection-item "> @Localizer["S1.P2"]</li>*@
+                                <li class="collection-item "> @Localizer["S1.P3"]</li>
+                                <li class="collection-item "> @Localizer["S1.P4"]</li>
+                                <li class="collection-item "> @Localizer["S1.P5"]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
+                <div class="card bg-white shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <i class="fas fa-file-alt fa-3x"></i>
+                        </div>
+                        <h5 class="card-title mr-4 ml-4">@Localizer["InsideForm"]</h5>
+                        <div>
+                            <ul class="card-list d-flex flex-column">
+                                <li class="collection-item ">@Localizer["S2.P1"]</li>
+                                <li class="collection-item ">@Localizer["S2.P2"]</li>
+                                <li class="collection-item ">@Localizer["S2.P3"]</li>
+                                <li class="collection-item ">@Localizer["S2.P4"]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
+                <div class="card bg-white shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h5 class="card-title mr-4 ml-4">@Localizer["CompleteForm"]</h5>
+                        <div>
+                            <ul class="card-list d-flex flex-column">
+                                <li class="collection-item ">
+                                    @Localizer["S3.P1"]
+                                </li>
+                                <li class="collection-item ">
+                                    @Localizer["S3.P2"]
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    $(function () {
+        $('.popover-message').popover({
+
+        })
+    })
+</script>

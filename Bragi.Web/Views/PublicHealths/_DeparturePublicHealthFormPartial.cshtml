@@ -1,0 +1,44 @@
+﻿@model Bragi.DataLayer.ViewModels.PublicHealths.PublicHealthViewModel
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+@{
+    var routeData = new Dictionary<string, string>()
+{
+        { "token", Context.Request.Query["token"] }
+    };
+}
+
+<form id="form-@Model.PersonIndex" asp-action="Index" asp-controller="PublicHealths" class="mt-5 form-checks" asp-all-route-data="routeData">
+    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+    <input asp-for="ApplicationId" class="form-control" value="@ViewBag.ApplicationId" hidden />
+    <input asp-for="MigratoryInformationId" class="form-control" hidden />
+    <input asp-for="Id" class="form-control" hidden />
+
+    <input asp-for="Token" value="@ViewBag.Token" hidden />
+    <input asp-for="PersonIndex" value="@Model.PersonIndex" hidden />
+    <input asp-for="IsUnderAge" value="@Model.IsUnderAge" hidden />
+
+    <div>
+        <h3 class="text-center">
+            @localizer["Required.SP.In"]
+        </h3>
+    </div>
+    <div class="form-row d-flex justify-content-md-end">
+        <div class="col-md-4">
+            <div class="form-group">
+                <a class="btn btn-secondary btn-block btn-return" asp-controller="TravelTicket" asp-action="StepThree" asp-route-token="@ViewBag.Token">@localizer["GoBack"]</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <button type="button" class="btn  btn-block  btn-send" onclick="handleSubmitWithoutValidate('@Model.PersonIndex',@Model.IsLast.ToString().ToLower(),'@Model.ApplicationId')">
+                    @localizer[Model.IsLast ? "Submit" : "Next"]
+                </button>
+            </div>
+        </div>
+    </div>
+</form> 
+
+<link href="~/css/step/step-4.css" rel="stylesheet" />
+<script src="~/js/TravelTiket/StepFour/index.js"></script>
+<script src="~/js/TravelTiket/Helpers/index.js"></script>
+<script src="~/js/TravelTiket/Traslations/index.js"></script>

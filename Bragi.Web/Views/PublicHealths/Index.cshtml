@@ -1,0 +1,129 @@
+﻿
+@using Bragi.DataLayer.Models.Enums
+@using Bragi.DataLayer.Utils
+@using Bragi.DataLayer.ViewModels.MigratoryInfo
+
+@model MigratoryInformationToPublicHealth
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PRE6LMZ2YR"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PRE6LMZ2YR');
+</script>
+
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'G-PRE6LMZ2YR');</script>
+<!-- End Google Tag Manager -->
+
+<link href="~/css/step/style.css" rel="stylesheet" />
+<section class="section-step-2">
+    <div class="container-fluid">
+        <div class="row">
+            <partial name="_CardCodePartial" model="@ViewBag.Code" />
+            <partial name="_StepperPartial" model="@StepsEnum.PublicHealth" />
+            <div class="col-12 col-lg-12 migratory-info ">
+                <div class="guide-7 mt-sm-5">
+                    <div class="row">
+                        <div class="col-lg-2 text-center">
+                            <img src="~/img/logomsp.png" class="img-fluid justify-content-center" width="210" height="210" />
+                        </div>
+                        <div class="col-lg-10">
+                            <h1 class="mt-4 text-sm-left text-center titles">@localizer["Step.Four"] <span><i class="fas fa-question-circle" style="cursor: pointer; font-size: 40px; color:#10439C;" onclick="publicHealtGuide()"></i></span></h1>
+                            <p class="text-left mb-2 mt-2" style="font-size: 18px;">@localizer["RequiredFields"] (<span class="text-danger">*</span>)</p>
+                        </div>
+                    </div>
+                    <div>
+                        <nav>
+                            <div class="nav nav-tabs mt-5 row" id="nav-tab" role="tablist">
+                                @{
+                                    if (Model.MigratoryInformation.Any())
+                                    {
+
+                                        int index = 1;
+                                        foreach (var person in Model.MigratoryInformation)
+                                        {
+
+                                            var active = index == Model.PersonIndex ? "active" : "";
+                                            var name = person != null ? $"{person?.Names} {person?.LastNames}" : localizer["Person"].ToString();
+                                            var placeHolder = string.IsNullOrEmpty(name.Trim()) ? $"{localizer["Person"].Value} {index}" : name;
+                                            var inputName = $"nav-profile{index.ToString()}";
+                                            string elementId = $"nav-profile-tab{index.ToString()}";
+                                            string controls = $"nav-profile";
+                                            string icon = person != null && person.PublicHealth.IsValid ? "<i class='fas fa-check text-success'></i>" : "";
+
+                                            <a class="nav-item nav-link @active col-sm mb-1 mt-1"
+                                               id="@elementId" data-toggle="tab"
+                                               href="#@inputName" role="tab"
+                                               aria-controls="@controls">
+                                                @placeHolder
+                                                @Html.Raw(icon)
+                                            </a>
+                                            index++;
+                                        }
+                                    }
+                                }
+
+                            </div>
+                        </nav>
+
+                        <div class="tab-content" id="nav-tabContent">
+                            @{
+                                if (Model.MigratoryInformation.Any())
+                                {
+                                    int tabIndex = 1;
+                                    int total = Model.MigratoryInformation.Count;
+                                    foreach (var ph in Model.MigratoryInformation)
+                                    {
+                                        var active = tabIndex.Equals(Model.PreviousIndex + 1) ? "active show" : "";
+                                        string inputName = $"nav-profile{tabIndex.ToString()}";
+                                        string labelname = $"nav-profile-tab{tabIndex}";
+                                                        <div class="tab-pane fade @active" id="@inputName" role="tabpanel" aria-labelledby="@labelname">
+                                                            @{
+                                                                ph.PublicHealth.IsLast = tabIndex.Equals(total);
+                                                                ph.PublicHealth.IsUnderAge = ph.BirthDate.GetAge() < 18;
+                                                                ph.PublicHealth.PersonIndex = tabIndex;
+                                                                ph.PublicHealth.MigratoryInformationId = ph.Id;
+                                                                ph.PublicHealth.QuestionResponse = ph.PublicHealth.QuestionResponse.OrderBy(x => x.Question.Id).ToList();
+                                                                //ph.PublicHealth.IsArrival = Model.GenericInformation.IsArrival;
+                                                                
+                                                                if (Model.GenericInformation.IsArrival)
+                                                                {
+                                                                    @await Html.PartialAsync("_PublicHealthPartial", ph.PublicHealth)                                                                                                                                     
+                                                                }
+                                                                else
+                                                                {
+                                                                    @await Html.PartialAsync("_DeparturePublicHealthFormPartial", ph.PublicHealth)
+                                                                }
+                                                            }
+                                                        </div>
+                                        tabIndex++;
+                                    }
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/TravelTiket/Helpers/index.js"></script>
+<script src="~/js/Guide/TravelTicket/Traslation.js"></script>
+<script src="~/js/Guide/TravelTicket/TravelTicket.js"></script>

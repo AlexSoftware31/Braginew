@@ -1,0 +1,49 @@
+﻿@using Bragi.DataLayer.ViewModels.Countries
+@using Microsoft.Extensions.Localization
+@model Bragi.DataLayer.ViewModels.GenericInformations.GenericInformationViewModel
+@inject IStringLocalizer<Bragi.DataLayer.SharedResource> localizer;
+
+<link href="~/css/step/style.css" rel="stylesheet" />
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PRE6LMZ2YR"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PRE6LMZ2YR');
+</script>
+
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'G-PRE6LMZ2YR');</script>
+<!-- End Google Tag Manager -->
+
+<div>
+    @{
+        await Html.RenderPartialAsync("_GenericInformationPartial", Model);
+    }
+</div>
+
+@section scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/TravelTiket/StepOne/index.js"></script>
+    <script>
+        $(document).ready(async function () {
+
+            initializeComponents();
+        });
+        $.validator.setDefaults({ ignore: '' });
+    </script>
+}
+<script src="~/js/TravelTiket/Helpers/index.js"></script>
+<script src="~/js/Guide/TravelTicket/Traslation.js"></script>
+<script src="~/js/Guide/TravelTicket/TravelTicket.js"></script>
+

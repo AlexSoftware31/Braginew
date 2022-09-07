@@ -1,0 +1,232 @@
+﻿@using Bragi.DataLayer.ViewModels.Currencies;
+@model Bragi.DataLayer.ViewModels.Customs.CustomsInformationWiewModel
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+
+@{ 
+    var routeData = new Dictionary<string, string>()
+    {
+        { "token", Context.Request.Query["token"] }
+    };
+}
+
+<link href="~/css/StepTwo/index.css" rel="stylesheet" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="StepThree" id="form-@Model.PersonIndex" asp-all-route-data="routeData">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="ApplicationId" hidden class="form-control" value="@ViewBag.ApplicationId" />
+                <input asp-for="MigratoryInformationId" class="form-control" hidden value="@Model.MigratoryInformationId" />
+                <input asp-for="Id" class="form-control" hidden />
+                <input asp-for="Token" class="form-control" hidden value="@ViewBag.Token" />
+                <input asp-for="PersonIndex" class="form-control" hidden />
+                @{
+                    if (!Model.IsArrival)
+                    {
+                        <div>
+                            <h3 class="text-center">
+                                @localizer["Required.DGA.In"]
+                            </h3>
+                        </div>
+                        <div class="form-row d-flex justify-content-md-end">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <a class="btn btn-secondary btn-block btn-return" asp-action="StepTwo" asp-route-token="@ViewBag.Token">@localizer["GoBack"]</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-block btn-send">@localizer["Next"]</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (Model.IsArrival && Model.IsUnderAge)
+                    {
+                        <div class="mt-5">
+                            <h2>@localizer["IsUnderAge"]</h2>
+                        </div>
+                        <div class="form-row d-flex justify-content-md-end">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <a class="btn btn-secondary btn-block btn-return" asp-action="StepTwo" asp-route-token="@ViewBag.Token">@localizer["GoBack"]</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-block btn-send">@localizer["Next"]</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12 guide-4" id="moneyLimitContainer-@Model.ExceedsMoneyLimit">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    @localizer["Money.Exceeds"]
+                                    <input class="form-check-input" id="exceedMoneyLimit-@Model.PersonIndex" onchange="toggleMaxValues('@Model.PersonIndex',@Model.IsArrival.ToString().ToLower(), @Model.IsUnderAge.ToString().ToLower())" asp-for="ExceedsMoneyLimit" type="checkbox" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row" id="ammountCurrency-@Model.PersonIndex">
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["Ammount"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="Ammount" class="form-control" type="number" value="@Model.Ammount" />
+                                <span asp-validation-for="Ammount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["Currency"]</label>
+                                <select asp-for="CurrencyId" class="selectpicker form-control" data-live-search="true" data-size="10" asp-items="new SelectList(ViewBag.Currencies, nameof(CurrencyViewModel.Id), nameof(CurrencyViewModel.Code))" value="@Model.CurrencyId">
+                                    @*<option selected>Seleccione una opción</option>*@
+                                </select>
+                                <span asp-validation-for="CurrencyId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">@localizer["Declare"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="DeclaredOriginValue" class="form-control" value="@Model.DeclaredOriginValue" />
+                                <span asp-validation-for="DeclaredOriginValue" class="text-danger"></span>
+                            </div>
+                            <div class="form-group form-check col-md-12">
+                                <label class="form-check-label">
+                                    @localizer["IsOwner"]
+                                    <input class="form-check-input" asp-for="IsValuesOwner" id="isValueOwner-@Model.PersonIndex" onchange="toggleSenderReceiver('@Model.PersonIndex')" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row" id="senderReceiverContainer-@Model.PersonIndex" hidden>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["SenderName"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="SenderName" class="form-control" value="@Model.SenderName" />
+                                <span asp-validation-for="SenderName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["SenderLn"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="SenderLastName" class="form-control" value="@Model.SenderLastName" />
+                                <span asp-validation-for="SenderLastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["ReceiverName"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="ReceiverName" class="form-control" value="@Model.ReceiverName" />
+                                <span asp-validation-for="ReceiverName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["ReceiverLn"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="ReceiverLastName" class="form-control" value="@Model.ReceiverLastName" />
+                                <span asp-validation-for="ReceiverLastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">@localizer["RelationShip"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="RelationShip" class="form-control" value="@Model.RelationShip" />
+                                <span asp-validation-for="RelationShip" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">@localizer["UseWoth"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="WorthDestiny" class="form-control" value="@Model.WorthDestiny" />
+                                <span asp-validation-for="WorthDestiny" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group form-check col-md-12">
+                            <label class="form-check-label">
+                                @localizer["BringsAnimals"]
+                                <input class="form-check-input" asp-for="HasAnimalsOrFood" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" />
+                            </label>
+                        </div>
+                        <div class="form-group form-check col-md-12 guide-5">
+                            <label class="form-check-label">
+                                @localizer["BringsTax"]
+                                <input class="form-check-input" asp-for="HasMerchWithTaxValue" id="needToDeclare-@Model.PersonIndex" onchange="toggleDeclaration('@Model.PersonIndex',@Model.IsArrival.ToString().ToLower(), @Model.IsUnderAge.ToString().ToLower())" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" />
+                            </label>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <p>@localizer["Dga.Note"]</p>
+                        </div>
+                        <div class="form-row" id="declarationContainer-@Model.PersonIndex">
+                            <div class="col-md-12 mb-sm-5 mt-sm-5 mt-2 mb-2">
+                                <h3 class="text-center">@localizer["DetailTax"]</h3>
+                                <hr class="text-black-50" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["AproxValue"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input asp-for="ValueOfMerchandise" class="form-control" />
+                                <span asp-validation-for="ValueOfMerchandise" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["Currency"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <select asp-for="CurrencyMerchandiseId" class="selectpicker form-control" data-live-search="true" data-size="10" asp-items="new SelectList(ViewBag.Currencies, nameof(CurrencyViewModel.Id), nameof(CurrencyViewModel.Code))">
+                                    @*<option selected>Seleccione una opción</option>*@
+                                </select>
+                                <span asp-validation-for="CurrencyMerchandiseId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="control-label">@localizer["MerchDescription"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input class="form-control" type="text" id="description-@Model.PersonIndex" />
+                                <span class="text-danger field-validation-valid" data-valmsg-for="description-@Model.PersonIndex"></span>
+                            </div>
+                            <div class=" form-group col-md-6">
+                                <label class="control-label">@localizer["DollarValue"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                                <input class="form-control" type="number" id="dollarvalue-@Model.PersonIndex" min="0" max="999999999" />
+                                <span class="text-danger field-validation-valid" data-valmsg-for="dollarvalue-@Model.PersonIndex"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <button class="btn btn-success" type="button" onclick="addDeclaredMerch('@Model.PersonIndex','@Model.Id')">@localizer["Add"]</button>
+                            </div>
+                            <div class="col-md-12" id="merchContainer-@Model.PersonIndex">
+                                <span asp-validation-for="DeclaredMerchs" class="text-danger"></span>
+                                <div>
+                                    <table class="table table-bordered table-responsive-sm">
+                                        <thead class="text-white" style="background:#0d2d8d;">
+                                            <tr>
+                                                <th>@localizer["MerchDescription"]</th>
+                                                <th>@localizer["DollarValue"]</th>
+                                                <th>@localizer["Delete"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-@Model.PersonIndex">
+                                            @{
+                                                foreach (var merch in Model.DeclaredMerchs)
+                                                {
+                                                    <tr id="tr-@merch.Id">
+                                                        <td>@merch.Description</td>
+                                                        <td>@Decimal.Truncate(merch.DollarValue)</td>
+                                                        <td><button type="button" class="btn" onclick="deleteDeclaration('@Model.PersonIndex','@merch.Id')"> <i class="fas fa-trash-alt text-danger"></i></button></td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <p>@localizer["DGA.Required"]</p>
+                        </div>
+                        <div class="form-row d-flex justify-content-md-end">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <a class="btn btn-secondary btn-block btn-return" asp-action="StepTwo" asp-route-token="@ViewBag.Token">@localizer["GoBack"]</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-block btn-send" id="Next-@Model.PersonIndex" onclick="handleForm('@Model.PersonIndex')">@localizer["Next"]</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/TravelTiket/StepThree/index.js"></script>
+<script>
+    $(document).ready(function () {
+        setToggleInitialValues('@Model.PersonIndex',
+            @Model.ExceedsMoneyLimit.ToString().ToLower(),
+            @Model.IsValuesOwner.ToString().ToLower());
+        toggleDeclaration('@Model.PersonIndex', @Model.IsArrival.ToString().ToLower(),@Model.IsUnderAge.ToString().ToLower());
+    });
+</script>

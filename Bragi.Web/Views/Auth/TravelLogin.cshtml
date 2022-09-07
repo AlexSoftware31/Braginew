@@ -1,0 +1,129 @@
+﻿@using Bragi.DataLayer
+@using Bragi.DataLayer.Resources.Views.Auth
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model Bragi.DataLayer.ViewModels.Auth.AuthViewModel
+@{
+    Layout = "_Layout";
+}
+
+@inject IAppResource Localizer;
+@inject IStringLocalizer<SharedResource> localizer
+@Html.AntiForgeryToken()
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PRE6LMZ2YR"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PRE6LMZ2YR');
+</script>
+
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', ' G-PRE6LMZ2YR');</script>
+<!-- End Google Tag Manager -->
+<link href="~/css/login/Login.css" rel="stylesheet" />
+<body>
+
+    <section class="section-tarvel-login">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-10 offset-md-1 ">
+                    <div class="card  bg-white shadow-lg">
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <div class="col-lg-6 col-12">
+                                        <img src="~/img/portal-eticket.png" alt="auth-image.png" class="img-fluid w-100" />
+                                        @{ await Html.RenderPartialAsync("_CardInformationPartial");}
+                                    </div>
+
+                                    <div class="col-lg-6 col-12 guide-1">
+                                        <div class="valing center ">
+                                            <h1 class="text-center mt-2 mb-1" style="font-weight: bold;">
+                                              
+                                                @Localizer.GetResource("ConsultEticket")
+                                                <i class="fas fa-question-circle" style="cursor: pointer; font-size: 35px; color:#163861" onclick="TravelLoginGuide()"></i>
+                                            </h1>  
+                                            <p class="text-center mb-2 mt-2" style="font-size: 18px;">@Localizer.GetResource("RequiredFields") (<span class="text-danger">*</span>)</p>
+                                        </div>
+
+                                        <div>
+                                            <h5 class="document mt-3">
+                                                @Localizer.GetResource("Login.Donwload.Manual.Passenger")
+                                                <a target="_blank" href="https://www.aduanas.gob.do/media/11306/manual-del-pasajero_portal.pdf">
+                                                    @Localizer.GetResource("Login.See.Here")
+                                                </a>
+                                            </h5>
+                                        </div>
+
+                                        @{ await Html.RenderPartialAsync("_AccessToFormPartial", Model);}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+<script src="~/js/TravelTiket/Helpers/index.js"></script>
+<script src="~/js/Guide/TravelLogin/Traslation.js"></script>
+<script src="~/js/Guide/TravelLogin/TravelLoginGuide.js"></script>
+
+
+
+
+<script>
+
+        function validateForm(form) {
+            var response = $('#Response').val();
+            if (response.length < 1) {
+                $('#Response').addClass('invalid');
+                return;
+            } else {
+                form.submit();
+            }
+        };
+
+        $(document).ready(() => {
+            ShowOrHideCompanions();
+        });
+
+        function ShowOrHideCompanions() {
+            if ($('#HasCompanion').is(':checked')) {
+                $('#peoples').show();
+            }
+            else {
+                $('#peoples').hide()
+            }
+        }
+
+
+        $(".not-russian").keyup(function(event) {
+            const result = /[а-яА-ЯЁё]/.test(event.target.value);
+            if (result) {
+                Swal.fire(
+                    "",
+                    '@Localizer.GetResource("Login.No.Russian")',
+                    "error"
+                );
+            }
+        });
+</script>
+
+
+
+

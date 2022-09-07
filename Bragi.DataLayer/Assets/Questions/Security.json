@@ -1,0 +1,38 @@
+[
+  //Spanish
+  {
+    "Spanish": "¿Cual es el nombre de tu primera mascota?",
+    "English": "What is the name of your first pet?",
+    "AgencyId": 1,
+    "IsBooleanResponse": false,
+    "QuestionTypeId": 3
+  },
+  {
+    "Spanish": "¿Cual es tu comida favorita?",
+    "English": "What is your favorite food?",
+    "AgencyId": 1,
+    "IsBooleanResponse": false,
+    "QuestionTypeId": 3
+  },
+  {
+    "Spanish": "¿Cual es el apellido de soltera de tu madre?",
+    "English": "What is your mother's maiden name?",
+    "AgencyId": 1,
+    "IsBooleanResponse": false,
+    "QuestionTypeId": 3
+  },
+  {
+    "Spanish": "¿Cual es tu actor favorito?",
+    "English": "Who is your favorite actor?",
+    "AgencyId": 1,
+    "IsBooleanResponse": false,
+    "QuestionTypeId": 3
+  },
+  {
+    "Spanish": "¿Donde se conocieron tus padres?",
+    "English": "Where did your parents meet?",
+    "AgencyId": 1,
+    "IsBooleanResponse": false,
+    "QuestionTypeId": 3
+  }
+]

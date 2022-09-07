@@ -1,0 +1,307 @@
+﻿@*<!DOCTYPE html>*@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eTicket</title>
+    <meta name="description" content="Ticket electronico requerido por la Republica Dominicana para
+          las entradas y salidas del territorio nacional. Este unico formulario involucra el ticket de
+          Migracion, Aduanas y Salud Publica" />
+
+    <link rel="icon" type="image/png" href="~/img/escudo.png" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/lib/limonte-sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/lib/print-js/print.css" rel="stylesheet" />
+    <link href="~/lib/driver.js/driver.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-steps/bs-steps.min.css" rel="stylesheet" />
+    <link href="~/lib/intlTelInput/intlTelInput.css" rel="stylesheet" />
+    @*<link href="~/lib/bootstrap-steps-master/bs-steps.min.css" rel="stylesheet" />*@
+    <link href="~/lib/bootstrap-steps/bs-steps.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRE6LMZ2YR"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-PRE6LMZ2YR');
+    </script>
+
+</head>
+<body style="margin:0 !important;padding:0!important;">
+    <partial name="_NavBarPartial" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/limonte-sweetalert2/sweetalert2.js"></script>
+    <script src="~/lib/qrious/dist/qrious.min.js"></script>
+    <script src="~/lib/dom-to-image/dom-to-image.js"></script>
+    <script src="~/lib/jspdf/jspdf.min.js"></script>
+    <script src="~/lib/print-js/print.js"></script>
+    <script src="~/lib/jquery.mask/jquery.mask.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery.cookie/jquery.cookie.min.js"></script>
+    <script src="~/lib/driver.js/driver.min.js"></script>
+    <script src="~/lib/babel-polyfill/polyfill.js"></script>
+    <script src="~/lib/intlTelInput/utils.js"></script>
+    <script src="~/lib/intlTelInput/intlTelInput.js"></script>
+    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+
+    <environment include="development">
+        <script>
+            console.log("Development Mode")
+        </script>
+        <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+        <script src="~/lib/axios/axios.min.js"></script>
+        <script src="~/js/TravelTiket/ApiCalls/index.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.js"></script>
+        <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+       
+       
+
+    </environment>
+
+    <environment exclude="development">
+        <script>
+            console.log("Production")
+        </script>
+        <script src="~/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+        <script src="~/lib/axios/axios.min.js"></script>
+        <script src="~/js/TravelTiket/ApiCalls/index.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/bootstrap4-toggle/bootstrap4-toggle.min.js"></script>
+        <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+    </environment>
+    <main role="main" class="main">
+        @RenderBody()
+
+    </main>
+
+    <!--Footer-->
+
+    <footer class="border-top footer text-muted">
+        <div class="container-fluid">
+            <div class="imagen-footer text-center m-5">
+                <img src="~/img/footer.png" alt="footer.png" class="img-fluid" width="240" height="240" />
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de la Presidencia
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://minpre.gob.do/" target="_blank">www.minpre.gob.do</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio Administrativo de la Presidencia
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://mapre.gob.do/" target="_blank">www.mapre.gob.do</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Administración Pública
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://map.gob.do/" target="_blank">map.gob.doa</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Agricultura
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="http://agricultura.gob.do/" target="_blank">agricultura.gob.do</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Cultura
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="http://www.cultura.gob.do/" target="_blank">cultura.gob.do</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Defensa
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://www.mide.gob.do/" target="_blank"> mide.gob.do</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Deportes y Recreación
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="http://miderec.gob.do/" target="_blank">miderec.gob.do</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Economía, Planificación y Desarrollo
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://mepyd.gob.do/" target="_blank">
+                            mepyd.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Educación
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="http://www.ministeriodeeducacion.gob.do/" target="_blank">
+                            ministeriodeeducacion.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Educación Superior, Ciencia y Tecnología
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://mescyt.gob.do/" target="_blank">
+                            mescyt.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Energía y Minas
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://mem.gob.do/" target="_blank">mem.gob.do</a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Hacienda
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://www.hacienda.gob.do/" target="_blank">
+                            hacienda.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Industria, Comercio y Mipymes
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://www.micm.gob.do/" target="_blank">
+                            micm.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Interior y Policía
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://mip.gob.do/" target="_blank">
+                            mip.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de la Juventud
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://juventud.gob.do/" target="_blank">
+                            juventud.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de la Mujer
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://mujer.gob.do/" target="_blank">
+                            mujer.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Medio Ambiente y Recursos Naturales
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://ambiente.gob.do/" target="_blank">
+                            ambiente.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Obras Públicas y Comunicaciones
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://www.mopc.gob.do/" target="_blank">
+                            mopc.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Relaciones Exteriores
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://www.mirex.gob.do/" target="_blank">
+                            mirex.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Salud Pública y Asistencia Social
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://msp.gob.do/web/" target="_blank">
+                            msp.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Trabajo
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="https://www.mt.gob.do/" target="_blank">
+                            mt.gob.do
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <div>
+                        Ministerio de Turismo
+                    </div>
+                    <div class="footer-text-anchor">
+                        <a href="http://mitur.gob.do/" target="_blank">
+                            mitur.gob.do
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <partial name="_ValidationNotification" />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿/*************************/
+/**Linea de los steppers*/
+/***********************/
+
+.content-1 {
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+}
+
+.content-2 {
+    width: 33px;
+    height: 33px;
+    border-radius: 100px;
+    position: relative;
+    bottom: 6px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.bs-stepper-label {
+    font-size: 9px;
+    font-weight: 300;
+}
+
+.line {
+    background: #0B1A83 !important;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 3px;
+    display: none;
+}
+
+
+.complete {
+    background: #0b1a83;
+}
+
+/*.bs-stepper-header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}*/
+/***Media Query***/
+
+@media(min-width: 992px) {
+    /*  .bs-stepper-header {
+        display: flex;
+        flex-direction: row;
+ 
+    }*/
+
+    .content-1 {
+        width: 70px;
+        height: 70px;
+        border-radius: 100px;
+    }
+
+    .content-2 {
+        width: 50px;
+        height: 50px;
+        border-radius: 100px;
+        position: relative;
+        bottom: 1.50px;
+        color: #000;
+        font-size: 23px;
+        font-weight: 400;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+}
+
+@media(min-width: 576px) {
+
+    .line {
+        background: #0B1A83 !important;
+        height: 100%;
+        width: 100%;
+        position: relative;
+        top: 3px;
+        display: block;
+    }
+
+    .bs-stepper-label {
+        font-size: 14px;
+        font-weight: 300;
+    }
+
+    .content-title-img {
+        display: flex;
+        flex-direction: row;
+    }
+}

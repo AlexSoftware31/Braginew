@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HomeText" xml:space="preserve">
+    <value>Добро пожаловать на портал Электронного проездного документа для въезда в Доминиканскую Республику и выезда из неё</value>
+  </data>
+  <data name="LoginToForm" xml:space="preserve">
+    <value>Войти в анкету</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Добро пожаловать на портал Электронного проездного документа для въезда в Доминиканскую Республику и выезда из неё</value>
+  </data>
+  <data name="E-Ticket" xml:space="preserve">
+    <value>Электронный проездной документ для въезда в Доминиканскую Республику и выезда из неё</value>
+  </data>
+  <data name="StepsToContinue" xml:space="preserve">
+    <value>Пошаговая инструкция по заполнению заявления</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>Запрос</value>
+  </data>
+  <data name="S1.P1" xml:space="preserve">
+    <value>Нажмите на кнопку &lt;b&gt;Войти в анкету&lt;/b&gt;</value>
+  </data>
+  <data name="InsideForm" xml:space="preserve">
+    <value>В анкете</value>
+  </data>
+  <data name="S1.P2" xml:space="preserve">
+    <value>Правильно заполните необходимые данные.</value>
+  </data>
+  <data name="S1.P3" xml:space="preserve">
+    <value>Заполните остальные необходимые поля.</value>
+  </data>
+  <data name="S1.P4" xml:space="preserve">
+    <value>Нажмите на кнопку "Отправить"</value>
+  </data>
+  <data name="S1.P5" xml:space="preserve">
+    <value>Если у вас уже есть заявление, нажмите "Войти", введите номер заявления и ответ на контрольный вопрос</value>
+  </data>
+  <data name="S2.P1" xml:space="preserve">
+    <value>Сохраните Номер заявления. С помощью этого номера и ответа на контрольный вопрос вы можете вернуться к заполнению анкеты в любое время.</value>
+  </data>
+  <data name="S2.P2" xml:space="preserve">
+    <value>Правильно заполните необходимые данные.</value>
+  </data>
+  <data name="S2.P3" xml:space="preserve">
+    <value>Подача Единой таможенной декларации требуется только от пассажиров старше 18 лет.</value>
+  </data>
+  <data name="S2.P4" xml:space="preserve">
+    <value>Аффидевит о состоянии здоровья пассажира, запрашиваемый Министерством здравоохранения, требуется предоставить только для въезда в страну.</value>
+  </data>
+  <data name="CompleteForm" xml:space="preserve">
+    <value>Заполненная анкета</value>
+  </data>
+  <data name="S3.P1" xml:space="preserve">
+    <value>Проездной документ будет сформирован с QR-кодом</value>
+  </data>
+  <data name="S3.P2" xml:space="preserve">
+    <value>Нажмите на кнопку "Создать PDF", если вы хотите сохранить документ на свой гаджет</value>
+  </data>
+  <data name="S3.P3" xml:space="preserve">
+    <value>Сохраните этот документ для предъявления представителям авиакомпании при регистрации.</value>
+  </data>
+  <data name="S4.P1" xml:space="preserve">
+    <value>Предъявите этот QR-код на стойке авиакомпании во время  &lt;b&gt; регистрации &lt;/b&gt;</value>
+  </data>
+  <data name="B1.P1" xml:space="preserve">
+    <value>Это электронная анкета, запрашиваемая разными ведомствами для въезда в страну или выезда из неё.</value>
+  </data>
+  <data name="B1.P2" xml:space="preserve">
+    <value>Каждый пассажир обязан предоставить достоверные сведения для оформления Электронного проездного документа и их передачи в Главное миграционное управление, Главное таможенное управление и Министерство здавоохранения, в соответствии с Законами 285-04, 115-17 и 226-06 Доминиканской Республики.</value>
+  </data>
+  <data name="B1.T1" xml:space="preserve">
+    <value>ЧТО ТАКОЕ &lt;b&gt; ЭЛЕКТРОННЫЙ ПРОЕЗДНОЙ ДОКУМЕНТ &lt;/b&gt;?</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Платформа поддерживается браузерами:</value>
+  </data>
+</root>

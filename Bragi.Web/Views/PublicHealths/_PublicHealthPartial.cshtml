@@ -1,0 +1,251 @@
+﻿@using Bragi.DataLayer.ViewModels.Countries
+@model Bragi.DataLayer.ViewModels.PublicHealths.PublicHealthViewModel
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+@{
+    var countries = ViewBag.Countries as List<CountryViewModel>;
+    var routeData = new Dictionary<string, string>()
+    {
+        { "token", Context.Request.Query["token"] }
+    };
+}
+<link href="~/css/step/step-4.css" rel="stylesheet" />
+
+<div class="container-fluid step-4">
+<div class="row">
+@{
+    if (Model.MigratoryInformation.Application.GenericInformation.StopOverInCountries)
+    {
+        <div class="col-md-12 d-flex spacing-top">
+            <h2 class="titulo">@localizer["TransitCountries"] </h2>
+            <button class="btn modal-trigger ml-2  shadow-lg btn-add" data-toggle="modal" data-target="#cityModal1-@Model.PersonIndex"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="col-md-12">
+            <div id="stopOverContainer-@Model.PersonIndex" class="row">
+                @{
+                    if (Model.PublicHealthStopOvers.Any())
+                    {
+                        foreach (var stopOver in Model.PublicHealthStopOvers)
+                        {
+                            string imgName = $"{stopOver.Country.Iso2}.svg";
+
+                            <div class="col-lg-2  col-md-6 mt-2" id="stopover-@Model.PersonIndex-@stopOver.Id" style="cursor: pointer;">
+                                <div class="card  w-100">
+                                    <div class="card-body  d-flex justify-content-between align-items-start">
+                                        <div class="tamano">
+                                            <img src="/img/Countries/@imgName" class="img-country" width="40" height="40" style="border-radius: 100px;"/>
+                                            <b class="ml-1">@stopOver.Country.Name</b>
+                                        </div>
+                                        <button type="button" class="btn" onclick="deleteStopOver('@Model.PersonIndex', '@stopOver.Id')"><i class="fas fa-trash icon-tash align-item-start"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    }
+}
+
+<div class="col-md-12 d-flex  spacing-top guide-8">
+    <h2 class="titulo">@localizer["Countries.LastDays"]</h2>
+    <button class="btn modal-trigger ml-2  shadow-lg btn-add" data-toggle="modal" data-target="#cityModal2-@Model.PersonIndex"><i class="fas fa-plus"></i></button>
+</div>
+<div class="col-12 mt-3">
+    <div id="countriesContainer-@Model.PersonIndex" class="row">
+        @{
+            if (Model.PublicHealthCountries.Any())
+            {
+                foreach (var stopOver in Model.PublicHealthCountries)
+                {
+                    string imgName = $"{stopOver.Country.Iso2}.svg";
+
+                    <div class="col-lg-2  col-md-6 mt-2" id="country-@Model.PersonIndex-@stopOver.Id" style="cursor: pointer;">
+                        <div class="card  w-100">
+                            <div class="card-body d-flex justify-content-between align-items-start">
+                                <div class="tamano">
+                                    <img src="/img/Countries/@imgName" class="img-country" width="40" height="40" style="border-radius: 100px;"/>
+                                    <b class="ml-1">@stopOver.Country.Name</b>
+                                </div>
+                                <button type="button" class="btn" onclick="deleteVisitedCountry('@Model.PersonIndex', '@stopOver.Id')"><i class="fas fa-trash icon-tash align-item-start"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+        }
+    </div>
+</div>
+
+<div class="col-12 mt-5 guide-9">
+    <form id="form-@Model.PersonIndex" asp-action="Index" asp-controller="PublicHealths" class="mt-5 form-checks" asp-all-route-data="routeData">
+        <div class="mt-5">
+            <h5 class="title-checks">@localizer["Declaration.Symptoms"]</h5>
+            <p class="sub-title-checks">@localizer["MSP.Question"] <span class="text-danger" style="font-size: 16px;"> *</span></p>
+            <span asp-validation-for="QuestionResponse" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="ApplicationId" class="form-control" value="@ViewBag.ApplicationId" hidden/>
+            <input asp-for="MigratoryInformationId" class="form-control" hidden/>
+            <input asp-for="Id" class="form-control" hidden/>
+
+            <input asp-for="Token" value="@ViewBag.Token" hidden/>
+            <input asp-for="PersonIndex" value="@Model.PersonIndex" hidden/>
+            <input asp-for="IsUnderAge" value="@Model.IsUnderAge" hidden/>
+
+            @{
+                int index = 0;
+                var hasNoSymptoms = Model.QuestionResponse.Any(x => x.QuestionId.Equals(6) && x.BoolResponse);
+                foreach (var questions in Model.QuestionResponse)
+                {
+
+                    questions.Question.Text = questions.Question.GetType().GetProperty(ViewBag.Language)?.GetValue(questions.Question, null)?.ToString();
+                    var isChecked = questions.BoolResponse ? "checked" : "";
+                    var isDisabled = !questions.QuestionId.Equals(6) && hasNoSymptoms ? "disabled" : "";
+                    <div class="col-md-4">
+                        <label>
+                            <input id="checkbox-@questions.Id" type="checkbox" onchange="addSymptom('@Model.PersonIndex', '@questions.QuestionId', '@Model.Id', '@questions.Id')" class="p-4 symptom-checkbox-@Model.PersonIndex"
+                                   data-questionid="@questions.QuestionId"
+                                   data-phid="@Model.Id"
+                                   data-questionresponseid="@questions.Id"
+                                   value="@questions.BoolResponse.ToString().ToLower()"
+                                   @Html.Raw(isChecked)
+                                   @Html.Raw(isDisabled)/>
+                            @questions.Question.Text
+                        </label>
+                    </div>
+                    index++;
+                }
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group ">
+                    <label class="control-label">
+                        @localizer["specify"]
+                    </label>
+                    <input asp-for="SpecificSymptoms" class="form-control"/>
+                    <span asp-validation-for="SpecificSymptoms" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["phoneNumber"]
+
+                    </label> <span class="text-danger" style="font-size: 16px;"> *</span>
+                    <input asp-for="PhoneNumber" class="form-control phoneNumber" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["DateSintoms"]
+                    </label>
+                    <input asp-for="SymptomsDate" class="form-control" type="date" min="@DateTime.Today.AddYears(-1).ToString("yyyy-MM-dd")" max="@DateTime.Today.ToString("yyyy-MM-dd")"/>
+                    <span asp-validation-for="SymptomsDate" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-end">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <a class="btn btn-secondary btn-block btn-return" asp-controller="TravelTicket" asp-action="StepThree" asp-route-token="@ViewBag.Token">@localizer["GoBack"]</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="button" class="btn  btn-block  btn-send" onclick="handleSubmit('@Model.PersonIndex',@Model.IsLast.ToString().ToLower(),'@Model.ApplicationId')"> @localizer[Model.IsLast ? "Submit" : "Next"]</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="cityModal1-@Model.PersonIndex" tabindex="-1" role="dialog" aria-labelledby="cityModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white">
+                <h5 class="modal-title" id="exampleModalLabel1">@localizer["City"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-12 mt-4 mb-4">
+                        <input class="form-control" type="text" id="country-@Model.PersonIndex" onkeyup="stopOverCountries('@Model.PersonIndex')" placeholder="@localizer["SearchCountry"]"/>
+                    </div>
+                </div>
+                <ul class="list-group" id="ulcountries-@Model.PersonIndex">
+                    @{
+                        foreach (var country in countries)
+                        {
+
+                            string imgName = $"{country.Iso2}.svg";
+                            <li class="list-group-item list-group-item-action countryLi-@Model.PersonIndex" id="countryLi-@Model.PersonIndex" onclick="addStopover('@Model.PersonIndex', '@country.Id', '@Model.Id', '@country.Iso2', '@country.Name')">
+                                <a countryName="@country.Name">
+                                    <img src="~/img/Countries/@imgName" class="rounded-circle p-1" width="40" height="40"/>
+                                    @country.Name
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cityModal2-@Model.PersonIndex" tabindex="-1" role="dialog" aria-labelledby="cityModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">@localizer["City"]</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-12 mt-4 mb-4">
+                        <input class="form-control" type="text" id="lastVisit-@Model.PersonIndex" onkeyup="lastVisitedCountries('@Model.PersonIndex')" placeholder="@localizer["SearchCountry"]"/>
+                    </div>
+                </div>
+
+                <ul class="list-group" id="ulvisitedcountries-@Model.PersonIndex">
+                    @{
+                        foreach (var country in countries)
+                        {
+
+                            string imgName = $"{country.Iso2}.svg";
+                            <li class="list-group-item list-group-item-action lastVisitli-@Model.PersonIndex" id="lastVisitli-@Model.PersonIndex" onclick="addLastVisited('@Model.PersonIndex', '@country.Id', '@Model.Id', '@country.Iso2', '@country.Name')">
+                                <img src="~/img/Countries/@imgName" class="rounded-circle p-1" width="40" height="40"/>
+                                <a countryName="@country.Name">
+                                    @country.Name
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.phoneNumber').mask('000000000000000');
+    })
+</script>
+<script src="~/js/TravelTiket/StepFour/index.js"></script>
+<script src="~/js/TravelTiket/Helpers/index.js"></script>
+<script src="~/js/TravelTiket/Traslations/index.js">
+</script>

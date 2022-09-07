@@ -1,0 +1,1415 @@
+﻿@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Mvc.Localization
+@model Bragi.DataLayer.ViewModels.TravelTicket.TravelticketViewModel;
+
+
+@inject IViewLocalizer localizer;
+@Html.AntiForgeryToken()
+<link href="~/css/step/style.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/TravelTicket/style.css" rel="stylesheet" asp-append-version="true" />
+
+<script>
+    Swal.fire({
+        title: "",
+        text: "",
+        backdrop: "#fff",
+        showConfirmButton: false
+    });
+    //Swal.showLoading();
+    setTimeout(() => {
+        Swal.close();
+    }, 1300);
+</script>
+
+
+
+<div class="row mt-50 " id="main">
+    <div class="col s12 m12 l3 xl3  mt-80">
+        <div class="card ">
+            <div class="card-content ">
+                <span class="card-title">@localizer["AppCode"] : <span class="code">@Model?.Application.Code</span></span>
+                <p>
+                    @localizer["AppCode.Msg"]  <br />
+                    <a asp-controller="Auth" asp-action="TravelLogin">@localizer["LogOut"]</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <ul class="stepper linear horizontal fullwidth">
+            <li class="step " id="step-1">
+                <div class="step-title waves-effect" style="pointer-events: none;"> <span class="ml-20">@localizer["Step.One"] </span></div>
+                <div class="step-content " style="display:block;">
+                    <div class="row guide-1">
+                        <div class="col s12 container-fluid">
+                            <div class="row ">
+                                <div class="col s12 mb-25">
+                                    <h3>
+                                        @localizer["Step.One"]   <button onclick="generalInformationGuide()" class="waves-effect btn btn-primary " type="button"><i class="material-icons">help</i></button>
+                                    </h3>
+                                </div>
+                                <div class="col s10 m12 l4 xl4  ">
+                                    <div class="">
+                                        <label for="permanentAddress">@localizer["Perm.Address"]</label>
+                                        <input type="text" class="validate not-russian" id="permanentAddress" value="" v-model="personalInformation.permanentResidenceAdress" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l4 xl4">
+                                    <div class="">
+                                        <label>
+                                            @localizer["Res.Country"]
+                                        </label>
+                                        <select class="validate" @@change="getCities()" searchable="@localizer["Search"]" v-model="personalInformation.selectedNat" required id="selectNationality">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(country,key) in countries" :key="key" :value="country.iso2">{{country.name}}</option>
+                                        </select>
+                                        <input style="display:none;" v-model="personalInformation.selectedNat" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l3 xl3" v-show="personalInformation.selectedNat">
+                                    <div class="">
+                                        <label>@localizer["City"]</label>
+                                        <input disabled type="text" class="validate noNumbers" name="name" value="" v-model="personalInformation.cityOfResidence" required />
+                                        <a style="cursor:pointer;font-weight:bold;color:#10439C" href="#modal-city-pi" class="modal-trigger">@localizer["Click.Here.Select"]</a>
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                    @* MODAL FOR CITIES *@
+                                    <div id="modal-city-pi" class="modal modal-ct">
+                                        <div class="modal-content">
+                                            <div class="row">
+                                                <div class="col s11">
+                                                    <h1 style="font-size:25px;">@localizer["City"]</h1>
+                                                </div>
+                                                <div class="col s1">
+                                                    <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12 m8">
+                                                    <input type="text"
+                                                           class="input-search-country"
+                                                           placeholder="@localizer["Search"]"
+                                                           name="name"
+                                                           :value="searchCity"
+                                                           @@input="evt => searchCity=evt.target.value" />
+                                                </div>
+                                                <div class="col s2 m4">
+                                                    <button type="button" v-on:click="getCityByName()" class="btn btn-primary" style=" height: 45px;">@localizer["Btn.Search"]</button>
+                                                </div>
+                                            </div>
+
+
+                                            <ul class="collection ">
+                                                <li class="collection-item collections-ports modal-close" v-for="(city,index) in cityResults" :key="index" @@click="addCity(city.id)">
+                                                    <span class="title"><b>{{city.name}}</b></span> <br /> <span>
+                                                        {{city.state}}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    @*END MODAL*@
+                                </div>
+                            </div>
+                            <div class="row mt-50">
+                                <div class="col s10 m12 l4 xl4">
+                                    <div>
+                                        <label>
+                                            @localizer["TransportMode"]
+                                        </label>
+
+                                        <select @@change="getAllPorts($event.target.value);getIntPorts($event.target.value);" searchable='-' class="validate" required
+                                                v-model="personalInformation.transportationMethodId">
+                                            <option :value="0"> @localizer["Select.opt"]</option>
+                                            <option v-for="(transport,key) in transportationMethods" :key="key" :value="transport.id">{{transport.text}}</option>
+                                        </select>
+
+                                        <input style="display:none;" v-model="personalInformation.transportationMethodId" class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s12 m12 l4 xl4">
+                                    <p>
+                                        <label>
+                                            <input onclick="loadPickerOrigin()" name="group1" v-model="personalInformation.isArrival" type="radio" :value="true" checked />
+                                            <span>@localizer["In"]</span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input onclick="loadPickerOrigin()" name="group1" v-model="personalInformation.isArrival" :value="false" type="radio" />
+                                            <span>@localizer["Out"]</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="col s10 m12 l4 xl4">
+                                    <div>
+                                        <label>
+                                            @localizer["State"]
+                                        </label>
+                                        <input disabled type="text" class="validate noNumbers" v-model="personalInformation.state" required name="name" value="" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-50">
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <div>
+                                        <label>@localizer["P.O"]</label>
+                                        <input type="text" onKeyPress=" if (this.value.length > 14) return false; " class="validate not-russian" v-model="personalInformation.zipCode" required name="name" value="" />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s12 m10 l4 xl4">
+                                    <label><b>@localizer["DidStopOver"]</b></label>
+                                    <div class="switch">
+                                        <label>
+                                            @localizer["No"]
+                                            <input onclick="loadPickerOrigin()" v-model="personalInformation.stopOverInCountries" id="isScale" onchange="isRequiredScale(this);loadPickerOrigin()" type="checkbox">
+                                            <span class="lever"></span>
+                                            @localizer["Yes"]
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-50">
+                            <div class="col s9 m10 l3 offset-s1 offset-m1 offset-l8 xl3 offset-xl8 mt-25">
+                                <button class="btn-primary btn btn-block text-center" type="button"
+                                        v-on:click="personalInformationUpdate();"
+                                        onclick="loadDatePickerLibrary(); validateFlightNumber();">
+                                    @localizer["Next"]
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-actions">
+                    </div>
+                </div>
+            </li>
+            <li :class="`step `" id="step-2">
+                <div class="step-title waves-effect" style="pointer-events: none;"> <span class="ml-20">@localizer["Step.Two"]</span></div>
+                <div class="step-content">
+                    <div class="row guide-2">
+                        <div class="col s10 m12 l12 xl12 mt-40 mb-25">
+                            <div class="row">
+                                <div class="col s12 m12 l2 xl2 valing center">
+                                    <img src="~/img/dgm.png" width="170" alt="logo.png" />
+                                </div>
+                                <div class="col s12 m12 l8 xl9 mt-10" style="margin-left:10px;">
+                                    <h3>
+                                        @localizer["Step.Two"]  <button onclick="migratoryInfomationGuide()" class="waves-effect btn btn-primary " type="button"><i class="material-icons">help</i></button>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s10 m12 l12 xl12">
+                            <ul class="tabs" id="tabs">
+                                <li :class="`tab col s1 ${isMoreOfSix}`" v-for="(person,key) in informationMigratory" :key="key">
+                                    <a :href="`#content-tabs-${key}`" :id="`tab${key}`" :class="key === informationMigratory.length - 1 ? 'active clickeadble' : 'clickeadble'" onclick="loadDatePickerLibrary()">
+                                        @localizer["Person"] {{key+1}} <span class="material-icons checked-tab" v-show="person.id !== undefined">done</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col s12 " v-for="(person,key) in informationMigratory" :key="`${key}`" :id="`content-tabs-${key}`">
+
+                            <div class="row mt-25">
+                                <div class="col s2">
+                                    <button type="button" class="btn btn-danger" :key="'xs'+key" :id="'id'+key" v-on:click="removeMigratoryInformation(key)" v-show="person.id !== undefined && key > 0    ">
+                                        @localizer["Remove.companion"]
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row mt-50">
+                                <div class="col s10 m12 l4 xl4">
+                                    <div>
+                                        <label>@localizer["Names"]</label>
+                                        <input type="text" name="name" maxlength="25" class="validate not-russian" v-model="person.names" required value="" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l4 xl4">
+                                    <div>
+                                        <label>@localizer["L.Names"]</label>
+                                        <input type="text" name="name" value="" maxlength="30" v-model="person.lastNames" class="not-russian validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l4 xl4">
+                                    <div>
+                                        <label>@localizer["DoB"]</label>
+                                        <input type="text" v-model.lazy="person.birthDate" :id="`birthDate${key}`" v-on:focus="showDatePicker(`#birthDate${key}`)" class="datepicker-today validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-33">
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <label>
+                                        @localizer["Gender"]
+                                    </label>
+                                    <select class="browser-default validate no-search" required v-model="person.gender">
+                                        <option value="" selected> @localizer["Select.opt"]</option>
+                                        <option value="M"> @localizer["Gend.M"]</option>
+                                        <option value="F"> @localizer["Gend.F"]</option>
+                                        <option value="X"> @localizer["Gend.X"]</option>
+                                    </select>
+                                    <input style="display:none;" v-model="person.gender" />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                </div>
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <label>
+                                        @localizer["PlaceOfBirth"]
+                                    </label>
+                                    <select class="validate" searchable="@localizer["Search"]" v-model="person.birthPlace" required>
+                                        <option :value="null">@localizer["Select.opt"]</option>
+                                        <option v-for="(country,key) in countries" :key="key" :value="country.iso3">{{country.name}}</option>
+                                    </select>
+                                    <input style="display:none;" v-model="person.birthPlace" required class="validate" />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+
+                                </div>
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <label>
+                                        @localizer["Nat"]
+                                    </label>
+                                    <select class="validate" searchable="@localizer["Search"]" v-model="person.nationality" required>
+                                        <option :value="null">@localizer["Select.opt"]</option>
+                                        <option v-for="(country,key) in countries" :key="key" :value="country.iso3.toLowerCase()">{{country.name}}</option>
+                                    </select>
+                                    <input style="display: none;" v-model="person.nationality" required class="validate" />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                </div>
+                            </div>
+                            <div class="row mt-33">
+                                <div class="col s10 m6 l4 xl4 mb-25">
+                                    <label v-show="!person.isResident"><b>@localizer["IsResident"]</b></label>
+                                    <label v-show="person.isResident"><b>@localizer["IsResident"]</b></label>
+
+                                    <div class="switch">
+                                        <label>
+                                            @localizer["No"]
+                                            <input :disabled="person.nationality === 'dom'" v-model="person.isResident" type="checkbox" onchange="loadSelect()">
+                                            <span class="lever"></span>
+                                            @localizer["Yes"]
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l4 xl4">
+                                    <div>
+                                        <label>@localizer["ResidenceNumber"]</label>
+                                        <input :readonly="!person.isResident" type="text" name="name" maxlength="11" class="not-russian" v-model="person.residenceNumber" value="" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <label>
+                                        @localizer["Passport"]
+                                    </label>
+                                    <input type="text" name="name"
+                                           maxlength="9"
+                                           minlength="6"
+                                           class="not-russian validate"
+                                           id="passport"
+                                           v-model="person.passportNumber"
+                                           required
+                                           value=""
+                                           pattern="^(?!^0+$)[a-zA-Z0-9]{6,11}$" />
+                                    <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                </div>
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <label>
+                                        @localizer["PassportConfirm"]
+                                    </label>
+                                    <input type="text" name="name"
+                                           class="not-russian"
+                                           maxlength="9"
+                                           minlength="6"
+                                           id="passportConfirm"
+                                           v-model="person.passportNumberConfirm"
+                                           value=""
+                                           pattern="^(?!^0+$)[a-zA-Z0-9]{6,11}$" />
+                                    <span class="helper-text" data-error="* @localizer["isInvalid"]" data-success=""></span> <br />
+                                    <span class="text-danger" v-show="(person.passportNumber !== person.passportNumberConfirm)" data-error="" data-success="">* @localizer["IsNotEquals"]</span>
+
+                                </div>
+                                <div class="col s10 m12 l4 xl4 mb-25" v-if="person.nationality === 'dom' && (momentjs.diff(person.birthDate.split('/').reverse().join('/'), 'years',false) >= 18)">
+                                    <label>
+                                        @localizer["DOC.ID"]
+                                    </label>
+                                    <input type="text" name="name" v-model="person.documentIdNumber" maxlength="11" required value="" />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                </div>
+                                <div class="col s10 m12 l4 xl4">
+                                    <label> @localizer["CivilStatus"]</label>
+                                    <select class="browser-default validate" required v-model="person.maritalStatusId">
+                                        <option :value="null">@localizer["Select.opt"]</option>
+                                        <option v-for="(meritalStatud,key) in meritalStatuses" :key="key" :value="meritalStatud.id">{{meritalStatud.text}}</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="row mt-25">
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <div class="">
+                                        <label>@localizer["Ocupation"]</label>
+                                        <select class="validate" searchable="@localizer["Search"]" required v-model="person.ocupationId">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(ocupation,key) in ocupations" :key="key" :value="ocupation.id">{{ocupation.text}}</option>
+                                        </select>
+                                        <input style="display:none;" v-model="person.ocupationId" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+
+                                <div class="col s10 m12 l4 xl4 mb-25">
+                                    <label v-show="!personalInformation.isArrival"><b>@localizer["IsHotelOut"]</b></label>
+                                    <label v-show="personalInformation.isArrival"><b>@localizer["IsHotel"]</b></label>
+
+                                    <div class="switch">
+                                        <label>
+                                            @localizer["No"]
+                                            <input v-model="person.willStayAtResort" type="checkbox" onchange="loadSelect()">
+                                            <span class="lever"></span>
+                                            @localizer["Yes"]
+                                        </label>
+                                    </div>
+                                </div>
+                                <div v-show="!person.willStayAtResort" class="col s10 m12 l4 xl4 mb-25">
+                                    <label v-show="!personalInformation.isArrival"><b>@localizer["IsParticularStayOut"]</b></label>
+                                    <label v-show="personalInformation.isArrival"><b>@localizer["IsParticularStay"]</b></label>
+
+                                    <div class="switch">
+                                        <label>
+                                            @localizer["No"]
+                                            <input v-model="person.isParticularStaying" type="checkbox" onchange="loadSelect()">
+                                            <span class="lever"></span>
+                                            @localizer["Yes"]
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col s10 m12 l4 xl4" v-if="person.willStayAtResort  && (key == 0 || !person.hasCommonHotel)">
+                                    <label>
+                                        @localizer["Hotel"]
+                                    </label>
+                                    <input type="text" disabled name="name" :value="getHotelName(person.hotelId)" />
+                                    <a style="cursor:pointer;font-weight:bold;color:#10439C" :href="`#modal-Hotel-${key}`" class="modal-trigger">@localizer["Click.Here.Select"]</a>
+                                    <input style="display:none;" v-model="person.hotelId" required class="validate" />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                </div>
+
+
+                                @* Modal for hotels *@
+                                <div :id="`modal-Hotel-${key}`" class="modal modal-ct">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div class="col s11">
+                                                <h1 style="font-size:25px;">@localizer["Hotel"]</h1>
+                                            </div>
+                                            <div class="col s1">
+                                                <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                            </div>
+                                        </div>
+                                        <input type="text"
+                                               class="input-search-country"
+                                               placeholder="@localizer["Search"]"
+                                               name="name"
+                                               @@input="evt => searchHotels=evt.target.value"
+                                               :value="searchHotels" />
+                                        <ul class="collection ">
+                                            <li @@click="addHotel(hotel.id,key)" class="collection-item collections-ports modal-close" v-for="(hotel,index) in HotelsResults" :key="index">
+                                                <span class="title"><b>{{hotel.name}}</b></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                @*end modal for hotels*@
+                            </div>
+
+                            <div class="row mt-50" v-show="key > 0 && !person.willStayAtResort">
+                                <div class="col s10 m12 l12 xl12">
+                                    <div class="switch">
+                                        <label>@localizer["IsCommonAddress"]</label>
+                                        <label>
+                                            @localizer["No"]
+                                            <input type="checkbox" v-model="person.hasCommonAddress" onchange="loadSelect(0)">
+                                            <span class="lever"></span>
+                                            @localizer["Yes"]
+                                        </label>
+                                        <label><i onclick="isCommonAddressGuide()" class="material-icons icon-help">help</i></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-50" v-show="key > 0 && person.willStayAtResort">
+                                <div class="col s10 m12 xl12 l12">
+                                    <div class="switch">
+                                        <label>@localizer["IsCommonHotel"]</label>
+                                        <label>
+                                            @localizer["No"]
+                                            <input type="checkbox" v-model="person.hasCommonHotel" onchange="loadSelect(0)">
+                                            <span class="lever"></span>
+                                            @localizer["Yes"]
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="row mt-50" v-if="!person.willStayAtResort && (key == 0 || informationMigratory[key].hasCommonAddress === false)">
+                                    <div class="col s10 m12 l12 xl12 valign center">
+                                        <h3>@localizer["Dr.Address"]</h3>
+                                        <hr />
+                                    </div>
+                                </div>
+
+                                <div class="row mt-50" v-if="!person.willStayAtResort && (key == 0 || informationMigratory[key].hasCommonAddress === false)">
+                                    <div class="col s10 m12 l4 xl4 mb-25">
+                                        <label>
+                                            @localizer["Province"]
+                                        </label>
+                                        <select onchange="loadSelect()" class="validate"
+                                                searchable="@localizer["Search"]"
+                                                required
+                                                v-model="person.sector.province"
+                                                v-on:change="getMunicipalities(key)">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(province,key) in provinces" :key="key" :value="province.province">{{province.toponomyName}}</option>
+                                        </select>
+                                        <input style="display:none;" v-model="person.sector.province" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 mb-25">
+                                        <label>
+                                            @localizer["Municipality"]
+                                        </label>
+
+
+                                        <select onchange="loadSelect()" class="validate" searchable="@localizer["Search"]" required v-model="person.sector.municipalities" v-on:change="getSectors(key)">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(municipality,key) in municipalities" :key="key" :value="municipality.municipalities">{{municipality.toponomyName}}</option>
+                                        </select>
+                                        <input style="display:none;" v-model="person.sector.municipalities" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        <span v-show="isLoadingMunicipality">@localizer["IsLoading"]...</span>
+                                        <span v-show="isLoadingMunicipality" class="loading-animation"><span></span><span></span><span></span><span></span></span>
+
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4">
+                                        <label>
+                                            @localizer["Sector"]
+                                        </label>
+                                        <select class="validate" searchable="@localizer["Search"]" required v-model="person.geoCode">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(sector,key) in sectors" :key="key" :value="sector.geoCode">{{sector.toponomyName}}</option>
+                                        </select>
+                                        <input style="display:none;" v-model="person.geoCode" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        <span v-show="isLoadingSector">@localizer["IsLoading"]...</span>
+                                        <span v-show="isLoadingSector" class="loading-animation"><span></span><span></span><span></span><span></span></span>
+                                    </div>
+                                </div>
+                                <div class="row mt-33" v-if="!person.willStayAtResort && (key == 0 || informationMigratory[key].hasCommonAddress === false)">
+                                    <div class="col s10 m12 xl12 l12">
+                                        <label> @localizer["St.Number"]</label>
+                                        <input type="text" name="name" v-model="person.street" class="not-russian validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-25" v-if="key == 0">
+                                    <div class="col s10 m12 l4 xl4"
+                                         v-if="personalInformation.stopOverInCountries && !personalInformation.isArrival"
+                                         :key="`O-${key}`">
+                                        <label>
+                                            @localizer["O.Port"]
+                                        </label>
+
+                                        <select class="validate" searchable="@localizer["Search"]" required
+                                                v-model="person.originPortNavId">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(port,key) in ports" :key="key" :value="port.id">{{port.code === "XXX" ? "@localizer["Other"]" : `${port.code} - ${port.name.trim()}`}}</option>
+                                        </select>
+
+                                        <input type="hidden" v-model="person.originPortNavId" class="validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 mb-25"
+                                         :key="`OS-${key}`"
+                                         v-if="(personalInformation.isArrival && personalInformation.stopOverInCountries) || (person.originPortNavId === getOtherPortOrigin && personalInformation.stopOverInCountries)">
+
+                                        <div v-if="person.originPortNavId === getOtherPortOrigin && personalInformation.stopOverInCountries">
+                                            <label>
+                                                @localizer["O.PortName"]
+                                            </label>
+                                            <input type="text"
+                                                   v-model="person.originPort" class="autoC validate" required />
+                                        </div>
+
+                                        <div v-if="(personalInformation.isArrival && personalInformation.stopOverInCountries)">
+                                            <label>
+                                                @localizer["O.PortName"]
+                                            </label>
+                                            <input disabled type="text" :value="(intPorts.length > 0 && Number(person.originPortText) > 0) ? intPorts[person.originPortText - 1].name  : ''" class="validate no-search" required />
+                                            <a style="cursor:pointer;font-weight:bold;color:#10439C" class="modal-trigger" :href="`#modal-O.PORTNAME-${key}`">@localizer["Click.Here.Select"]</a>
+                                            <span class="helper-text " data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+
+
+
+                                        @* MODAL OF PORTS *@
+                                        <div :id="`modal-O.PORTNAME-${key}`" class="modal modal-ct">
+                                            <div class="modal-content">
+                                                <div class="row">
+                                                    <div class="col s11">
+                                                        <h1 style="font-size:25px;">@localizer["E.PORTNAME"]</h1>
+                                                    </div>
+                                                    <div class="col s1">
+                                                        <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                                    </div>
+                                                </div>
+                                                <input type="text"
+                                                       class="input-search-country"
+                                                       placeholder="@localizer["Search"]"
+                                                       name="name"
+                                                       :value="searchIntPorts"
+                                                       @@input="evt => searchIntPorts=evt.target.value" />
+                                                <ul class="collection ">
+                                                    <li v-on:click="addPortIntOrigin(port.id,key,port.name)" class="collection-item collections-ports modal-close" v-for="(port,index) in portIntResuls" :key="index">
+                                                        <span class="title"><b> {{port.code}} - {{port.name}}</b></span> <br /> <span>
+                                                            {{port.place}}
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        @*END MODAL*@
+
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 mb-25" v-if="personalInformation.stopOverInCountries">
+                                        <label>
+                                            @localizer["O.FlightNumber"]
+                                        </label>
+                                        <input type="text" class="not-russian validate flightNumber" v-model="person.originFlightNumber" required />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 O.FlightDate" v-if="personalInformation.stopOverInCountries">
+                                        <label>
+                                            @localizer["O.FlightDate"]
+                                        </label>
+                                        <input type="text" @@click="showDatePicker(`#OFlightDate2-${key}`)" class="validate datepicker-PORT" :id="`OFlightDate2-${key}`" v-on:focus="showDatePicker(`#OFlightDate2-${key}`)" v-model.lazy="person.originFlightDate" />
+
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="row mt-25" v-if="key == 0">
+                                    <div class="col s10 m12 l4 xl4 mb-25" id="eport"
+                                         v-if="!personalInformation.isArrival && !personalInformation.stopOverInCountries" :key="key">
+                                        <label>
+                                            @localizer["E.Port"]
+                                        </label>
+                                        <select class="validate" searchable="@localizer["Search"]" required
+                                                v-model="person.embarkationPortNavId">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(port,key) in ports" :key="key" :value="port.id">{{port.code === "XXX" ? "@localizer["Other"]" : `${port.code} - ${port.name}` }}</option>
+                                        </select>
+                                        <input type="hidden" v-model="person.embarkationPortNavId" class="autoC validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 x14 mb-25"
+                                         v-if="(personalInformation.isArrival ||
+                                         (!personalInformation.isArrival && personalInformation.stopOverInCountries)) ||
+                                         person.embarkationPortNavId === getOtherPort" :key="`${key}-pIO`">
+
+                                        <div v-if="(personalInformation.isArrival)">
+                                            <label>
+                                                @localizer["E.PORTNAME"]
+                                            </label>
+                                            <input disabled type="text" :value="(intPorts.length > 0 &&  Number(person.embarkationPortText) > 0 ) ? intPorts[person.embarkationPortText - 1].name  : ''" class="validate no-search" required />
+                                            <a style="cursor:pointer;font-weight:bold;color:#10439C" class="modal-trigger" :href="`#modal-E.PORTNAME-${key}`">@localizer["Click.Here.Select"]</a>
+                                            <span class="helper-text " data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+
+                                        <div v-if="(!personalInformation.isArrival && personalInformation.stopOverInCountries)">
+                                            <label>
+                                                @localizer["E.PORTNAME"]
+                                            </label>
+                                            <input disabled type="text" :value="(intPorts.length > 0 &&  Number(person.embarkationPortText) > 0) ? intPorts[person.embarkationPortText - 1 ].name  : ''" class="validate no-search" required />
+                                            <a style="cursor:pointer;font-weight:bold;color:#10439C" class="modal-trigger" :href="`#modal-E.PORTNAME-${key}`">@localizer["Click.Here.Select"]</a>
+                                            <span class="helper-text " data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div v-if="person.embarkationPortNavId === getOtherPort">
+                                            <label>
+                                                @localizer["E.PORTNAME"]
+                                            </label>
+                                            <input type="text" v-model="person.embarkationPort" class="validate no-search" required />
+                                            <span class="helper-text " data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+
+
+                                        @* MODAL OF PORTS *@
+                                        <div :id="`modal-E.PORTNAME-${key}`" class="modal modal-ct">
+                                            <div class="modal-content">
+                                                <div class="row">
+                                                    <div class="col s11">
+                                                        <h1 style="font-size:25px;">@localizer["E.PORTNAME"]</h1>
+                                                    </div>
+                                                    <div class="col s1">
+                                                        <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <input type="text" class="input-search-country"
+                                                               placeholder="@localizer["Search"]"
+                                                               name="name"
+                                                               :value="searchIntPorts"
+                                                               @@input="evt => searchIntPorts=evt.target.value" />
+                                                        <ul class="collection">
+                                                            <li class="collection-item modal-close" v-for="(port,index) in portIntResuls" :key="index" v-on:click="addPortIn(port.id,key,port.name)">
+                                                                <span class="title"><b> {{port.code}} - {{port.name}}</b></span> <br /> <span>
+                                                                    {{port.place}}
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*END MODAL*@
+                                    </div>
+
+                                    <div class="col s10 m12 l4 xl4 mb-25">
+                                        <label>
+                                            @localizer["O.FlightNumber"]
+                                        </label>
+                                        <input type="text" class="not-russian validate flightNumber" v-model="person.embarcationFlightNumber" required />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 mb-25">
+                                        <label>
+                                            @localizer["O.FlightDate"]
+                                        </label>
+                                        <input type="text" v-model.lazy="person.embarcationDate" :id="`embarcationDate${key}`" v-on:focus="showDatePicker(`#embarcationDate${key}`)" class="datepicker-PORT  validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="row mt-25" v-if="key == 0">
+
+                                    <div class="col s10 m12 l4 xl4 mb-25"
+                                         :key="`d-${key}`"
+                                         v-if="
+                                         (personalInformation.isArrival && !personalInformation.stopOverInCountries)
+                                         || (personalInformation.isArrival && personalInformation.stopOverInCountries)">
+                                        <label>
+                                            @localizer["D.Port"]
+
+                                        </label>
+
+                                        <select class="validate" searchable="@localizer["Search"]" required
+                                                v-model="person.disembarkationPortNavId">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(port,key) in ports" :key="key" :value="port.id">{{port.code === "XXX" ? "@localizer["Other"]" : `${port.code} - ${port.name}` }}</option>
+                                        </select>
+
+                                        <input type="hidden" v-model="person.disembarkationPortNavId" class="autoC validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4"
+                                         :key="`dw-${key}`"
+                                         v-if="(!personalInformation.isArrival)
+                                         || person.disembarkationPortNavId === getOtherPort || (!personalInformation.isArrival && personalInformation.stopOverInCountries)">
+
+
+                                        <div v-if="person.disembarkationPortNavId === getOtherPort">
+                                            <label>
+                                                @localizer["D.PORTNAME"]
+
+                                            </label>
+                                            <input type="text" v-model="person.disembarkationPort" class="autoC validate" required />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+
+                                        <div v-if="(!personalInformation.isArrival && (!personalInformation.stopOverInCountries || personalInformation.stopOverInCountries))">
+                                            <label>
+                                                @localizer["D.PORTNAME"]
+                                            </label>
+                                            <input disabled type="text" :value="(intPorts.length > 0 && Number(person.disembarkationPortText) > 0) ? intPorts[person.disembarkationPortText -1].name  : ''" class="validate no-search" required />
+                                            <a style="cursor:pointer;font-weight:bold;color:#10439C" class="modal-trigger" :href="`#modal-DIS.PORTNAME-${key}`">@localizer["Click.Here.Select"]</a>
+                                            <span class="helper-text " data-error="@localizer["Required"]" data-success=""></span>
+                                            @* MODAL OF PORTS *@
+                                            <div :id="`modal-DIS.PORTNAME-${key}`" class="modal modal-ct">
+                                                <div class="modal-content">
+                                                    <div class="row">
+                                                        <div class="col s11">
+                                                            <h1 style="font-size:25px;">@localizer["D.PORTNAME"]</h1>
+                                                        </div>
+                                                        <div class="col s1">
+                                                            <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text"
+                                                           class="input-search-country"
+                                                           placeholder="@localizer["Search"]"
+                                                           name="name"
+                                                           :value="searchIntPorts"
+                                                           @@input="evt => searchIntPorts=evt.target.value" />
+                                                    <ul class="collection">
+                                                        <li class="collection-item modal-close" v-on:click="addPortIntDisembarkation(port.id,key,port.name)" v-for="(port,index) in portIntResuls" :key="index">
+                                                            <span class="title"><b> {{port.code}} - {{port.name}}</b></span> <br /> <span>
+                                                                {{port.place}}
+                                                            </span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            @*END MODAL*@
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4">
+                                        <label>
+                                            @localizer["O.FlightNumber"]
+                                        </label>
+                                        <input type="text" class="not-russian validate flightNumber" v-model="person.disembarkationFligthNumber" required />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4">
+                                        <label>
+                                            @localizer["Conf.Number"]
+
+                                        </label>
+                                        <input type="text" maxlength="9" class="confNumber" v-model="person.confirmationNumber" placeholder="Exapmle: ZZXZUO" id="confirmationNumber" />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+
+                                </div>
+                                <div class="row mt-25">
+                                    <div class="col s10 m12 l4 xl4">
+                                        <label>
+                                            @localizer["Email"]
+                                        </label>
+                                        <input type="email" class="emailvalidate" v-model="person.email" id="emailInput" placeholder="example@gmail.com" />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 mb-25">
+                                        <label>
+                                            @localizer["Motive"]
+                                        </label>
+                                        <select class="validate" searchable="@localizer["Search"]" onchange="loadNotSpecialCharacters()" required v-model="person.flightMotiveId">
+                                            <option :value="null">@localizer["Select.opt"]</option>
+                                            <option v-for="(reason, key) in reasons" :key="key" :value="reason.id">{{reason.text}}</option>
+                                        </select>
+                                        <input style="display: none;" v-model="person.flightMotiveId" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+
+                                    </div>
+
+                                    <div class="col s10 m12 l4 xl4 mb-25" v-if="key == 0">
+                                        <label>
+                                            @localizer["Trans.Company"]
+                                        </label>
+                                        <select class="validate" searchable="@localizer["Search"]" onchange="loadNotSpecialCharacters()"
+                                                required v-model="person.airlineId">
+                                            <option :value="0">@localizer["Select.opt"]</option>
+                                            <option v-for="(airline, key) in airlines" :key="key" :value="airline.id">{{airline.name}}</option>
+                                        </select>
+                                        <input style="display: none;" v-model="person.airlineId" required class="validate" />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4 mb-25" v-if="key == 0 && person.airlineId === getOtherAirline">
+                                        <label>
+                                            @localizer["AirlineName"]
+                                        </label>
+                                        <input type="text" v-model="person.transportationCompany" class="validate" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                    <div class="col s10 m12 l4 xl4" v-if="person.nationality !== 'dom' && !person.isResident">
+                                        <label>
+                                            @localizer["StayingDays"]
+                                        </label>
+                                        <input type="number" v-model="person.daysOfStaying" :min="1" :id="`StayingDays-${key}`" />
+                                        <input style="display: none;" :value="person.daysOfStaying" required class="validate stayDay" />
+                                        <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                    </div>
+                                </div>
+                                <div class="row mt-50" v-if="person.flightMotiveId === 1">
+                                    <div class="col s10 m12 l12 xl12">
+                                        <label>
+                                            @localizer["Specify.Motive"]
+                                        </label>
+                                        <input type="text" class="validate" v-model="person.specificFlightMotive" required />
+                                        <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-25">
+                                <div class=" col s9 m10 l3 offset-s1 offset-m1 offset-l8 xl4 offset-xl4 mb-25">
+                                    <button class=" btn-flat btn-block text-center grey lighten-3"
+                                            type="button"
+                                            v-on:click="updateFrontStep(0)">
+                                        @localizer["GoBack"]
+                                    </button>
+                                </div>
+                                <div class="col s9 m10 l3 offset-s1 offset-m1 offset-l8 xl4 ">
+                                    <button class=" btn-primary btn  btn-block text-center"
+                                            v-show="person.id === undefined && (person.passportNumber === person.passportNumberConfirm)"
+                                            type="button"
+                                            v-on:click="createMigratoryInformation();"
+                                            onclick="topContent()">
+                                        @localizer["Next"]
+                                    </button>
+
+                                    <button class=" btn-primary btn  btn-block text-center"
+                                            v-show="person.id !== undefined  && (person.passportNumber === person.passportNumberConfirm)"
+                                            type="button"
+                                            v-on:click="updateMigratoryInformation(key)"
+                                            onclick="topContent(); loadSelect();">
+                                        @localizer["Update.info"]
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="step-actions">
+                    </div>
+                </div>
+            </li>
+            <li :class="`step`" id="step-3">
+                <div class="step-title waves-effect" style="pointer-events: none;"> <span class="ml-20">@localizer["Step.Three"] </span></div>
+                <div class="step-content guide-3">
+                    <div class="row ">
+                        <div class="col s10 m12 l12 xl12">
+                            <ul class="tabs" id="tabs">
+                                <li @@click="needCompleteAllCustoms(key,$event)" :class="`tab col s1 ${isMoreOfSix}`" v-for="(customs,key) in customsInformations" :key="key">
+                                    <a :href="`#customs-${key}`" :id="`tab-customs-${key}`">
+                                        {{customs.names}}    <span class="material-icons checked-tab" v-show="customs.customsInformation.id > 0">done</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col s12 " v-for="(customs,key) in customsInformations" :key="`${key}`" :id="`customs-${key}`">
+
+                            <div class="col s12 m12 l12 xl12 mt-40 mb-25">
+                                <div class="row">
+                                    <div class="col s10 m12 l3 xl3">
+                                        <img src="~/img/DGA.png" width="300" alt="DGA.png" />
+                                    </div>
+                                    <div class="col s10 m12 l9 xl6 mt-10">
+                                        <h3>
+                                            @localizer["Step.Three"]
+                                            <button onclick="customsInformationGuide()" class="waves-effect btn btn-primary " type="button"><i class="material-icons">help</i></button>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div v-show="isArrival === false" class="col s10 m10 l12 xl12">
+                                <h3 class="text-center">
+                                    @localizer["Required.DGA.In"]
+                                </h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12 m12 xl12 l12" v-if="!customs.customsInformation.isUnderAge && isArrival === true">
+                                    <div class="row mt-50 guide-4">
+                                        <div class="col s10 m12 l12 xl12  ">
+                                            <label>
+                                                <b>
+                                                    @localizer["Money.Exceeds"]
+                                                </b>
+                                            </label>
+                                            <div class="switch" style="display:inline;">
+                                                <label>
+                                                    @localizer["No"]
+                                                    <input type="checkbox" v-model="customs.customsInformation.exceedsMoneyLimit"
+                                                           onchange="loadSelect(0); loadNotSpecialCharacters(); validZero(); notRussian();">
+                                                    <span class="lever"></span>
+                                                    @localizer["Yes"]
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s10 m12 l3 xl3 mt-50 valign center" v-if="customs.customsInformation.exceedsMoneyLimit">
+                                            <label>
+                                                <b>
+                                                    @localizer["Ammount"]
+                                                </b>
+                                            </label>
+                                            <input type="number" class="validate"
+                                                   onkeypress="if(this.value.length==7) return false;"
+                                                   min="1"
+                                                   v-model="customs.customsInformation.ammount" required id="custAmmount" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 m12 l3 xl3 mt-50" v-if="customs.customsInformation.exceedsMoneyLimit">
+                                            <label>
+                                                @localizer["Currency"]
+
+                                            </label>
+                                            <select class="validate" searchable="@localizer["Search"]" v-model="customs.customsInformation.currencyId" required>
+                                                <option :value="null">@localizer["Select.opt"]</option>
+                                                <option v-for="(currency,key) in currencies" :key="key" :value="currency.id">{{currency.code}}</option>
+                                            </select>
+                                            <input style="display:none;" v-model="customs.customsInformation.currencyId" required class="validate" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-50" v-if="customs.customsInformation.exceedsMoneyLimit && customs.application.genericInformation.isArrival">
+                                        <div class="col s10 m12 col-xl-12 xl12">
+                                            <label><b>@localizer["Declare"]</b></label>
+                                            <input type="text" name="name" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" v-model="customs.customsInformation.declaredOriginValue" required />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-50 guide-5" v-if="customs.customsInformation.exceedsMoneyLimit && customs.application.genericInformation.isArrival">
+                                        <div class="col s10 m12 l12 xl12">
+                                            <div class="switch">
+                                                <label>
+                                                    <b> @localizer["IsOwner"]</b>
+                                                    @localizer["No"]
+                                                    <input type="checkbox" onchange="loadNotSpecialCharacters()" v-model="customs.customsInformation.isValuesOwner">
+                                                    <span class="lever"></span>
+                                                    @localizer["Yes"]
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-50" v-if="!customs.customsInformation.isValuesOwner && (customs.customsInformation.exceedsMoneyLimit && customs.application.genericInformation.isArrival)">
+                                        <div class="col s10 m12 l6 xl6">
+                                            <label>
+                                                <b>@localizer["SenderName"]</b>
+                                            </label>
+                                            <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" v-model="customs.customsInformation.senderName" required />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 m12 l6 xl6">
+                                            <label>
+                                                <b>
+                                                    @localizer["SenderLn"]
+                                                </b>
+                                            </label>
+                                            <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" v-model="customs.customsInformation.senderLastName" required />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 m12 l6 xl6 mt-25">
+                                            <label>
+                                                <b>@localizer["ReceiverName"]</b>
+                                            </label>
+                                            <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" v-model="customs.customsInformation.receiverName" required name="name" value="" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 m12 l6 xl6 mt-25">
+                                            <label>
+                                                <b>
+                                                    @localizer["ReceiverLn"]
+                                                </b>
+                                            </label>
+                                            <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" required v-model="customs.customsInformation.receiverLastName" name="name" value="" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-50" v-if="!customs.customsInformation.isValuesOwner && (customs.customsInformation.exceedsMoneyLimit && customs.application.genericInformation.isArrival)">
+                                        <div class="col s10 m12 l12 xl12">
+                                            <label>
+                                                <b>@localizer["RelationShip"]</b>
+                                            </label>
+                                            <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" required v-model="customs.customsInformation.relationShip" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 m12 l12 xl12">
+                                            <label>
+                                                <b>@localizer["UseWoth"]</b>
+                                            </label>
+                                            <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" required v-model="customs.customsInformation.worthDestiny" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-50" v-if="customs.customsInformation.exceedsMoneyLimit || customs.application.genericInformation.isArrival">
+                                        <div class="col s12 m12 l12 xl12">
+                                            <div class="col s10 m12 l12 xl12">
+                                                <div class="switch">
+                                                    <label>
+                                                        @localizer["BringsAnimals"]
+                                                        @localizer["No"]
+                                                        <input type="checkbox" v-model="customs.customsInformation.hasAnimalsOrFood">
+                                                        <span class="lever"></span>
+                                                        @localizer["Yes"]
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-50 guide-6" v-if="customs.customsInformation.exceedsMoneyLimit || customs.application.genericInformation.isArrival">
+                                        <div class="col s10 m12 l6 xl6 mb-25">
+                                            <div class="switch">
+                                                <label>
+                                                    @localizer["BringsTax"]
+                                                    @localizer["No"]
+                                                    <input type="checkbox" v-model="customs.customsInformation.hasMerchWithTaxValue" onchange="loadSelect(0); validZero()">
+                                                    <span class="lever"></span>
+                                                    @localizer["Yes"]
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s10 m12 l3 xl3 mb-25" v-if="customs.customsInformation.hasMerchWithTaxValue">
+                                            <label>
+                                                <b>@localizer["AproxValue"]</b>
+                                            </label>
+                                            <input type="number" required class="validate"
+                                                   onkeypress="if(this.value.length==7) return false;"
+                                                   min="1"
+                                                   v-model="customs.customsInformation.valueOfMerchandise" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 m12 l3 xl3" v-if="customs.customsInformation.hasMerchWithTaxValue">
+                                            <label>
+                                                @localizer["Currency"]
+                                            </label>
+                                            <select class="validate" searchable="@localizer["Search"]" v-model="customs.customsInformation.currencyMerchandiseId" required>
+                                                <option :value="null">@localizer["Select.opt"]</option>
+                                                <option v-for="(currency,key) in currencies" :key="key" :value="currency.id">{{currency.code}}</option>
+                                            </select>
+                                            <input style="display:none;" v-model="customs.customsInformation.currencyMerchandiseId" required class="validate" />
+                                            <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                        </div>
+                                        <div class="col s10 md12" v-if="customs.customsInformation.hasMerchWithTaxValue">
+                                            <p>
+                                                <b>
+                                                    <label>
+                                                        @localizer["Dga.Note"]
+                                                    </label>
+                                                </b>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-50" v-if="customs.customsInformation.hasMerchWithTaxValue && (customs.customsInformation.exceedsMoneyLimit || customs.application.genericInformation.isArrival)">
+                                        <div class="col s10 m10 l12 xl12">
+                                            <h4>
+                                                @localizer["DetailTax"]
+                                                <button type="button" v-on:click="addMoreWares(key)" onclick="validZero()" class="btn btn-bordered-1"><i style="font-size:24px;" class="material-icons">add</i></button>
+                                            </h4>
+                                        </div>
+                                        <div class="row mt-50" v-for="(ware,keyWare) in customs.customsInformation.declaredMerchs" :key="keyWare">
+                                            <div class="col s10 m12 l4 xl4">
+                                                <label><b>@localizer["MerchDescription"] </b></label>
+                                                <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian validate" required v-model="ware.description" name="name" value="" />
+                                                <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                            </div>
+                                            <div class="col s10 m12 l4 xl4">
+                                                <label><b>@localizer["DollarValue"]</b></label>
+                                                <input type="number" class="validate"
+                                                       onkeypress="if(this.value.length==7) return false;"
+                                                       min="1" required v-model="ware.dollarValue" name="name" value="" />
+                                                <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                            </div>
+                                            <div class="col s10 m12 l4 x4">
+                                                <button type="button" v-on:click="removeDeclaredMerch(key,keyWare)" class="btn btn-bordered-1 btn-danger"><i style="font-size:24px;" class="material-icons">delete</i></button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col s10 valing center" v-show="customs.customsInformation.isUnderAge && isArrival === true">
+                                    <h1 class="material-icons" style="font-size: 123px !important;color:#10439c;">face</h1>
+                                    <h1>@localizer["IsUnderAge"]</h1>
+                                </div>
+                                <div class="col s12 m12 l6" v-show="!customs.customsInformation.isUnderAge && isArrival === true">
+                                    <p>
+                                        <b>
+                                            @localizer["DGA.Required"]
+                                        </b>
+                                    </p>
+                                </div>
+                                <div class="col s12 m12 l12 xl12">
+                                    <div class="row mt-50">
+                                        <div class="col s9 m10 l3 offset-s1 offset-m1 offset-l8 xl4 offset-xl4 mb-25">
+                                            <button class="btn-flat btn-block text-center grey lighten-3" type="button" v-on:click="updateFrontStep(1)">@localizer["GoBack"]</button>
+                                        </div>
+                                        <div class="col s9 m10 l3 offset-s1 offset-m1 offset-l8 xl4 ">
+                                            <button class="btn-primary btn btn-block text-center" v-show="isLastElementCustoms > key" type="button" v-on:click="createCustoms(key)">@localizer["Next"]</button>
+                                            <button onclick="event.preventDefault();" class=" btn-primary btn btn-block text-center next-step" type="button" v-show="isLastElementCustoms === key" v-on:click="createCustoms(key)">@localizer["Next"]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li :class="`step `">
+                <div class="step-title waves-effect" style="pointer-events: none;"> <span class="ml-20">@localizer["Step.Four"]</span></div>
+                <div class="step-content guide-7">
+                    <div class="col s12 m12 l12 xl12 mt-40 mb-25">
+                        <div class="row">
+                            <div class="col s10 m12 l4 xl3">
+                                <img src="~/img/logomsp.png" width="280" alt="logomsp.png" />
+                            </div>
+                            <div class="col s10 m12 l8 xl8 ">
+                                <h3>
+                                    @localizer["Step.Four"]
+                                    <button onclick="publicHealtGuide()" class="waves-effect btn btn-primary " type="button"><i class="material-icons">help</i></button>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s10 m12 x12 xl12 mt-50">
+                            <ul class="tabs">
+                                <li @@click="needCompleteAllpublicHealth(key,$event)" :class="`tab col s1 ${isMoreOfSix}`" v-for="(passenger,key) in publicHealth" :key="key">
+                                    <a :href="`#ph-${key}`" onclick="loadDatePickerLibrary()">
+                                        {{passenger.names}}
+
+                                        <span class="material-icons checked-tab" v-show="passenger.publicHealth.id > 0">done</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col s10 m12 x12 xl12 " v-if="isIn" v-for="(passenger,key) in publicHealth" :key="key" :id="`ph-${key}`">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h4>
+                                        @localizer["TransitCountries"]
+                                        <a type="button" class=" btn btn-bordered-1 modal-trigger" onclick="loadModal()" :href="`#modalv${key}`"><i style="font-size:24px;" class="material-icons">add</i></a>
+                                    </h4>
+                                </div>
+                                <!-- Modal Structure -->
+                                <div :id="`modalv${key}`" class="modal modal-ct">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div class="col s11">
+                                                <h1 style="font-size:35px;">@localizer["Countries"]</h1>
+                                            </div>
+                                            <div class="col s1">
+                                                <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="input-search-country" placeholder="@localizer["SearchCountry"]" name="name" v-model="searchCountryVisit" />
+                                        <ul class="collection">
+                                            <li class="collection-item avatar  modal-close" v-on:click="addToVisitCountry(country.id,key)" v-for="(country,index) in visitedCountry" :key="index">
+                                                <img :src="`/img/Countries/${country.iso2}.svg`" :alt="`${country.iso2}.svg`" class="circle">
+                                                <span class="title">{{country.name}}</span>
+                                                <p>
+                                                    <b>{{country.iso3}}</b> <br>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6 m6 l2 xl2" v-for="(countryvisit,keyc) in passenger.publicHealth.publicHealthCountries" :key="keyc">
+                                        <ul class="collection">
+                                            <li class="collection-item avatar">
+                                                <img :src="`/img/Countries/${countryvisit.iso2}.svg`" alt="" class="circle">
+                                                <span class="title">
+                                                    {{countryvisit.name}}
+                                                </span>
+                                                <a href="#!" class="secondary-content" v-on:click="removeCountryVisited(countryvisit.countryId,key,keyc)"><i class="material-icons">delete</i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row mt-50 guide-8">
+                                <div class="col s12">
+                                    <h4>
+                                        @localizer["Countries.LastDays"]
+                                        <button type="button" class=" btn btn-bordered-1 modal-trigger" onclick="loadModal()" :href="`#modall${key}`"><i style="font-size:24px;" class="material-icons">add</i></button>
+                                    </h4>
+                                </div>
+                                <!-- Modal Structure -->
+                                <div :id="`modall${key}`" class="modal modal-ct">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div class="col s11">
+                                                <h4>@localizer["Countries"]</h4>
+                                            </div>
+                                            <div class="col s1">
+                                                <i style="cursor:pointer;" class="material-icons modal-close">close</i>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <input type="text" class="input-search-country" placeholder="@localizer["SearchCountry"]" name="name" v-model="searchCountryVisit" />
+                                        <ul class="collection">
+                                            <li class="collection-item avatar modal-close" v-on:click="addToVisitLastCountry(country.id,key)" v-for="(country,index) in visitedlastCountry" :key="index">
+                                                <img :src="`/img/Countries/${country.iso2}.svg`" :alt="`${country.iso2}.svg`" class="circle">
+                                                <span class="title">{{country.name}}</span>
+                                                <p>
+                                                    <b>{{country.iso3}}</b> <br>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s6 m6 l2 xl2" v-for="(countryvisit,keyc) in passenger.publicHealth.publicHealthStopOvers" :key="keyc">
+                                        <ul class="collection">
+                                            <li class="collection-item avatar">
+                                                <img :src="`/img/Countries/${countryvisit.iso2}.svg`" alt="" class="circle">
+                                                <span class="title">
+                                                    {{countryvisit.name}}
+                                                </span>
+                                                <a href="#!" class="secondary-content" v-on:click="removeCountryLastVisited(countryvisit.countryId,key,keyc)"><i class="material-icons">delete</i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-50 guide-9">
+                                <div class="col s12">
+                                    <label>
+                                        <b>
+                                            @localizer["Declaration.Symptoms"]
+                                        </b>
+                                    </label>
+                                </div>
+                                <div class="col s12 m12 l12 xl12">
+                                    <p>@localizer["MSP.Question"]</p>
+                                </div>
+                                <div class="col s12 m12 l3 xl3" v-for="(sintom,stmkey) in healthQuestions" :key="stmkey">
+                                    <p>
+                                        <label v-if="!passenger.publicHealth.questionResponse.find(x => x.QuestionId === sintom.id)">
+                                            <input type="checkbox"
+                                                   onclick="loadDatePickerLibrary(0); loadDateTodayPicker();loadPhoneMask();"
+                                                   v-on:click="addQuestionResponseToPublicHealth(sintom.id,key);" />
+
+                                            <span>{{sintom.text}}</span>
+                                        </label>
+                                        <label v-else="passenger.publicHealth.questionResponse.find(x => x.QuestionId === sintom.id)">
+                                            <input type="checkbox"
+                                                   onclick="loadDatePickerLibrary(0);loadDateTodayPicker();loadPhoneMask();"
+                                                   v-on:click="addQuestionResponseToPublicHealth(sintom.id,key);"
+                                                   checked="checked" />
+
+                                            <span>{{sintom.text}}</span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="col s12 m12 l8 xl8 mt-50">
+                                    <label>
+                                        @localizer["specify"]
+                                    </label>
+                                    <input type="text" onkeypress="notRussian()" onpaste="notRussian()" class="not-russian" v-model="passenger.publicHealth.specificSymptoms" name="name" value="" />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                </div>
+                                <div class="col s12 m12 l4 xl4 mt-50" v-if="(passenger.publicHealth.specificSymptoms || passenger.publicHealth.questionResponse.filter(x => x.QuestionId !== 6).length > 0)">
+                                    <label>
+                                        @localizer["DateSintoms"]
+                                    </label>
+                                    <input type="text" class="datepicker-today validate" :id="`DateSintoms-${key}`" v-on:focus="showDatePicker(`#DateSintoms-${key}`)" v-model.lazy="passenger.publicHealth.symptomsDate" required />
+                                    <span class="helper-text" data-error="@localizer["Required"]" data-success=""></span>
+                                </div>
+                                <div class="col s12 m12 l4 xl4 mt-50">
+                                    <label>
+                                        @localizer["phoneNumber"]
+                                    </label>
+                                    <input type="number" class="phoneNumber validate" min="000001" max="999999999999999" onKeyPress=" if (this.value.length > 15) return false; " v-model.lazy="passenger.publicHealth.phoneNumber" />
+                                    <span class="helper-text" data-error="@localizer["isInvalid"]" data-success=""></span>
+                                </div>
+                            </div>
+                            <div class="row mt-40">
+                                <div class="col s12 m12 l4  offset-l4 xl4 offset-xl4 mb-25">
+                                    <button class=" btn-flat btn-block text-center grey lighten-3"
+                                            type="button"
+                                            v-on:click="updateFrontStep(2)">
+                                        @localizer["GoBack"]
+                                    </button>
+                                </div>
+                                <div class="col s12 m12 l4 xl4 ">
+                                    <button class=" btn-primary btn btn-block text-center"
+                                            type="button"
+                                            v-on:click="toCreatePublicHealth(key)"
+                                            v-show="isIn && passenger.publicHealth.id === 0"
+                                            onclick=" topContent(); loadDateTodayPicker()">
+                                        @localizer["Submit"]
+                                    </button>
+                                    <button class=" btn-primary btn btn-block text-center"
+                                            type="button"
+                                            v-on:click="updatePublicHealt(key)"
+                                            v-show="isIn && passenger.publicHealth.id > 0"
+                                            onclick=" topContent(); loadDatePickerLibrary()">
+                                        @localizer["Submit"]
+                                    </button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s10 m10 l12 xl12 center" v-if="!isIn">
+                            <h1 class="health-text">@localizer["isIn"]</h1>
+                        </div>
+
+
+                        <div class="col s12 m12 l4  offset-l4 xl4 offset-xl4 mb-25" v-if="!isIn">
+                            <button class="btn-flat btn-block text-center grey lighten-3"
+                                    type="button"
+                                    v-on:click="updateFrontStep(2)">
+                                @localizer["GoBack"]
+                            </button>
+                        </div>
+                        <div class="mt-50 col s12 m12 l4  offset-l4 xl4 offset-xl4">
+
+                            <button class=" btn-primary btn btn-block text-center"
+                                    type="button"
+                                    v-on:click="wasHelpedMethod()"
+                                    v-show="!isIn"
+                                    onclick="loadPhoneMask()">
+                                @localizer["Submit"]
+                            </button>
+                        </div>
+                    </div>
+                    <div />
+                    <div class="step-actions">
+                        <!-- Here goes your actions buttons -->
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    var applicationId = '@Model?.Application.Id';
+    var activeStep = Number('@Convert.ToInt32(Model?.Application.Step.StepsEnum)');
+    var token = '@Model?.JwtViewModel.BearerToken';
+</script>
+
+
+@* //libs *@
+<script src="~/lib/driver.js/driver.min.js"></script>
+<script src="~/lib/moment.js/moment.min.js" asp-append-version="true"></script>
+<script src="~/lib/axios/axios.min.js" asp-append-version="true"></script>
+<script src="~/js/TravelTiket/Traslations/index.js" asp-append-version="true"></script>
+<script src="~/js/Guide/TravelTicket/Traslation.js" asp-append-version="true"></script>
+<script src="~/js/TravelTiket/Helpers/index.js" asp-append-version="true"></script>
+
+
+<script src="~/js/Guide/TravelTicket/TravelTicket.js" asp-append-version="true"></script>
+<script src="~/js/TravelTiket/ApiCalls/index.js" asp-append-version="true"></script>
+<script src="~/js/TravelTiket/Modules/index.js" asp-append-version="true"></script>
+<script src="~/lib/vue/vue.js" asp-append-version="true"></script>
+<script src="~/js/TravelTiket/index.js" asp-append-version="true"></script>
+

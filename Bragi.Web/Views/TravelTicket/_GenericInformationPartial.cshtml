@@ -1,0 +1,152 @@
+﻿@using Bragi.DataLayer.Models.Enums
+@using Bragi.DataLayer.ViewModels.Countries
+@model Bragi.DataLayer.ViewModels.GenericInformations.GenericInformationViewModel
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer;
+
+@{
+    var countries = ViewBag.Countries as List<CountryViewModel>;
+    var appId = Model.Application?.Id ?? Model.ApplicationId;
+    var routeData = new Dictionary<string, string>()
+    {
+        { "token", Context.Request.Query["token"] }
+    };
+}
+
+<section class="section-step-1 mb-sm-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <form asp-action="StepOne" method="post" class="mt-sm-5" asp-all-route-data="routeData">
+
+                    <input asp-for="TransportationMethodId" value="3" hidden />
+                    <input asp-for="CityId" id="cityId" hidden />
+                    <input asp-for="ApplicationId" value="@appId" hidden />
+                    <input asp-for="Id" hidden />
+                    <input asp-for="Token" hidden value="@ViewBag.Token" />
+
+                    <div class="row guide-2">
+                        <partial name="_CardCodePartial" model="@ViewBag.Code" />
+                        <partial name="_StepperPartial" model="@StepsEnum.GeneralInformation" />
+                        <div class="col-12 col-lg-12 mt-sm-5">
+                            <h1 class="mt-5  text-sm-left text-center title">@localizer["Step.One"]</h1>
+                            <p class="text-left mb-2 mt-2" style="font-size: 18px;">@localizer["RequiredFields"] (<span class="text-danger">*</span>)</p>
+                            <div class="form-row">
+                                <div class="form-group col-lg-4">
+                                    <label for="permanentAddress" style="font-weight:300; color: #686d76; font-size: 18px;">@localizer["Perm.Address"] <span class="text-danger" style="font-size: 20px;">*</span></label>
+                                    <input type="text" class="form-control" id="permanentAddress" asp-for="PermanentResidenceAdress" />
+                                    <span class="text-danger" asp-validation-for="PermanentResidenceAdress"></span>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label style="font-weight:300; color: #686d76; font-size: 18px;">
+                                        @localizer["Res.Country"] <span class="text-danger" style="font-size: 20px;">*</span>
+                                    </label>
+
+                                    <select onchange="selectCountry()" class="form-control" required asp-for="CountryResidence" style="display: block" id="countryRes" data-live-search="true" data-size="10">
+                                        <option value="" selected>@localizer["Select"]</option>
+                                        @{
+                                            if (countries != null)
+                                            {
+                                                foreach (var country in countries.OrderBy(x => x.Name))
+                                                {
+                                                    <option value="@country.Name" iso2="@country.Iso2" data-tokens="@country.Name">@country.Name (@country.Iso3)</option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                    <span class="text-danger" asp-validation-for="CountryResidence"></span>
+                                </div>
+                                <div class="col-lg-4 form-group ">
+                                    <label style="font-weight:300; color: #686d76; font-size: 18px;">@localizer["City"] <span class="text-danger" style="font-size: 20px;">*</span></label>
+                                    <input id="cityName2" value="@Model.City?.Name" readonly="readonly" type="text" class="form-control city" required asp-for="CityOfResidence" />
+                                    <a style="cursor: pointer; font-weight: bold; color: #10439C; background: transparent" data-toggle="modal" data-target="#cityModal" class="modal-trigger">@localizer["Click.Here.Select"]</a>
+                                    <div>
+                                        <span class="text-danger" asp-validation-for="CityId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-4 form-group">
+                                    <label class="form-check-label">
+                                        @localizer["State"]
+                                    </label>
+                                    <input readonly="readonly" type="text" asp-for="State" required class="form-control state" id="stateName" />
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label class="form-check-label">
+                                        @localizer["P.O"]
+                                    </label>
+                                    <input type="text" asp-for="ZipCode" class="form-control" />
+                                    <span class="text-danger" asp-validation-for="ZipCode"></span>
+                                </div>
+                                <div class="col-lg-4 form-group  check-alt">
+                                    <div class="form-check">
+                                        <label class="check-label font-weight-light"><b>@localizer["DidStopOver"]</b> <input asp-for="StopOverInCountries" type="checkbox" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" data-style="ios" data-offstyle="danger" data-onstyle="success"></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 form-group ">
+                                    <div class="form-check">
+                                        <label class="form-check-label entry">
+                                            <input value="@true" asp-for="IsArrival" type="radio" class="form-check-input">@localizer["In"]
+                                        </label>
+                                        <img src="~/img/aviones-portal servicios-eticket-dgm-entrada.png" alt="aviones-eticket-entrada.png" class="img-fluid entry" width="100" height="100" />
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label exit">
+                                            <input value="@false" asp-for="IsArrival" type="radio" class="form-check-input">@localizer["Out"]
+                                        </label>
+                                        <img src="~/img/aviones-portal servicios-eticket-dgm-salida.png" alt="aviones-eticket-salida.png" class="img-fluid exit" width="100" height="100" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row justify-content-end">
+                                <div class="col-lg-4 form-group">
+                                    <button type="submit" class="btn btn-next btn-block shadow-lg">@localizer["Next"]</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="cityModal" tabindex="-1" role="dialog" aria-labelledby="cityModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-white">
+                                        <h5 class="modal-title" id="exampleModalLabel">@localizer["City"]</h5>
+                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-row">
+                                            <div class="col-md-8">
+                                                <input class="form-control" type="text" id="cityName" placeholder="@localizer["City"]" />
+                                            </div>
+                                            <div class="col-md-4 mt-1">
+                                                <button type="button" class="btn btn-next" onclick="searchCity()">@localizer["Search"]</button>
+                                            </div>
+                                            <div class="col-12 mt-4">
+                                                <ul class="list-group " id="ulcities"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/TravelTiket/Traslations/index.js"></script>
+<script src="~/js/TravelTiket/StepOne/index.js"></script>
+<script>
+    $(document).ready(async function() {
+        initializeComponents();
+
+        $('form input').on('keypress',
+            function(e) {
+                return e.which !== 13;
+            });
+
+    });
+
+</script>

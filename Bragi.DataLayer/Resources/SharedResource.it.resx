@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Inserisci</value>
+  </data>
+  <data name="AirlineName" xml:space="preserve">
+    <value>NOME DELLA COMPAGNIA AEREA</value>
+  </data>
+  <data name="Ammount" xml:space="preserve">
+    <value>QUANTITÀ</value>
+  </data>
+  <data name="AppCode" xml:space="preserve">
+    <value>CODICE DI APPLICAZIONE</value>
+  </data>
+  <data name="AppCode.Msg" xml:space="preserve">
+    <value>QUESTO È IL TUO CODICE DI APPLICAZIONE PER ACCEDERE AL TUO MODULO, CONSERVALO E NON CONDIVIDERLO CON NESSUNO.</value>
+  </data>
+  <data name="applicant" xml:space="preserve">
+    <value>RICHIEDENTE</value>
+  </data>
+  <data name="AproxValue" xml:space="preserve">
+    <value>VALORE APPROSSIMATIVO</value>
+  </data>
+  <data name="B1.P1" xml:space="preserve">
+    <value>È un modulo dig + B37: B60ital richiesto da più enti per entrare o uscire dal territorio nazionale.</value>
+  </data>
+  <data name="B1.P2" xml:space="preserve">
+    <value>"È obbligatorio per ogni passeggero completare in modo veritiero le informazioni sul biglietto elettronico per la Direzione generale della migrazione,
+                    la Direzione Generale delle Dogane e il Ministero della Salute Pubblica, secondo le leggi 285-04, 115-17, 72-02 e 226-06 ."</value>
+  </data>
+  <data name="B1.T1" xml:space="preserve">
+    <value>CHE COS'È IL &lt;b&gt;  BIGLIETTO ELETTRONICO &lt;/b&gt;?</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>I browser attualmente supportati dalla piattaforma sono:</value>
+  </data>
+  <data name="BringsAnimals" xml:space="preserve">
+    <value>PORTI CON TE O NEL TUO BAGAGLIO ANIMALI VIVI, PIANTE O PRODOTTI ALIMENTARI?</value>
+  </data>
+  <data name="BringsTax" xml:space="preserve">
+    <value>PORTI CON TE O NEI TUOI BAGAGLI MERCI SOGGETTE AL PAGAMENTO DELLE TASSE?</value>
+  </data>
+  <data name="Btn.Search" xml:space="preserve">
+    <value>RICERCA</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ANNULLA</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>CITTÀ</value>
+  </data>
+  <data name="CivilStatus" xml:space="preserve">
+    <value>STATO CIVILE</value>
+  </data>
+  <data name="Click.Here.Select" xml:space="preserve">
+    <value>CLICCA QUI PER SELEZIONARE</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>VICINO</value>
+  </data>
+  <data name="companions" xml:space="preserve">
+    <value>COMPAGNI</value>
+  </data>
+  <data name="CompleteForm" xml:space="preserve">
+    <value>Modulo completo</value>
+  </data>
+  <data name="Conf.Number" xml:space="preserve">
+    <value>NUMERO DI CONFERMA DEL VOLO</value>
+  </data>
+  <data name="ConsultCode" xml:space="preserve">
+    <value>Dovresti avere il codice dell'applicazione generato a portata di mano quando compili il modulo del tuo biglietto elettronico.</value>
+  </data>
+  <data name="ConsultEticket" xml:space="preserve">
+    <value>CONSULTARE E-TICKET EMESSO</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>PAESI</value>
+  </data>
+  <data name="Countries.LastDays" xml:space="preserve">
+    <value>PAESI VISITATI NEGLI ULTIMI 30 GIORNI</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>NAZIONE</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>MONETA</value>
+  </data>
+  <data name="D.Port" xml:space="preserve">
+    <value>PORTO DI SBARCO</value>
+  </data>
+  <data name="D.PORTNAME" xml:space="preserve">
+    <value>NOME DEL PORTO DI SBARCO</value>
+  </data>
+  <data name="DateSintoms" xml:space="preserve">
+    <value>INIZI DI SINTOMI </value>
+  </data>
+  <data name="Declaration.Symptoms" xml:space="preserve">
+    <value>DICHIARAZIONE DI SEGNI E SINTOMI:</value>
+  </data>
+  <data name="Declare" xml:space="preserve">
+    <value>DICHIARARE L'ORIGINE DEI VALORI</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>RIMUOVERE</value>
+  </data>
+  <data name="DetailTax" xml:space="preserve">
+    <value>DETTAGLIO DELLA MERCE SOGGETTA A PAGAMENTO D'IMPOSTA</value>
+  </data>
+  <data name="Dga.Note" xml:space="preserve">
+    <value>NOTA: IL PASSEGGERO PUO' PORTARE MERCE O OGGETTI PER REGALI PER UN VALORE TOTALE FINO A $ 500,00 USD (CINQUECENTO DOLLARI). QUESTA OPZIONE PUO  ESSERE UTILIZZATA E APPLICATA SOLO UNA VOLTA OGNI (3) MESI.</value>
+  </data>
+  <data name="DGA.Required" xml:space="preserve">
+    <value>NOTA: QUESTA DICHIARAZIONE È OBBLIGATORIA PER TUTTI I PASSEGGERI IN 
+    ENTRATA E USCITA DALLA REPUBBLICA DOMINCANA. PER I MINORI, DOVRA' ESSERE 
+    COMPILATO E FIRMATO DALL'ADULTO RESPONSABILE. LA DICHIARAZIONE DI INFORMAZIONI 
+    FALSE O INCOMPLETE PUO' ESSERE PUNITA  PER  LEGGE CON  LA CONFISCA DI VALORI E  
+    BENI O LA RECLUSIONE AI SENSI DELL'ART. 200 DELLA LEGGE 3489, DEL REGIME 
+    DOGANALE E ARTICOLO 4 DELLA LEGGE N. 155-17 CONTRO IL RICICLAGGIO DI DENARO. 
+    LA PRESENTE DICHIARAZIONE DEVE ESSERE FIRMATA DAL PASSEGGERO OVE INDICATO</value>
+  </data>
+  <data name="DidStopOver" xml:space="preserve">
+    <value>FAI SCALO IN ALTRI PAESI?</value>
+  </data>
+  <data name="DoB" xml:space="preserve">
+    <value>DATA DI NASCITA</value>
+  </data>
+  <data name="DOC.ID" xml:space="preserve">
+    <value>NUMERO DI CARTA D'IDENTITA'</value>
+  </data>
+  <data name="DollarValue" xml:space="preserve">
+    <value>VALORE IN DOLLARI</value>
+  </data>
+  <data name="Dr.Address" xml:space="preserve">
+    <value>INDIRIZZO NELLA REPUBBLICA DOMINICANA</value>
+  </data>
+  <data name="E-Ticket" xml:space="preserve">
+    <value>Biglietto elettronico per l'ingresso e l'uscita dalla Repubblica Dominicana</value>
+  </data>
+  <data name="E.Port" xml:space="preserve">
+    <value>PORTO D'IMBARCO</value>
+  </data>
+  <data name="E.PORTNAME" xml:space="preserve">
+    <value>NOME DEL PORTO D'IMBARCO</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-MAIL</value>
+  </data>
+  <data name="emissionDate" xml:space="preserve">
+    <value>DATA DI EMISSIONE</value>
+  </data>
+  <data name="EmittedMessage" xml:space="preserve">
+    <value>IL TUO BIGLIETTO ELETTRONICO È GIÀ EMESSO, VAI AL MENU PRINCIPALE E CLICCA SU CONSULTA IL BIGLIETTO ELETTRONICO EMESSO</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>ACCEDERE</value>
+  </data>
+  <data name="Err.Passport" xml:space="preserve">
+    <value>IL NUMERO DEL PASSAPORTO DEVE AVERE UN MASSIMO DI 9 CIFRE</value>
+  </data>
+  <data name="Error.Information" xml:space="preserve">
+    <value>INFORMAZIONI ERRATE</value>
+  </data>
+  <data name="ExceedMax" xml:space="preserve">
+    <value>L'INTERVALLO DEVE ESSERE TRA 1 E 40</value>
+  </data>
+  <data name="G.PDF" xml:space="preserve">
+    <value>GENERA PDF</value>
+  </data>
+  <data name="Gend.F" xml:space="preserve">
+    <value>FEMMINA</value>
+  </data>
+  <data name="Gend.M" xml:space="preserve">
+    <value>MASCHIO</value>
+  </data>
+  <data name="Gend.X" xml:space="preserve">
+    <value>ALTRI</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>GENERE</value>
+  </data>
+  <data name="GI.Val.PermAddr" xml:space="preserve">
+    <value>QUESTO CAMPO RICHIEDE PIÙ DI 4 PERSONAGGI E MENO DI 100</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>PAGINA PRECEDENTE</value>
+  </data>
+  <data name="HomeText" xml:space="preserve">
+    <value>Questo è il testo iniziale</value>
+  </data>
+  <data name="Hotel" xml:space="preserve">
+    <value>HOTEL</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>&lt;b&gt;INGRESSO&lt;/b&gt; ALLA REPUBBLICA DOMINICANA</value>
+  </data>
+  <data name="InsideForm" xml:space="preserve">
+    <value>Dentro del modulo</value>
+  </data>
+  <data name="InvalidAppCode" xml:space="preserve">
+    <value>DEVI INSERIRE UN CODICE APPLICAZIONE VALIDO E COMPLETO.</value>
+  </data>
+  <data name="IsCommonAddress" xml:space="preserve">
+    <value>ASSEGNA LO STESSO INDIRIZZO</value>
+  </data>
+  <data name="IsCommonHotel" xml:space="preserve">
+    <value>VUOI ASSEGNARE LO STESSO HOTEL AL PRINCIPALE?</value>
+  </data>
+  <data name="IsHotel" xml:space="preserve">
+    <value>ALLOGGIA IN HOTEL?</value>
+  </data>
+  <data name="IsHotelOut" xml:space="preserve">
+    <value>SEI STATO IN UN HOTEL?</value>
+  </data>
+  <data name="isIn" xml:space="preserve">
+    <value>IL MODULO DI DICHIARAZIONE DEI SINTOMI RICHIESTO DAL MINISTERO DELLA SALUTE PUBBLICA È NECESSARIO SOLO PER GLI INGRESSI NEL PAESE</value>
+  </data>
+  <data name="isInvalid" xml:space="preserve">
+    <value>QUESTO CAMPO NON È VALIDO</value>
+  </data>
+  <data name="IsNotEquals" xml:space="preserve">
+    <value>I VALORI NON CORRISPONDONO</value>
+  </data>
+  <data name="IsOwner" xml:space="preserve">
+    <value>E LEI IL PROPIETARIO DI QUESTI VALORI ?</value>
+  </data>
+  <data name="IsParticularStay" xml:space="preserve">
+    <value>ALLOGERAI IN UNA STRUTTURA PRIVATA? (P.es: Airbnb)</value>
+  </data>
+  <data name="IsParticularStayOut" xml:space="preserve">
+    <value>ERI IN UN ALLOGGIO PRIVATO? (Es: Airbnb)</value>
+  </data>
+  <data name="IsResident" xml:space="preserve">
+    <value>SEI UN RESIDENTE STRANIERO NELLA REPUBBLICA DOMINICANA?</value>
+  </data>
+  <data name="IsUnderAge" xml:space="preserve">
+    <value>I MINORI SONO ESENTI DALLA DICHIARAZIONE FISCALE</value>
+  </data>
+  <data name="L.Names" xml:space="preserve">
+    <value>COGNOMI</value>
+  </data>
+  <data name="Login.AccesToForm" xml:space="preserve">
+    <value>ACCEDERE</value>
+  </data>
+  <data name="Login.ApplyFor" xml:space="preserve">
+    <value>RICHIEDI</value>
+  </data>
+  <data name="Login.Cancel" xml:space="preserve">
+    <value>ESCI</value>
+  </data>
+  <data name="Login.Donwload.Manual.Passenger" xml:space="preserve">
+    <value>SCARICA IL MANUALE DEL VIAGGIATORE</value>
+  </data>
+  <data name="Login.Enter" xml:space="preserve">
+    <value>ENTEROKAY</value>
+  </data>
+  <data name="Login.Enter.AppCode" xml:space="preserve">
+    <value>INSERISCI IL CODICE DELLA TUA APPLICAZIONE</value>
+  </data>
+  <data name="Login.Enter.Screen.Code" xml:space="preserve">
+    <value>INSERISCI IL CODICE MOSTRATO SULLO SCHERMO</value>
+  </data>
+  <data name="Login.Error.Information" xml:space="preserve">
+    <value>Informazioni errate</value>
+  </data>
+  <data name="Login.Max" xml:space="preserve">
+    <value>Massimo 6 accompagnti</value>
+  </data>
+  <data name="Login.No" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="Login.No.Russian" xml:space="preserve">
+    <value>I CARATTERI RUSSI NON SONO AMMESSI, DEVI SCRIVERE IN ALFABETO BICAMERALE.</value>
+  </data>
+  <data name="Login.PersonQty" xml:space="preserve">
+    <value>QUANTE PERSONE VI ACCOMPAGNANO?</value>
+  </data>
+  <data name="Login.Required" xml:space="preserve">
+    <value>CAMPO OBBLIGATORIO</value>
+  </data>
+  <data name="Login.Required.Peoples.Number" xml:space="preserve">
+    <value>INDICARE UN NUMERO VALIDO DI COMPAGNI</value>
+  </data>
+  <data name="Login.Response" xml:space="preserve">
+    <value>RISPONDERE</value>
+  </data>
+  <data name="Login.See.Here" xml:space="preserve">
+    <value>(VEDERE QUI)</value>
+  </data>
+  <data name="Login.SelectSQ" xml:space="preserve">
+    <value>SELEZIONA UNA DOMANDA DI SICUREZZA</value>
+  </data>
+  <data name="Login.Submit" xml:space="preserve">
+    <value>Richiedi</value>
+  </data>
+  <data name="Login.SwalError" xml:space="preserve">
+    <value>Si è verificato un errore con il numero dell'applicazione o la risposta di sicurezza</value>
+  </data>
+  <data name="Login.Title" xml:space="preserve">
+    <value>RICHIESTA DI BIGLIETTO ELETTRONICO</value>
+  </data>
+  <data name="Login.TravelQ" xml:space="preserve">
+    <value>VIAGGI ACCOMPAGNATO DA QUALCUN ALTRO?</value>
+  </data>
+  <data name="Login.Yes" xml:space="preserve">
+    <value>SI</value>
+  </data>
+  <data name="LoginToForm" xml:space="preserve">
+    <value>Entra nel modulo</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>ESCI</value>
+  </data>
+  <data name="MaxDays" xml:space="preserve">
+    <value>IL NUMERO DI GIORNI DEVE ESSERE COMPRESO TRA 1 E 120</value>
+  </data>
+  <data name="MerchDescription" xml:space="preserve">
+    <value>DESCRIZIONE DEI BENI</value>
+  </data>
+  <data name="MI.Val.BirthDate" xml:space="preserve">
+    <value>LA DATA DI NASCITA NON PU ESSERE MAGGIORE DI OGGI</value>
+  </data>
+  <data name="MI.Val.Length" xml:space="preserve">
+    <value>QUESTO CAMPO NON PU CONTENERE PIÙ DI 60 CARATTERI</value>
+  </data>
+  <data name="MI.Val.Passport" xml:space="preserve">
+    <value>IL NUMERO DEL PASSAPORTO DEVE ESSERE SUPERIORE A 5 E INFERIORE A 11 CIFRE</value>
+  </data>
+  <data name="Mig.InfoSpan" xml:space="preserve">
+    <value>Devi inserire la nazionalità che appare nel passaporto con cui viaggerai.</value>
+  </data>
+  <data name="Mig.InfoSpanP" xml:space="preserve">
+    <value>Devi inserire il numero di passaporto che appare sul passaporto con cui viaggerai.</value>
+  </data>
+  <data name="Mig.Val.MaxDocument" xml:space="preserve">
+    <value>IL NUMERO DI DOCUMENTI INSERITI È MOLTO LUNGO</value>
+  </data>
+  <data name="Migratory" xml:space="preserve">
+    <value>MIGRAZIONE</value>
+  </data>
+  <data name="Money.Exceeds" xml:space="preserve">
+    <value>LEI E/O I SUOI  FAMILIARI AVETE CON VOI O NEI VOSTRI BAGAGLI VALUTA O ALTRI STRUMENTI DI PAGAMENTO PER UN IMPORTO SUPERIORE A US $ 10.000,00 O IL SUO EQUIVALENTE IN UN ALTRO TIPO  DI VALUTA ?</value>
+  </data>
+  <data name="Motive" xml:space="preserve">
+    <value>MOTIVO</value>
+  </data>
+  <data name="MSP.Question" xml:space="preserve">
+    <value>NELLE ULTIME 72 ORE HAI PROVATO QUALCUNO DI QUESTI SINTOMI?</value>
+  </data>
+  <data name="Municipality" xml:space="preserve">
+    <value>COMUNE</value>
+  </data>
+  <data name="Names" xml:space="preserve">
+    <value>NOMI</value>
+  </data>
+  <data name="Nat" xml:space="preserve">
+    <value>NAZIONALITÀ</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>PROSSIMO</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>AVVISO</value>
+  </data>
+  <data name="O.FlightDate" xml:space="preserve">
+    <value>DATA DEL VOLO AEREO</value>
+  </data>
+  <data name="O.FlightNumber" xml:space="preserve">
+    <value>NUMERO DEL VOLO AEREO</value>
+  </data>
+  <data name="O.Port" xml:space="preserve">
+    <value>PORTO D'ORIGINE</value>
+  </data>
+  <data name="O.PortName" xml:space="preserve">
+    <value>NOME DEL PORTO D'ORIGINE</value>
+  </data>
+  <data name="Ocupation" xml:space="preserve">
+    <value>OCCUPAZIONE</value>
+  </data>
+  <data name="Only.Arrival.DGA" xml:space="preserve">
+    <value>IL FORMULARIO DELLA DOGANA SOLO SI DICHIARA IN ENTRATA NEL PAESE</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>ALTRO</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>&lt;b&gt;PARTENZA&lt;/b&gt; DALLA REPUBBLICA DOMINICANA</value>
+  </data>
+  <data name="P.O" xml:space="preserve">
+    <value>CODIGO POSTALE</value>
+  </data>
+  <data name="PageTravel" xml:space="preserve">
+    <value>Fare clic qui per accedere alla pagina del viaggiatore digitale</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>NUMERO DI PASSAPORTO</value>
+  </data>
+  <data name="PassportConfirm" xml:space="preserve">
+    <value>CONFERMA PASSAPORTO</value>
+  </data>
+  <data name="Perm.Address" xml:space="preserve">
+    <value>DIREZIONE PERMANENTE/RESIDENZA</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>PASSEGGERO PRINCIPALE</value>
+  </data>
+  <data name="PersonSecond" xml:space="preserve">
+    <value>PASSEGGERI</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>NUMERO TELEFONICO</value>
+  </data>
+  <data name="PlaceHolder" xml:space="preserve">
+    <value>ESCREVA SUAS INFORMAÇÕES AQUI</value>
+  </data>
+  <data name="PlaceOfBirth" xml:space="preserve">
+    <value>LUOGO DI NASCITA</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>PROVINCIA</value>
+  </data>
+  <data name="QRexclusivo" xml:space="preserve">
+    <value>USO ESCLUSIVO CODICE QR PER CONVALIDA DOGANALE.</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Avviso</value>
+  </data>
+  <data name="ReceiverLn" xml:space="preserve">
+    <value>COGNOME DI CHI RICEVE</value>
+  </data>
+  <data name="ReceiverName" xml:space="preserve">
+    <value>NOME DI CHI RICEVE</value>
+  </data>
+  <data name="RelationShip" xml:space="preserve">
+    <value>RAPPORTO CON CHI INVIA E RICEVE</value>
+  </data>
+  <data name="Remove.companion" xml:space="preserve">
+    <value>ELIMINA PASSEGGERO</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>Richiesta</value>
+  </data>
+  <data name="Request.Info" xml:space="preserve">
+    <value>Assicurati di inserire il numero di passaporto e la nazionalità nello stesso modo in cui appaiono sul passaporto con cui viaggerai</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>QUESTO CAMPO È OBBLIGATORIO</value>
+  </data>
+  <data name="Required.DGA.In" xml:space="preserve">
+    <value> IL MODULO DELLA DICHIARAZIONE GIURATA DELLA DIREZIONE GENERALE DELLE DOGANE È RICHIESTO SOLO PER LE INGRESSI NEL PAESE</value>
+  </data>
+  <data name="Required.SP.In" xml:space="preserve">
+    <value>IL MODULO DEL MINISTERO DELLA SALUTE PUBBLICA È RICHIESTO SOLO PER GLI INGRESSI NEL PAESE</value>
+  </data>
+  <data name="RequiredFields" xml:space="preserve">
+    <value>I campi contrassegnati da un asterisco rosso sono obbligatori</value>
+  </data>
+  <data name="Res.Country" xml:space="preserve">
+    <value>PAESE DI RESIDENZA</value>
+  </data>
+  <data name="ResidenceNumber" xml:space="preserve">
+    <value>NUMERO DI RESIDENZA</value>
+  </data>
+  <data name="S.Motive" xml:space="preserve">
+    <value>MOTIVO SPECIFICO</value>
+  </data>
+  <data name="S1.P1" xml:space="preserve">
+    <value>Fare clic sul pulsante &lt;b&gt;  &lt;a href="#section-home"&gt;Richiesta biglietto elettronico&lt;/a&gt;&lt;/b&gt;</value>
+  </data>
+  <data name="S1.P2" xml:space="preserve">
+    <value>Scegli una domanda di sicurezza e rispondi, questo servirà per inserire nuovamente la tua richiesta.</value>
+  </data>
+  <data name="S1.P3" xml:space="preserve">
+    <value>Compila gli altri campi richiesti.</value>
+  </data>
+  <data name="S1.P4" xml:space="preserve">
+    <value>Fare clic su richiesta.</value>
+  </data>
+  <data name="S1.P5" xml:space="preserve">
+    <value>Se hai già un'applicazione, fai clic su Accedi e inserisci il numero della tua applicazione</value>
+  </data>
+  <data name="S2.P1" xml:space="preserve">
+    <value>"Salva il codice dell'applicazione generato, con questo codice puoi entrare nel modulo in qualsiasi momento."</value>
+  </data>
+  <data name="S2.P2" xml:space="preserve">
+    <value>Compila correttamente i dati richiesti.</value>
+  </data>
+  <data name="S2.P3" xml:space="preserve">
+    <value>La dichiarazione doganale unica è richiesta solo per le persone maggiorenni (18+)</value>
+  </data>
+  <data name="S2.P4" xml:space="preserve">
+    <value>La Dichiarazione dei sintomi è richiesta solo per l'ingresso nel paese.</value>
+  </data>
+  <data name="S3.P1" xml:space="preserve">
+    <value>Verrà generato un biglietto con un codice QR</value>
+  </data>
+  <data name="S3.P2" xml:space="preserve">
+    <value>Fare clic sul pulsante Genera PDF se si desidera salvarlo sul dispositivo</value>
+  </data>
+  <data name="S3.P3" xml:space="preserve">
+    <value>Conserva questo documento in quanto verrà richiesto dalla compagnia aerea al momento del check-in.</value>
+  </data>
+  <data name="S4.P1" xml:space="preserve">
+    <value>Quando sei allo sportello della compagnia aerea per eseguire il &lt;b&gt; Check-in &lt;/b&gt;, presenta questo codice QR</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>CERCARE</value>
+  </data>
+  <data name="SearchCountry" xml:space="preserve">
+    <value>TROVA UN PAESE</value>
+  </data>
+  <data name="Sector" xml:space="preserve">
+    <value>SETTORE</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>SELEZIONA UN'OPZIONE</value>
+  </data>
+  <data name="Select.opt" xml:space="preserve">
+    <value>SELEZIONARE</value>
+  </data>
+  <data name="SenderLn" xml:space="preserve">
+    <value>COGNOME DEL MITTENTE</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>NOMI DI CHI INVIA</value>
+  </data>
+  <data name="specify" xml:space="preserve">
+    <value>SPECIFICARE</value>
+  </data>
+  <data name="Specify.Motive" xml:space="preserve">
+    <value>SPECIFICARE IL MOTIVO DELLA PERMANENZA</value>
+  </data>
+  <data name="St.Number" xml:space="preserve">
+    <value>VIA E NUMERO</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>REGIONE / ( esempio: Lombardia)</value>
+  </data>
+  <data name="StayingDays" xml:space="preserve">
+    <value>SOGGIORNO / GIORNI</value>
+  </data>
+  <data name="Step.Four" xml:space="preserve">
+    <value>SALUTE PUBBLICA</value>
+  </data>
+  <data name="Step.One" xml:space="preserve">
+    <value>INFORMAZIONI GENERALI</value>
+  </data>
+  <data name="Step.Three" xml:space="preserve">
+    <value>INFORMAZIONI DOGANALI</value>
+  </data>
+  <data name="Step.Two" xml:space="preserve">
+    <value>INFORMAZIONI SULL'IMMIGRAZIONE</value>
+  </data>
+  <data name="StepsToContinue" xml:space="preserve">
+    <value>Passaggi per effettuare la tua richiesta</value>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>SPEDIRE</value>
+  </data>
+  <data name="SwalError" xml:space="preserve">
+    <value>C'È UN ERRORE NELLE VOSTRE INFORMAZIONI</value>
+  </data>
+  <data name="ticket" xml:space="preserve">
+    <value>BIGLIETTO DI IMBARCO E SBARCO DALLA REPUBBLICA DOMINICANA</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>DOMANDA DI MODULO E-TICKET</value>
+  </data>
+  <data name="Trans.Company" xml:space="preserve">
+    <value>COMPAGNIA DI TRASPORTO</value>
+  </data>
+  <data name="TransitCountries" xml:space="preserve">
+    <value>PAESI DI TRANSITO PRIMA DELL'ARRIVO NELLA REPUBBLICA DOMINICANA</value>
+  </data>
+  <data name="TransportMode" xml:space="preserve">
+    <value>MEZZO DI TRASPORTO</value>
+  </data>
+  <data name="Update.info" xml:space="preserve">
+    <value>AGGIORNA INFORMAZIONI</value>
+  </data>
+  <data name="UseWoth" xml:space="preserve">
+    <value>UTILIZZO E DESTINAZIONE DEL DENARO O DEI VALORI</value>
+  </data>
+  <data name="Val.IncorrectIdFormat" xml:space="preserve">
+    <value>FORMATO ID ERRATO</value>
+  </data>
+  <data name="Val.IncorrectPhoneNumber" xml:space="preserve">
+    <value>NUMERO DI TELEFONO INVALIDO</value>
+  </data>
+  <data name="Val.MaxLengthExceeded" xml:space="preserve">
+    <value>HAI SUPERATO IL NUMERO MASSIMO DI CARATTERI</value>
+  </data>
+  <data name="Val.MustFillAllApplications" xml:space="preserve">
+    <value>Deve compilare tutte le domande</value>
+  </data>
+  <data name="Val.NoSpecial" xml:space="preserve">
+    <value>NON SONO PERMESSI CARATTERI SPECIALI</value>
+  </data>
+  <data name="Val.RepeatedPassport" xml:space="preserve">
+    <value>Nella domanda è già presente un passeggero con questo numero di passaporto:</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Benvenuti nel portale del biglietto elettronico per l'ingresso e l'uscita dalla Repubblica Dominicana</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>SÌ</value>
+  </data>
+</root>

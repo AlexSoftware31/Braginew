@@ -1,0 +1,23 @@
+﻿@model Bragi.DataLayer.ViewModels.Auth.AuthViewModel
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> Localizer;
+
+<link href="~/css/login/Login.css" rel="stylesheet" />
+
+<form asp-action="RequestTravel" asp-controller="Auth" class="request-travel guide-2">
+    <div class="content guide-5">
+        <label  class="label-text"><b>@Localizer["Login.TravelQ"]</b>
+        <input type="checkbox" data-toggle="toggle" data-style="ios" class="check-label mb-5" data-offstyle="danger" data-onstyle="success" data-off="@Localizer["Login.No"]" data-on=" @Localizer["Login.Yes"]" onchange="ShowOrHideCompanions()" asp-for="HasCompanion">
+       </label>
+    </div>
+    <div  id="peoples" class="content">
+        <label  class="label-text"><b>@Localizer["Login.PersonQty"]</b></label>
+        <input asp-for=AcompanyNumber type="number" min="0" placeholder="@Localizer["Login.Max"]" max="6"  class="form-control" />
+    </div>
+    <div class="guide-7 mt-2 mb-2 content">
+        <div id='recaptcha' class="captcha" data-expired-callback="expiredCallback" data-error-callback="expiredCallback"></div>
+    </div>
+    <div id="btns" class="valing center guide-8 content btn-request-travel"  >
+        <input type="submit" id="btnSumbit" class="btn btn-request btn-block shadow-lg" style="display:none; border-radius: 50px;" value="@Localizer["Login.Submit"]"/>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary shadow-lg" style="width:100%;">@Localizer["Login.Cancel"]</a>
+    </div>
+</form>

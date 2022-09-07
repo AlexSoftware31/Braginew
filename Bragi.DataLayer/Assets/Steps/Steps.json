@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "GeneralInformation"
+  },
+  {
+    "Name": "MigratoryInformation"
+  },
+  {
+    "Name": "CustomsInformation"
+  },
+  {
+    "Name": "PublicHealth"
+  },
+  {
+    "Name": "Submitted"
+  }
+]

@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AirlineName" xml:space="preserve">
+    <value>NAME DER FLUGGESELLSCHAFT</value>
+  </data>
+  <data name="Ammount" xml:space="preserve">
+    <value>MENGE</value>
+  </data>
+  <data name="AppCode" xml:space="preserve">
+    <value>ANMELDUNGSCODE</value>
+  </data>
+  <data name="AppCode.Msg" xml:space="preserve">
+    <value>DIES IST IHR ANMELDUNGSCODE, UM DAS FORMULAR AUFZURUFEN. BITTE BEWAHREN SIE IHN SICHER AUF UND TEILEN SIE IHN MIT NIEMANDEM.</value>
+  </data>
+  <data name="applicant" xml:space="preserve">
+    <value>ANTRAGSTELLER</value>
+  </data>
+  <data name="AproxValue" xml:space="preserve">
+    <value>GESCHÄTZTER WERT</value>
+  </data>
+  <data name="BringsAnimals" xml:space="preserve">
+    <value>HABEN SIE LEBENDE TIERE, PFLANZEN ODER NAHRUNGSMITTEL BEI SICH ODER IN IHREM GEPÄCK?</value>
+  </data>
+  <data name="BringsTax" xml:space="preserve">
+    <value>HABEN SIE WAREN, DIE STEUERZAHLUNGEN UNTERLIEGEN, BEI SICH ODER IN IHREM GEPÄCK?</value>
+  </data>
+  <data name="Btn.Search" xml:space="preserve">
+    <value>SUCHE</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ABBRUCH</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>STADT</value>
+  </data>
+  <data name="CivilStatus" xml:space="preserve">
+    <value>FAMILIENSTAND</value>
+  </data>
+  <data name="Click.Here.Select" xml:space="preserve">
+    <value>KLICKEN SIE HIER, UM EINE AUSWAHL ZU TREFFEN</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>SCHLIESSEN</value>
+  </data>
+  <data name="Conf.Number" xml:space="preserve">
+    <value>FLUGBESTÄTIGUNGS NUMMER</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>LÄNDER</value>
+  </data>
+  <data name="Countries.LastDays" xml:space="preserve">
+    <value>LÄNDER, DIE IN DEN LETZTEN 30 TAGEN BESUCHT WURDEN</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>LAND</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>WÄHRUNG</value>
+  </data>
+  <data name="D.Port" xml:space="preserve">
+    <value>AUSSCHIFFUNGSHAFEN</value>
+  </data>
+  <data name="D.PORTNAME" xml:space="preserve">
+    <value>NAME DES ANKUNFTSHAFENS</value>
+  </data>
+  <data name="DateSintoms" xml:space="preserve">
+    <value>BEGINN DER SYMPTOME</value>
+  </data>
+  <data name="Declaration.Symptoms" xml:space="preserve">
+    <value>ERKLÄRUNG DER ZEICHEN UND SYMPTOME</value>
+  </data>
+  <data name="Declare" xml:space="preserve">
+    <value>GEBEN SIE DIE HERKUNFT DER WERTE AN</value>
+  </data>
+  <data name="DetailTax" xml:space="preserve">
+    <value>DETAILS ZU WAREN, DIE STEUERZAHLUNGEN UNTERLIEGEN</value>
+  </data>
+  <data name="Dga.Note" xml:space="preserve">
+    <value>HINWEIS: DER PASSAGIER KANN WAREN ODER OBJEKTE ALS GESCHENKE BIS ZU EINEM WERT VON USD$ 500.00 (FÜNFHUNDERT DOLLAR) MITBRINGEN. VON DIESER LOCKERUNG KANN NUR ALLE DREI (3) MONATE GEBRAUCH UND ANWENDUNG GEMACHT WERDEN. </value>
+  </data>
+  <data name="DGA.Required" xml:space="preserve">
+    <value>HINWEIS: DIE VORLAGE DIESER ERKLÄRUNG IST FÜR ALLE PASSAGIERE, DIE  AUS DER DR AUSREISEN ODER IN DIE DR EINREISEN VERPFLICHTEND. FÜR MINDERJÄHRIGE MUSS DAS FORMULAR VON DEM ERZIEHRUNGSBERECHTIGTEN VERVOLLSTÄNDIGT UND UNTERSCHRIEBEN WERDEN. DIE ERKLÄRUNG FEHLERHAFTER INFORMATIONEN KANN ZU STRAFEN FÜHREN, DARUNTER BESCHLAGNAHMUNG VON SICHERHEITEN, VON WAREN UND FREIHEITSENTZUG GEMÄSS ARTIKEL 200 DES GESETZES 3489, DER ZOLLREGELUNGEN UND DES ARTIKEL 4 DES GESETZES NO. 155-17 GEGEN VERMÖGENSWÄSCHE. DIESE ERKLÄRUNG MUSS VOM PASSAGIER WIE GEKENNZEICHNET UNTERSCHRIEBEN WERDEN.</value>
+  </data>
+  <data name="DidStopOver" xml:space="preserve">
+    <value>MACHEN SIE STOPPS IN ANDEREN LÄNDERN?</value>
+  </data>
+  <data name="DoB" xml:space="preserve">
+    <value>GEBURTSDATUM</value>
+  </data>
+  <data name="DOC.ID" xml:space="preserve">
+    <value>IDENTIFIKATIONSNUMMER</value>
+  </data>
+  <data name="DollarValue" xml:space="preserve">
+    <value>WERT IN DOLLAR</value>
+  </data>
+  <data name="Dr.Address" xml:space="preserve">
+    <value>ADRESSE IN DER DOMINIKANISCHEN REPUBLIK</value>
+  </data>
+  <data name="E.Port" xml:space="preserve">
+    <value>ABFAHRTSHAFEN</value>
+  </data>
+  <data name="E.PORTNAME" xml:space="preserve">
+    <value>NAME DES ABFAHRTSHAFEN</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>EMAIL</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>EINSTIEG</value>
+  </data>
+  <data name="Error.Information" xml:space="preserve">
+    <value>FALSCHE INFORMATIONEN</value>
+  </data>
+  <data name="ExceedMax" xml:space="preserve">
+    <value>DER BEREICH MUSS ZWISCHEN 1 UND 40 LIEGEN</value>
+  </data>
+  <data name="Gend.F" xml:space="preserve">
+    <value>WEIBLICH</value>
+  </data>
+  <data name="Gend.M" xml:space="preserve">
+    <value>MÄNNLICH</value>
+  </data>
+  <data name="Gend.X" xml:space="preserve">
+    <value>DIVERS</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>GESCHLECHT</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>EINEN SCHRITT ZURÜCK</value>
+  </data>
+  <data name="Hotel" xml:space="preserve">
+    <value>HOTEL</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>Eingang zur Dominikanischen Republik</value>
+  </data>
+  <data name="IsCommonAddress" xml:space="preserve">
+    <value>GEMEINSAME ADRESSE?</value>
+  </data>
+  <data name="IsCommonHotel" xml:space="preserve">
+    <value>SIND SIE IM SELBEN HOTEL?</value>
+  </data>
+  <data name="IsHotel" xml:space="preserve">
+    <value>ÜBERNACHTEN SIE IN EINEM HOTEL?</value>
+  </data>
+  <data name="IsHotelOut" xml:space="preserve">
+    <value>HABEN SIE IN EINEM HOTEL ÜBERNACHTET?</value>
+  </data>
+  <data name="isIn" xml:space="preserve">
+    <value>DIE VOM GESUNDHEITSMINISTERIUM ERFORDERLICHE EIDESSTAATLICHE ERKLÄRUNG ZUR GESUNDHEIT IST NUR BEI EINREISE INS LAND NOTWENDIG</value>
+  </data>
+  <data name="isInvalid" xml:space="preserve">
+    <value>DAS FELD IST UNGÜLTIG</value>
+  </data>
+  <data name="IsNotEquals" xml:space="preserve">
+    <value>DIE WERTE SIND NICHT GLEICH</value>
+  </data>
+  <data name="IsOwner" xml:space="preserve">
+    <value>SIND SIE DER EIGENTÜMER DER WERTE, DIE SIE BEI SICH FÜHREN?</value>
+  </data>
+  <data name="IsParticularStay" xml:space="preserve">
+    <value>WOHNEN SIE IN EINER PRIVATEN MIETUNTERKUNFT (z.B. AirBnB)?</value>
+  </data>
+  <data name="IsParticularStayOut" xml:space="preserve">
+    <value>HABEN SIE IN EINER PRIVATEN UNTERKUNFT ÜBERNACHTET (z.B. AirBnB)?</value>
+  </data>
+  <data name="IsResident" xml:space="preserve">
+    <value>SIND SIE EIN AUSLÄNDER IN DER DOMINIKANISCHEN REPUBLIK?</value>
+  </data>
+  <data name="IsUnderAge" xml:space="preserve">
+    <value>MINDERJÄHRIGE MÜSSEN KEINE STEUERERSTATTUNG BEANTRAGEN</value>
+  </data>
+  <data name="L.Names" xml:space="preserve">
+    <value>NACHNAMEN</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>LOGOUT</value>
+  </data>
+  <data name="MerchDescription" xml:space="preserve">
+    <value>BESCHREIBUNG DER WARE</value>
+  </data>
+  <data name="Money.Exceeds" xml:space="preserve">
+    <value>FÜHREN SIE, BRINGEN SIE ODER TRAGEN SIE UND/ ODER IHRE FAMILIENMITGLIEDER IN IHREM GEPÄCK WÄHRUNGSWERTE ODER ANDERE ZAHLUNGSMITTEL MIT/BEI SICH, DIE EINEN BETRAG VON USD $10,000.000 ODER DEN ENTSPRECHENDEN GEGENWERT IN EINER ANDEREN WÄHRUNGSART  (IN ANDEREN WÄHRUNGSARTEN) ÜBERSTEIGEN?</value>
+  </data>
+  <data name="Motive" xml:space="preserve">
+    <value>ANLASS</value>
+  </data>
+  <data name="MSP.Question" xml:space="preserve">
+    <value>Haben Sie in den letzten 72 Stunden eines oder mehrere der folgenden Symptome präsentiert?</value>
+  </data>
+  <data name="Municipality" xml:space="preserve">
+    <value>GEMEINDE</value>
+  </data>
+  <data name="Names" xml:space="preserve">
+    <value>NAMEN</value>
+  </data>
+  <data name="Nat" xml:space="preserve">
+    <value>STAATSANGEHÖRIGKEIT</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>WEITER</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NEIN</value>
+  </data>
+  <data name="O.FlightDate" xml:space="preserve">
+    <value>FLUGDATUM</value>
+  </data>
+  <data name="O.FlightNumber" xml:space="preserve">
+    <value>FLUGNUMMER</value>
+  </data>
+  <data name="O.Port" xml:space="preserve">
+    <value>HERKUNFTSORT</value>
+  </data>
+  <data name="O.PortName" xml:space="preserve">
+    <value>NAME DES HERKUNFTSORTS</value>
+  </data>
+  <data name="Ocupation" xml:space="preserve">
+    <value>BERUF</value>
+  </data>
+  <data name="Only.Arrival.DGA" xml:space="preserve">
+    <value>DAS ZOLLFORMULAR DEKLARIERT NUR DIE EINREISE</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>ANDERE</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>Abfahrt aus der Dominikanischen Republik</value>
+  </data>
+  <data name="P.O" xml:space="preserve">
+    <value>POSTLEITZAHL</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>REISEPASS</value>
+  </data>
+  <data name="PassportConfirm" xml:space="preserve">
+    <value>BESTÄTIGEN SIE DEN REISEPASS</value>
+  </data>
+  <data name="Perm.Address" xml:space="preserve">
+    <value>STÄNDIGER WOHNSITZ</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>PASSAGIER</value>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>TELEFONNUMMER</value>
+  </data>
+  <data name="PlaceOfBirth" xml:space="preserve">
+    <value>GEBURTSORT</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>PROVINZ</value>
+  </data>
+  <data name="ReceiverLn" xml:space="preserve">
+    <value>NACHNAME DES EMPFÄNGERS</value>
+  </data>
+  <data name="ReceiverName" xml:space="preserve">
+    <value>VORNAME DES EMPFÄNGERS</value>
+  </data>
+  <data name="RelationShip" xml:space="preserve">
+    <value>BEZIEHUNG ZUM SENDER ODER EMPFÄNGER</value>
+  </data>
+  <data name="Remove.companion" xml:space="preserve">
+    <value>PASSAGIER ENTFERNEN</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>DIES IST EIN PFLICHTFELD</value>
+  </data>
+  <data name="Required.DGA.In" xml:space="preserve">
+    <value>DAS FORMULAR DER EIDESSTATTLICHEN ERKLÄRUNG DER ZOLLBEHÖRDE IST NUR FÜR EINREISEN IN DAS LAND ERFORDERLICH</value>
+  </data>
+  <data name="Res.Country" xml:space="preserve">
+    <value>LAND DES WOHNSITZES</value>
+  </data>
+  <data name="ResidenceNumber" xml:space="preserve">
+    <value>WOHNSITZNUMMER</value>
+  </data>
+  <data name="S.Motive" xml:space="preserve">
+    <value>BESONDERER ANLASS</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>SUCHEN</value>
+  </data>
+  <data name="SearchCountry" xml:space="preserve">
+    <value>LÄNDERSUCHE</value>
+  </data>
+  <data name="Sector" xml:space="preserve">
+    <value>ABSCHNITT</value>
+  </data>
+  <data name="Select.opt" xml:space="preserve">
+    <value>WÄHLEN SIE EINE OPTION</value>
+  </data>
+  <data name="SenderLn" xml:space="preserve">
+    <value>NACHNAME DES SENDERS</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>NAME DES SENDERS</value>
+  </data>
+  <data name="specify" xml:space="preserve">
+    <value>SPEZIFIZIEREN</value>
+  </data>
+  <data name="Specify.Motive" xml:space="preserve">
+    <value>SPEZIFIZIERUNG DES AUFENTHALTSANLASSES</value>
+  </data>
+  <data name="St.Number" xml:space="preserve">
+    <value>STRASSE UND HAUSNUMMER</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>STAAT </value>
+  </data>
+  <data name="StayingDays" xml:space="preserve">
+    <value>LÄNGE DES AUFENTHALTS (TAGE)</value>
+  </data>
+  <data name="Step.Four" xml:space="preserve">
+    <value>GESUNDHEITSMINISTERIUM</value>
+  </data>
+  <data name="Step.One" xml:space="preserve">
+    <value>ALLGEMEINE INFORMATIONEN</value>
+  </data>
+  <data name="Step.Three" xml:space="preserve">
+    <value>ZOLLINFORMATIONEN</value>
+  </data>
+  <data name="Step.Two" xml:space="preserve">
+    <value>MIGRATIONSINFORMATIONEN</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>ABSCHICKEN</value>
+  </data>
+  <data name="SwalError" xml:space="preserve">
+    <value>Bei Ihrem Anmeldungscode oder in Ihrer Sicherheitsantwort ist ein Fehler aufgetreten</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>E-TICKET ANMELDUNG</value>
+  </data>
+  <data name="Trans.Company" xml:space="preserve">
+    <value>BEFÖRDERUNGSUNTERNEHMEN</value>
+  </data>
+  <data name="TransitCountries" xml:space="preserve">
+    <value>TRANSITLÄNDER VOR ANKUNFT IN DER DOMINIKANISCHEN REPUBLIK</value>
+  </data>
+  <data name="TransportMode" xml:space="preserve">
+    <value>ART DER BEFÖRDERUNG</value>
+  </data>
+  <data name="Update.info" xml:space="preserve">
+    <value>UPDATE-INFORMATIONEN</value>
+  </data>
+  <data name="UseWoth" xml:space="preserve">
+    <value>GEBRAUCH ODER ZIELORT DES GELDES ODER DER WERTGEGENSTÄNDE</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>JA</value>
+  </data>
+</root>

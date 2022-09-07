@@ -1,0 +1,656 @@
+﻿@using Bragi.DataLayer.Models.MigratoryInfo
+@using Bragi.DataLayer.ViewModels.Airlines
+@using Bragi.DataLayer.ViewModels.Countries
+@using Bragi.DataLayer.ViewModels.FlightMotives
+@using Bragi.DataLayer.ViewModels.GenericInformations
+@using Bragi.DataLayer.ViewModels.GeoCodes
+@using Bragi.DataLayer.ViewModels.Hotels
+@using Bragi.DataLayer.ViewModels.Ocupations
+@using Bragi.DataLayer.ViewModels.Ports
+@using Microsoft.Extensions.Localization
+@model Bragi.DataLayer.ViewModels.MigratoryInfo.MigratoryInfoView
+@inject IHtmlLocalizer<Bragi.DataLayer.SharedResource> localizer
+
+@{
+    var domPorts = Model.Ports.Where(x => x.IsDominicanPort).ToList();
+    var foreignPorts = Model.Ports.Where(x => !x.IsDominicanPort).ToList();
+    var defaultOrToday = Model.MigratoryInformation.BirthDate.ToString("yyyy-MM-dd") == "0001-01-01" ? null : Model.MigratoryInformation.BirthDate.ToString("yyyy-MM-dd");
+    var routeData = new Dictionary<string, string>()
+{
+        { "token", Context.Request.Query["token"] }
+    };
+
+    Model.MigratoryInformation.StopOverInCountries = Model.GenericInformation.StopOverInCountries;
+    Model.MigratoryInformation.IsArrival = Model.GenericInformation.IsArrival;
+    var IsTaxReturnInfo = (Model.MigratoryInformation.TaxReturnInfo != null) ? true : false;
+    Model.MigratoryInformation.IsTaxReturnInfo = IsTaxReturnInfo;
+}
+<link href="~/css/StepTwo/index.css" rel="stylesheet" />
+<hr />
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container-fluid guide-2">
+    <form asp-action="StepTwo" id="form-@Model.PersonIndex" data-index="@Model.PersonIndex" asp-all-route-data="routeData">
+        <div class="row mt-sm-5">
+            <input asp-for="MigratoryInformation.StopOverInCountries" class="form-control" hidden />
+            <input asp-for="MigratoryInformation.ApplicationId" class="form-control" hidden />
+            <input asp-for="MigratoryInformation.Id" class="form-control" hidden />
+            <input asp-for="MigratoryInformation.IsPrincipal" class="form-control" hidden />
+            <input asp-for="GenericInformation.IsArrival" class="form-control" hidden />
+            <input asp-for="MigratoryInformation.IsArrival" class="form-control" hidden />
+            <input asp-for="GenericInformation.Companions" value="@Model.Companions" hidden />
+            <input asp-for="Token" value="@Model.Token" hidden />
+            <input asp-for="PersonIndex" value="@Model.PersonIndex" hidden />
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Names"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <input asp-for="MigratoryInformation.Names" class="form-control" />
+                    <span asp-validation-for="MigratoryInformation.Names" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["L.Names"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <input asp-for="MigratoryInformation.LastNames" class="form-control" />
+                    <span asp-validation-for="MigratoryInformation.LastNames" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["DoB"]</label>
+                    <input asp-for="MigratoryInformation.BirthDate" class="form-control" type="date" id="dobSelect-@Model.PersonIndex" min="1900-01-01" max="@DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd")" value="@defaultOrToday" />
+                    <span asp-validation-for="MigratoryInformation.BirthDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Gender"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="form-control selectpicker" asp-for="MigratoryInformation.Gender">
+                        <option value="" selected">@localizer["Select"]</option>
+                        <option value="M"> @localizer["Gend.M"]</option>
+                        <option value="F"> @localizer["Gend.F"]</option>
+                        <option value="X"> @localizer["Gend.X"]</option>
+                    </select>
+                    <span asp-validation-for="MigratoryInformation.Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label"> @localizer["PlaceOfBirth"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select asp-for="MigratoryInformation.BirthPlace" class="selectpicker form-control" data-live-search="true" onchange="toggleBirthPlace('@Model.PersonIndex')" data-size="10" asp-items="new SelectList(Model.Countries.OrderBy(x=> x.Name),nameof(CountryViewModel.Iso3),nameof(CountryViewModel.FullName))">
+                        <option value="" selected>@localizer["Select"]</option>
+                    </select>
+                    <span asp-validation-for="MigratoryInformation.BirthPlace" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label"> @localizer["Nat"] <span class="text-danger" style="font-size: 16px;"> *</span></label>
+                    <select asp-for="MigratoryInformation.Nationality" onchange="toggleDocumentNumber('@Model.PersonIndex')" class="selectpicker form-control" id="selectNat-@Model.PersonIndex" data-live-search="true" data-size="10" asp-items="new SelectList(Model.Countries.OrderBy(x=> x.Name), nameof(CountryViewModel.Iso3), nameof(CountryViewModel.FullName))">
+                        <option value="" selected>@localizer["Select"]</option>
+                    </select>
+                    <div>
+                        <span class="text-dark message">@localizer["Mig.InfoSpan"]</span>
+                    </div>
+                    <span asp-validation-for="MigratoryInformation.Nationality" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["Passport"]
+                    </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <input asp-for="MigratoryInformation.PassportNumber" class="form-control" />
+                    <span class="text-dark message">@localizer["Mig.InfoSpanP"]</span>
+                    <div>
+                        <span asp-validation-for="MigratoryInformation.PassportNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["PassportConfirm"]
+                    </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <input id="passportConfirmation-@Model.PersonIndex" class="form-control" asp-for="MigratoryInformation.PassportConfirmation" />
+                    <span asp-validation-for="MigratoryInformation.PassportConfirmation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["CivilStatus"]
+                    </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" asp-for="MigratoryInformation.MaritalStatusId" data-live-search="true" data-size="10" asp-items="new SelectList(Model.MaritalStatus.OrderByDescending(x=> x.Id), nameof(MaritalStatusViewModel.Id), nameof(MaritalStatusViewModel.Text))">
+                        <option value="" selected>@localizer["Select"]</option>
+                    </select>
+                    <span asp-validation-for="MigratoryInformation.MaritalStatusId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["Ocupation"]
+                    </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" asp-for="MigratoryInformation.OcupationId" data-live-search="true" data-size="10" asp-items="new SelectList(Model.Ocupation.OrderByDescending(x=> x.Id), nameof(OcupationViewModel.Id), nameof(OcupationViewModel.Text))">
+                        <option value="" selected>@localizer["Select"]</option>
+                    </select>
+                    <span asp-validation-for="MigratoryInformation.OcupationId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4 align-self-end" id="isResidentContainer-@Model.PersonIndex">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        @localizer["IsResident"]
+                        <input data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" class="form-check-input" onchange="toggleIsResidence('@Model.PersonIndex')" asp-for="MigratoryInformation.IsResident" id="checkIsResident-@Model.PersonIndex" />
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4" id="residenceNumb-@Model.PersonIndex">
+                <div class="form-group">
+                    <label class="control-label">@localizer["ResidenceNumber"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <input asp-for="MigratoryInformation.ResidenceNumber" class="form-control" />
+                    <span asp-validation-for="MigratoryInformation.ResidenceNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4" id="documentIdContainer-@Model.PersonIndex">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["DOC.ID"]
+                    </label>
+                    <input asp-for="MigratoryInformation.DocumentIdNumber" class="form-control cedula" id="documentIdNum-@Model.PersonIndex" />
+                    <span asp-validation-for="MigratoryInformation.DocumentIdNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4 align-self-end">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <label class="form-check-label">
+                            @(Model.GenericInformation.IsArrival ? @localizer["IsParticularStay"] : @localizer["IsParticularStayOut"])
+                            <input asp-for="MigratoryInformation.IsParticularStaying" type="checkbox" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]">
+                        </label>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-4 align-self-end" id="willstayAtResortContainer-@Model.PersonIndex">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        @(Model.GenericInformation.IsArrival ? localizer["IsHotel"] : localizer["IsHotelOut"])
+                        <input asp-for="MigratoryInformation.WillStayAtResort" id="willStayAtResort-@Model.PersonIndex" onchange="toggleHotel('@Model.PersonIndex',@Model.IsPrincipal.ToString().ToLower())" type="checkbox" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]">
+                    </label>
+                </div>
+            </div>
+            @{
+                if (!Model.MigratoryInformation.IsPrincipal) // If not principal, render IsCommonHotel
+                {
+                    <div class="col-md-4 align-self-end" id="commonHotelContainer-@Model.PersonIndex">
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                @localizer["IsCommonHotel"] <input class="form-check-input" id="isCommonHotel-@Model.PersonIndex" onchange="toggleCommonHotel('@Model.PersonIndex', @Model.MigratoryInformation.IsPrincipal.ToString().ToLower() )" asp-for="MigratoryInformation.HasCommonHotel" type="checkbox" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" />
+                            </label>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="col-md-4" hidden id="hotelselect-@Model.PersonIndex">
+                <div class="form-group ">
+                    <label class="control-label"> @localizer["Hotel"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" asp-for="MigratoryInformation.HotelId" data-live-search="true" data-size="10" asp-items="new SelectList(Model.Hotels, nameof(HotelViewModel.Id), nameof(HotelViewModel.Name))">
+                        <option value="" selected>@localizer["Select"]</option>
+                    </select>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="MigratoryInformation_HotelId"></span>
+                </div>
+            </div>
+
+            @{
+                //If not principal render CommonAddress
+                if (!Model.MigratoryInformation.IsPrincipal)
+                {
+                    <div class="col-md-4" id="isCommonAddressContainer-@Model.PersonIndex">
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                @localizer["IsCommonAddress"] <input class="form-check-input" id="isCommonAddress-@Model.PersonIndex" onchange="toggleCommonAddress('@Model.PersonIndex', @Model.IsPrincipal.ToString().ToLower())" asp-for="MigratoryInformation.HasCommonAddress" type="checkbox" data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" />
+                            </label>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row mt-sm-5" id="domAddress-@Model.PersonIndex">
+            <div class="col-md-12">
+                <h3 class="text-center titles">@localizer["Dr.Address"]</h3>
+                <hr />
+            </div>
+            <br /><br /><br /><br />
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Province"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" onchange="populateMunicipalities('@Model.PersonIndex')" data-live-search="true" data-size="10" id="selectProvinces-@Model.PersonIndex" asp-items="new SelectList(Model.Provinces, nameof(ProvincesViewModel.Province), nameof(ProvincesViewModel.ToponomyName))">
+                        @{
+                            if (Model.MigratoryInformation.Id.Equals(0))
+                            {
+                                <option value="" selected>@localizer["Select"]</option>
+                            }
+                        }
+                    </select>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="selectProvinces-@Model.PersonIndex"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Municipality"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" onchange="populateSectors('@Model.PersonIndex')" data-live-search="true" data-size="10" id="selectMunicipality-@Model.PersonIndex">
+                        @{
+                            if (Model.MigratoryInformation.Id.Equals(0))
+                            {
+                                <option value="" selected>@localizer["Select"]</option>
+                            }
+                        }
+                    </select>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="selectMunicipality-@Model.PersonIndex"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Sector"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" data-live-search="true" data-size="10" id="selectSector-@Model.PersonIndex" asp-for="MigratoryInformation.GeoCode">
+                        @{
+                            if (Model.MigratoryInformation.Id.Equals(0))
+                            {
+                                <option value="" selected>@localizer["Select"]</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="MigratoryInformation.GeoCode" class="text-danger"></span>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="selectSector-@Model.PersonIndex"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">@localizer["St.Number"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <textarea asp-for="MigratoryInformation.Street" class="form-control" id="txtStreet-@Model.PersonIndex"></textarea>
+                    <span asp-validation-for="MigratoryInformation.Street" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            @*Condiciones del formulario para si es entrada o salida*@
+            @{
+                if (Model.GenericInformation.IsArrival && Model.MigratoryInformation.IsPrincipal)
+                {
+                    /*Si Realiza Escalas en otros paises*/
+                    if (Model.GenericInformation.StopOverInCountries)
+                    {
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">@localizer["O.Port"]</label>
+                                <select class="selectpicker form-control" asp-for="MigratoryInformation.OriginPortNavId" data-live-search="true" data-size="10" asp-items="new SelectList(foreignPorts, nameof(PortViewModel.Id), nameof(PortViewModel.FullName))">
+                                </select>
+                                <span asp-validation-for="MigratoryInformation.OriginPortNavId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        //Este solo debe aparecer si eligen otro en el dd
+                        <div class="col-md-4" hidden>
+                            <div class="form-group">
+                                <label class="control-label">@localizer["O.PortName"]</label>
+                                <input asp-for="MigratoryInformation.OriginPort" class="form-control" />
+                                <span asp-validation-for="MigratoryInformation.OriginPort" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label"> @localizer["O.FlightNumber"]</label>
+                                <input asp-for="MigratoryInformation.OriginFlightNumber" class="form-control" />
+                                <span asp-validation-for="MigratoryInformation.OriginFlightNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @{
+                                    var origindate = Model.MigratoryInformation.OriginFlightDate?.ToString("yyyy-MM-dd");
+                                }
+                                <label class="control-label"> @localizer["O.FlightDate"]</label>
+                                <input asp-for="MigratoryInformation.OriginFlightDate" class="form-control" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddMonths(2).ToString("yyyy-MM-dd")" value="@origindate" />
+                                <span asp-validation-for="MigratoryInformation.OriginFlightDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["E.Port"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <select class="selectpicker form-control" asp-for="MigratoryInformation.EmbarkationPortNavId" data-live-search="true" data-size="10" asp-items="new SelectList(foreignPorts, nameof(PortViewModel.Id), nameof(PortViewModel.FullName))">
+                                <option value="" selected>@localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="MigratoryInformation.EmbarkationPortNavId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    //Este debe salir si eligen otro en el select
+                    <div class="col-md-4" hidden>
+                        <div class="form-group">
+                            <label class="control-label">@localizer["E.PORTNAME"]</label>
+                            <input asp-for="MigratoryInformation.EmbarkationPort" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.EmbarkationPort" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["O.FlightNumber"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <input asp-for="MigratoryInformation.EmbarcationFlightNumber" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.EmbarcationFlightNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @{
+                                var embkdate = Model.MigratoryInformation.EmbarcationDate?.ToString("yyyy-MM-dd");
+                            }
+                            <label class="control-label"> @localizer["O.FlightDate"]</label>
+                            <input asp-for="MigratoryInformation.EmbarcationDate" class="form-control" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddMonths(2).ToString("yyyy-MM-dd")" value="@embkdate" />
+                            <span asp-validation-for="MigratoryInformation.EmbarcationDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["D.Port"] </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <select class="selectpicker form-control" asp-for="MigratoryInformation.DisembarkationPortNavId" data-live-search="true" data-size="10" asp-items="new SelectList(domPorts, nameof(PortViewModel.Id), nameof(PortViewModel.FullName))">
+                                <option value="" selected>@localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="MigratoryInformation.DisembarkationPortNavId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    //Este debe salir si eligen otro en el select
+                    <div class="col-md-4" hidden>
+                        <div class="form-group">
+                            <label class="control-label">@localizer["D.PORTNAME"]</label>
+                            <input asp-for="MigratoryInformation.DisembarkationPort" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.DisembarkationPort" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    @*if (!Model.GenericInformation.StopOverInCountries)
+                        {
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">@localizer["O.FlightNumber"]</label>
+                                    <input asp-for="MigratoryInformation.DisembarkationFligthNumber" class="form-control" />
+                                    <span asp-validation-for="MigratoryInformation.DisembarkationFligthNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        }*@
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label"> @localizer["AirlineName"]</label> <span class="text-danger" style="font-size: 16px;"> *</span>
+                            <select class="selectpicker form-control" asp-for="MigratoryInformation.AirlineId" data-live-search="true" onchange="toggleAirlines('@Model.PersonIndex')" data-size="10" asp-items="new SelectList(Model.Airline, nameof(AirlineViewModel.Id), nameof(AirlineViewModel.FullName))">
+                                <option value="" selected>@localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="MigratoryInformation.AirlineId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*Debe aparecer si eligen otros en aerolinea*@
+                    <div class="col-md-4" hidden id="transportCompany-@Model.PersonIndex">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["Trans.Company"]</label>
+                            <input asp-for="MigratoryInformation.TransportationCompany" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.TransportationCompany" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+                else if (!Model.GenericInformation.IsArrival && Model.MigratoryInformation.IsPrincipal)
+                {
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["E.Port"] </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <select class="selectpicker form-control" asp-for="MigratoryInformation.EmbarkationPortNavId" data-live-search="true" data-size="10" asp-items="new SelectList(domPorts, nameof(PortViewModel.Id), nameof(PortViewModel.FullName))">
+                                <option value="" selected>@localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="MigratoryInformation.EmbarkationPortNavId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["O.FlightNumber"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <input asp-for="MigratoryInformation.EmbarcationFlightNumber" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.EmbarcationFlightNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    //Este debe salir si eligen otro en el select
+                    <div class="col-md-4" hidden>
+                        <div class="form-group">
+                            <label class="control-label">@localizer["E.PORTNAME"]</label>
+                            <input asp-for="MigratoryInformation.EmbarkationPort" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.EmbarkationPort" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @{
+                                var embkdate = Model.MigratoryInformation.EmbarcationDate?.ToString("yyyy-MM-dd") ?? null;
+                            }
+                            <label class="control-label"> @localizer["O.FlightDate"]</label>
+                            <input asp-for="MigratoryInformation.EmbarcationDate" class="form-control" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.AddMonths(2).ToString("yyyy-MM-dd")" value="@embkdate" />
+                            <span asp-validation-for="MigratoryInformation.EmbarcationDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["D.Port"] </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <select class="selectpicker form-control" asp-for="MigratoryInformation.DisembarkationPortNavId" data-live-search="true" data-size="10" asp-items="new SelectList(foreignPorts, nameof(PortViewModel.Id), nameof(PortViewModel.FullName))">
+                                <option value="" selected>@localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="MigratoryInformation.DisembarkationPortNavId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    //Este debe salir si eligen otro en el select
+                    <div class="col-md-4" hidden>
+                        <div class="form-group">
+                            <label class="control-label">@localizer["D.PORTNAME"]</label>
+                            <input asp-for="MigratoryInformation.DisembarkationPort" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.DisembarkationPort" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label"> @localizer["AirlineName"] </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                            <select class="selectpicker form-control" asp-for="MigratoryInformation.AirlineId" data-live-search="true" id="selectAirline-@Model.PersonIndex" onchange="toggleAirlines('@Model.PersonIndex')" data-size="10" asp-items="new SelectList(Model.Airline, nameof(AirlineViewModel.Id), nameof(AirlineViewModel.FullName))">
+                                <option value="" selected>@localizer["Select"]</option>
+                            </select>
+                            <span asp-validation-for="MigratoryInformation.AirlineId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*Debe aparecer si eligen otros en aerolinea*@
+                    <div class="col-md-4" hidden id="transportCompany-@Model.PersonIndex">
+                        <div class="form-group">
+                            <label class="control-label">@localizer["Trans.Company"]</label>
+                            <input asp-for="MigratoryInformation.TransportationCompany" class="form-control" />
+                            <span asp-validation-for="MigratoryInformation.TransportationCompany" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @*<div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">@localizer["O.FlightNumber"]</label>
+                                <input asp-for="MigratoryInformation.DisembarkationFligthNumber" class="form-control" />
+                                <span asp-validation-for="MigratoryInformation.DisembarkationFligthNumber" class="text-danger"></span>
+                            </div>
+                        </div>*@
+                }
+            }
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label"> @localizer["Conf.Number"]</label>
+                    <input asp-for="MigratoryInformation.ConfirmationNumber" class="form-control" />
+                    <span asp-validation-for="MigratoryInformation.ConfirmationNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Motive"] </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                    <select class="selectpicker form-control" id="flightMotiveId-@Model.PersonIndex" onchange="toggleSpecificFlightMotive('@Model.PersonIndex')" asp-for="MigratoryInformation.FlightMotiveId" data-live-search="true" data-size="10" asp-items="new SelectList(Model.FlightMotives.OrderByDescending(x=> x.Id), nameof(FlightMotiveViewModel.Id), nameof(FlightMotiveViewModel.Text))">
+                        <option value="" selected>@localizer["Select"]</option>
+                    </select>
+                    <span asp-validation-for="MigratoryInformation.FlightMotiveId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4" hidden id="specificFlight-@Model.PersonIndex">
+                <div class="form-group">
+                    <label class="control-label">
+                        @localizer["Specify.Motive"]
+                    </label>
+                    <input asp-for="MigratoryInformation.SpecificFlightMotive" class="form-control" />
+                    <span asp-validation-for="MigratoryInformation.SpecificFlightMotive" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4" id="stayingDaysContainer-@Model.PersonIndex">
+                <div class="form-group">
+                    @{
+                        int days = Model.MigratoryInformation.DaysOfStaying == 0 ? 1 : Model.MigratoryInformation.DaysOfStaying;
+                    }
+                    <label class="control-label">@localizer["StayingDays"]</label>
+                    <input type="number" asp-for="MigratoryInformation.DaysOfStaying" class="form-control" value="@days" />
+                    <span asp-validation-for="MigratoryInformation.DaysOfStaying" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label">@localizer["Email"]</label>
+                    <input type="email" asp-for="MigratoryInformation.Email" class="form-control" />
+                    <span asp-validation-for="MigratoryInformation.Email" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="IsTaskReturn-@Model.PersonIndex" hidden="hidden">
+            <hr/>
+            <div class="row" >
+                <div class="col-md-4 align-self-end" id="isTaxReturn-@Model.PersonIndex">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            @localizer["IsTaxReturn"]
+                            <input data-style="ios" data-offstyle="danger" data-onstyle="success" data-toggle="toggle" data-size="xs" data-on="@localizer["Yes"]" data-off="@localizer["No"]" class="form-check-input" onchange="toggleIsTaskReturnModal('@Model.PersonIndex')"  asp-for="MigratoryInformation.IsTaxReturnInfo" id="checkIsTaskReturn-@Model.PersonIndex" />
+                            @Html.HiddenFor(x=> x.MigratoryInformation.TaxReturnInfo.Id)
+                            <br />
+                            <small class="text-danger">@localizer["TaxReturnInfo.OnlyApply"]</small>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4" id="cedulaNumb-@Model.PersonIndex" hidden>
+                    <div class="form-group">
+                        <label class="control-label"> @localizer["DOC.ID"] </label><span class="text-danger" style="font-size: 16px;"> *</span>
+                        <input asp-for="MigratoryInformation.TaxReturnInfo.Cedula" class="form-control cedula" />
+                         <span asp-validation-for="MigratoryInformation.TaxReturnInfo.Telefono" id="TaxReturnInfo_Telefono_Validation" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4" id="TaxTelefonoNumb-@Model.PersonIndex" hidden>
+                    <div class="form-group">
+                        <label class="control-label">@localizer["phoneNumber"]</label><span class="text-danger" style="font-size: 16px;"> *</span>
+                        <input asp-for="MigratoryInformation.TaxReturnInfo.Telefono" class="form-control MigratoryInformation_TaxReturnInfo_Telefono" />
+                        <span asp-validation-for="MigratoryInformation.TaxReturnInfo.Telefono" id="TaxReturnInfo_Telefono_Validation" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-md-end">
+            <div class="col-md-4 align-self-md-end">
+                <div class="form-group">
+                    <a asp-action="StepOne" asp-route-token="@Model.Token" class="btn btn-secondary btn-block btn-return">@localizer["GoBack"]</a>
+                </div>
+            </div>
+            <div class="col-md-4  align-self-md-end">
+                <div class="form-group">
+                    @{
+                        if (!Model.GenericInformation.IsArrival && Model.PersonIndex.Equals(Model.Companions + 1))
+                        {
+                            <button class="btn btn-block" style="background-color: #10439C; color: white;" type="button" onclick="submitAction(@Model.GenericInformation.ApplicationId,@Model.PersonIndex)">
+                                @{
+                                    if (Model.MigratoryInformation.Id > 0)
+                                    {
+                                        @localizer["Update.info"]
+                                    }
+                                    else
+                                    {
+                                        @localizer["Next"]
+
+                                    }
+                                }
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-block" style="background-color: #10439C; color: white;" type="submit">
+                                @{
+                                    if (Model.MigratoryInformation.Id > 0)
+                                    {
+                                        @localizer["Update.info"]
+                                    }
+                                    else
+                                    {
+                                        @localizer["Next"]
+
+                                    }
+                                }
+                            </button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+    $(document).ready(async function () {
+        await populateMunicipalities('@Model.PersonIndex').then(async function() {
+            await geoSet('@Model.MigratoryInformation.GeoCode?.Substring(4, 2)',
+                '@Model.MigratoryInformation.GeoCode?.Substring(6, 2)',
+                '@Model.MigratoryInformation.GeoCode', '@Model.PersonIndex');
+            initializeComponents();
+            toggleDocumentNumber('@Model.PersonIndex');
+            toggleHotel('@Model.PersonIndex', @Model.MigratoryInformation.IsPrincipal.ToString().ToLower());
+            toggleCommonAddress('@Model.PersonIndex', @Model.MigratoryInformation.IsPrincipal.ToString().ToLower());
+            @{
+                if (Model.MigratoryInformation.Id > 0)
+                {
+                    <text>
+                        toggleCommonHotel('@Model.PersonIndex', @Model.MigratoryInformation.IsPrincipal.ToString().ToLower());
+                    </text>
+                }
+                if (Model.MigratoryInformation?.TaxReturnInfo != null && Model.MigratoryInformation.TaxReturnInfo.Id> 0)
+                {
+                    <text>
+                        toggleIsTaskReturnLoadPage('@Model.PersonIndex', '@Model.MigratoryInformation.IsTaxReturnInfo')
+                    </text>
+                }
+            }
+            toggleIsResidence('@Model.PersonIndex');
+            toggleAirlines('@Model.PersonIndex');
+            toggleSpecificFlightMotive('@Model.PersonIndex');
+            toggleDocumentNumber('@Model.PersonIndex');
+
+            $("input[type=text]").keyup(function () {
+                $(this).val($(this).val().toUpperCase());
+            });
+            $(".cedula").mask("000-0000000-0", { placeholder: "XXX-XXXXXXX-X" });
+            $('#MigratoryInformation_TaxReturnInfo_Cedula').mask("000-0000000-0", { placeholder: "XXX-XXXXXXX-X" });
+            $('#MigratoryInformation_TaxReturnInfo_Telefono').mask("000-000-0000", { placeholder: "XXX-XXX-XXXX" });
+            toggleIsTaskReturnLoadPage('@Model.PersonIndex', '@Model.MigratoryInformation.IsTaxReturnInfo');
+        });
+        $("#MigratoryInformation_TaxReturnInfo_Telefono").intlTelInput({
+            initialCountry: "do",
+            separateDialCode: true,
+            allowDropdown: false,
+            autoHideDialCode:false,
+            geoIpLookup: function (callback) {
+                $.get('https://ipinfo.io', function () {}, "jsonp").always(function (resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    callback(countryCode);
+                });
+            },
+            utilsScript: "/lib/intlTelInput/utils.js"
+        });
+    })
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,100 @@
+﻿/*html,
+body {
+    height: 100%;
+}
+
+body {
+    vertical-align: middle;
+}
+
+#login-page {
+    width: 500px;
+}
+
+.card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -moz-transform: translate(-50%, -50%) -webkit-transform: translate(-50%, -50%) -ms-transform: translate(-50%, -50%) -o-transform: translate(-50%, -50%) transform: translate(-50%, -50%);
+}*/
+
+/*travel-login*/
+
+.section-tarvel-login {
+    margin: 80px 0;
+}
+
+.section-tarvel-login .card {
+
+    border-radius: 5px;
+}
+.request-travel .toggle.ios, .toggle-on.ios, .toggle-off.ios {
+    border-radius: 20px;
+}
+.request-travel .toggle.ios .toggle-handle {
+        border-radius: 20px;
+}
+.nav-tabs {
+    border: none;
+    background: #fff;
+}
+.nav-tabs .nav-link, .nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+            border: 0;
+            border-bottom: none;
+            color: gray;
+            text-align: center
+        }
+.nav-tabs .nav-link.active {
+                color: #000000;
+                border-radius: 0;
+                border-bottom: 2px solid #05033F;
+            }
+.section-tarvel-login .tab-content {
+        margin: 50px 0;
+    }
+.access-form input[type=text],
+.access-form select,
+.request-travel input[type=text],
+.request-travel select,
+.person-quality,
+.request-travel .form-control{
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    border-radius: 0px;
+}
+
+.dropdown-menu {
+    width: 150px;
+}
+
+.request-travel .content,
+.access-form  .content{
+    padding: 15px 0;
+}
+
+.request-travel .label-text,
+.access-form label {
+    font-size: 14px;
+    color: #9e9e9e;
+}
+
+.btn-request-travel .btn,
+.access-form .btn{
+    border-radius: 50px;
+    margin: 15px 0;
+}
+
+.btn-request-travel .btn-request,
+.access-form  .btn-request {
+    background: #10439C;
+    color: white;
+}
+
+.document { 
+
+    font-weight: 400;
+}
+
+
+

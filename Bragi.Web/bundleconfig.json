@@ -1,0 +1,28 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/changePass/changePass.css",
+      "wwwroot/css/home/index.css",
+      "wwwroot/css/login/Login.css",
+      "wwwroot/css/register/register.css",
+      "wwwroot/css/step/style.css",
+      "wwwroot/css/StepTwo/index.css",
+      "wwwroot/css/TicketEmision/style.css",
+      "wwwroot/css/TravelTicket/style.css",
+      "wwwroot/css/style.css",
+      "wwwroot/lib/bootstrap-steps/bs-steps.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/TravelTicket/StepOne/index.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]

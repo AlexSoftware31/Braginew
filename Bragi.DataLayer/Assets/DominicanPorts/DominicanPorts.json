@@ -1,0 +1,268 @@
+[
+  {
+    "InspectionCode": 103,
+    "Code": "LRM",
+    "TransportationMethodId": 3,
+    "Place": "La Romana",
+    "Name": "AEROPUERTO INTERNACIONAL LA ROMANA"
+  },
+  {
+    "InspectionCode": 102,
+    "Code": "BRX",
+    "TransportationMethodId": 3,
+    "Place": "Maria Montez",
+    "Name": "AEROPUERTO INTERNACIONAL MARIA MONTEZ, BARAHONA"
+  },
+  {
+    "InspectionCode": 101,
+    "Code": "AZS",
+    "TransportationMethodId": 3,
+    "Place": "Samana El Catey",
+    "Name": "AEROPUERTO INTERNACIONAL PRESIDENTE JUAN BOSH"
+  },
+  {
+    "InspectionCode": 104,
+    "Code": "JBQ",
+    "TransportationMethodId": 3,
+    "Place": "La Isabela, Joaquin Balaguer",
+    "Name": "AEROPUERTO INTERNACIONAL LA ISABELA, JOAQUIN BALAGUER"
+  },
+  {
+    "InspectionCode": 105,
+    "Code": "POP",
+    "TransportationMethodId": 3,
+    "Place": "Gregorio Luperon",
+    "Name": "AEROPUERTO INTERNACIONAL GREGORIO LUPERON, PUERTO PLATA"
+  },
+  {
+    "InspectionCode": 106,
+    "Code": "PUJ",
+    "TransportationMethodId": 3,
+    "Place": "Punta Cana",
+    "Name": "AEROPUERTO INTERNACIONAL DE PUNTA CANA"
+  },
+  {
+    "InspectionCode": 109,
+    "Code": "SAI",
+    "TransportationMethodId": 3,
+    "Place": "San Isidro",
+    "Name": "BASE AEREA DE SAN ISIDRO"
+  },
+  {
+    "InspectionCode": 107,
+    "Code": "SDQ",
+    "TransportationMethodId": 3,
+    "Place": "Las Americas",
+    "Name": "AEROPUERTO INTERNACIONAL DE LAS AMERICAS"
+  },
+  {
+    "InspectionCode": 108,
+    "Code": "STI",
+    "TransportationMethodId": 3,
+    "Place": "Cibao",
+    "Name": "AEROPUERTO INTERNACIONAL DEL CIBAO"
+  },
+  {
+    "InspectionCode": 322,
+    "Code": "TFV",
+    "TransportationMethodId": 2,
+    "Place": "TERMINAL FERRY VEHICULOS",
+    "Name": "TERMINAL FERRY VEHICULOS"
+  },
+  {
+    "InspectionCode": 317,
+    "Code": "TSS",
+    "TransportationMethodId": 2,
+    "Place": "SAN SOUCI",
+    "Name": "MUELLE TURISTICO DE SAN SOUCI"
+  },
+  {
+    "InspectionCode": 321,
+    "Code": "SPM",
+    "TransportationMethodId": 2,
+    "Place": "SAN PEDRO",
+    "Name": "MUELLE SAN PEDRO"
+  },
+  {
+    "InspectionCode": 318,
+    "Code": "PVA",
+    "TransportationMethodId": 2,
+    "Place": "VIEJO",
+    "Name": "MUELLE PUERTO VIEJO"
+  },
+  {
+    "InspectionCode": 312,
+    "Code": "POP",
+    "TransportationMethodId": 2,
+    "Place": "PUERTO PLATA",
+    "Name": "MUELLE PUERTO PLATA"
+  },
+  {
+    "InspectionCode": 323,
+    "Code": "PSB",
+    "TransportationMethodId": 2,
+    "Place": "SALINAS BANI",
+    "Name": "PUERTO DE SALINAS BANI"
+  },
+  {
+    "InspectionCode": 305,
+    "Code": "LCS",
+    "TransportationMethodId": 2,
+    "Place": "CALDERAS",
+    "Name": "MUELLE DE CALDERAS"
+  },
+  {
+    "InspectionCode": 303,
+    "Code": "BCC",
+    "TransportationMethodId": 2,
+    "Place": "BOCA CHICA",
+    "Name": "MUELLE DE BOCA CHICA"
+  },
+  {
+    "InspectionCode": 302,
+    "Code": "BRX",
+    "TransportationMethodId": 2,
+    "Place": "BARAHONA",
+    "Name": "MUELLE DE BARAHONA"
+  },
+  {
+    "InspectionCode": 304,
+    "Code": "CBJ",
+    "TransportationMethodId": 2,
+    "Place": "CABO ROJO",
+    "Name": "MUELLE CABO ROJO"
+  },
+  {
+    "InspectionCode": 308,
+    "Code": "HAI",
+    "TransportationMethodId": 2,
+    "Place": "HAINA",
+    "Name": "MUELLE DE HAINA"
+  },
+  {
+    "InspectionCode": 315,
+    "Code": "LRM",
+    "TransportationMethodId": 2,
+    "Place": "ROMANA",
+    "Name": "MUELLE LA ROMANA"
+  },
+  {
+    "InspectionCode": 309,
+    "Code": "LUP",
+    "TransportationMethodId": 2,
+    "Place": "LUPERON",
+    "Name": "MARINA DE LUPERON"
+  },
+  {
+    "InspectionCode": 310,
+    "Code": "MAN",
+    "TransportationMethodId": 2,
+    "Place": "MANZANILLO",
+    "Name": "MUELLE DE MANZANILLO"
+  },
+  {
+    "InspectionCode": 325,
+    "Code": "MAZ",
+    "TransportationMethodId": 2,
+    "Place": "AZUA",
+    "Name": "MUELLA DE AZUA"
+  },
+  {
+    "InspectionCode": 307,
+    "Code": "MCA",
+    "TransportationMethodId": 2,
+    "Place": "CASA DE CAMPO",
+    "Name": "MARINA CASA DE CAMPO"
+  },
+  {
+    "InspectionCode": 306,
+    "Code": "MCC",
+    "TransportationMethodId": 2,
+    "Place": "CAP CANA",
+    "Name": "MARINA DE CAP CANA"
+  },
+  {
+    "InspectionCode": 320,
+    "Code": "MDD",
+    "TransportationMethodId": 2,
+    "Place": "DON DIEGO",
+    "Name": "TERMINAL DON DIEGO"
+  },
+  {
+    "InspectionCode": 311,
+    "Code": "MOW",
+    "TransportationMethodId": 2,
+    "Place": "OCEAN WORLD",
+    "Name": "MARINA OCEAN WORLD"
+  },
+  {
+    "InspectionCode": 324,
+    "Code": "MPB",
+    "TransportationMethodId": 2,
+    "Place": "PUERTO BAHIA",
+    "Name": "MARINA PUERTO BAHIA"
+  },
+  {
+    "InspectionCode": 326,
+    "Code": "PAC",
+    "TransportationMethodId": 2,
+    "Place": "AMBER COVE",
+    "Name": "PUERTO AMBER COVE"
+  },
+  {
+    "InspectionCode": 206,
+    "Code": "PFB",
+    "TransportationMethodId": 1,
+    "Place": "BANICA",
+    "Name": "PUESTO FRONTERIZO BANICA"
+  },
+  {
+    "InspectionCode": 205,
+    "Code": "PFC",
+    "TransportationMethodId": 1,
+    "Place": "CARRIZAL",
+    "Name": "PUESTO FRONTERIZO CARRIZAL"
+  },
+  {
+    "InspectionCode": 201,
+    "Code": "PFD",
+    "TransportationMethodId": 1,
+    "Place": "DAJABON",
+    "Name": "PUESTO FRONTERIZO DE DAJABON"
+  },
+  {
+    "InspectionCode": 202,
+    "Code": "PFE",
+    "TransportationMethodId": 1,
+    "Place": "ELIAS PIÑA",
+    "Name": "PUESTO FRONTERIZO DE ELIAS PIÑA"
+  },
+  {
+    "InspectionCode": 203,
+    "Code": "PFJ",
+    "TransportationMethodId": 1,
+    "Place": "JIMANI",
+    "Name": "PUESTO FRONTERIZO DE JIMANI"
+  },
+  {
+    "InspectionCode": 204,
+    "Code": "PFP",
+    "TransportationMethodId": 1,
+    "Place": "PEDERNALES",
+    "Name": "PUESTO FRONTERIZO DE PEDERNALES"
+  },
+  {
+    "InspectionCode": 207,
+    "Code": "PHV",
+    "TransportationMethodId": 1,
+    "Place": "HONDO VALLE",
+    "Name": "PUESTO FRONTERIZO HONDO VALLE"
+  },
+  {
+    "InspectionCode": 999,
+    "Code": "OTR",
+    "TransportationMethodId": 2,
+    "Place": "",
+    "Name": "OTRO (OTHER)"
+  }
+]

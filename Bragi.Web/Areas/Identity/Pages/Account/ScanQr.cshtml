@@ -1,0 +1,105 @@
+﻿@page
+@using Bragi.DataLayer.Utils
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@model Bragi.Web.Areas.Identity.Pages.Account.ScanQrModel
+
+@inject IHtmlLocalizer<ScanQrModel> HmlLocalizer;
+@inject IStringLocalizer<ScanQrModel> st;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="center">
+            <h3>Validate Information</h3>
+        </div>
+    </div>
+
+    <form>
+        <div class="row">
+            <div class="s12 m12 l8 xl6">
+                <input placeholder="Read the Qr Code" id="qrCode" type="text" class="validate" name="qrCode">
+                <label>Code</label>
+            </div>
+        </div>
+    </form>
+
+
+
+    @{
+        if (Model.MigratoryInfoAirlineViewModel != null)
+        {
+
+            <div class="row">
+                <div class="col s12 m10 xl12 l12 " style="padding: 30px;">
+                    <div class="card" style="border-radius: 20px;" id="printMe">
+                        <div class="row">
+                            <div class="col s12 m12 l12 xl12">
+                                <div class="valing center">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <div class="row">
+
+                                            <div class="col s12 m12  l3 xl3 mb-50 valing center">
+                                                <img src="~/img/escudo.png" width="100" alt="Alternate Text" />
+                                            </div>
+                                            <div class="col s12 m12 l9 xl9  valing center">
+                                                <h3 style="font-size: 33px;">  REPUBLICA DOMINICANA</h3>
+                                            </div>
+                                            <table class="striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Names</th>
+                                                        <th>Last Name</th>
+                                                        <th>Date Of Birth</th>
+                                                        <th>Nationalilty</th> 
+                                                    </tr>
+                                                </thead>
+                                                @{
+                                                    foreach (var person in Model.MigratoryInfoAirlineViewModel.MigratoryInformationViewModels)
+                                                    {
+                                                        <tr>
+                                                            <td>@person.Names.ToUpperOrEmpty()</td>
+                                                            <td>@person.LastNames.ToUpperOrEmpty()</td>
+                                                            <td>@person.BirthDate.ToString("yyyy-MM-dd")</td>
+                                                            <td>@person.Nationality.ToUpperOrEmpty()</td>
+
+                                                        </tr>
+                                                    }
+                                                }
+                                                <tbody>
+                                                    
+                                                </tbody>
+                                            </table>
+
+                                            <div class="col hide-on-small-only hide-on-med-only">
+                                                <h6><b>@Model.MigratoryInfoAirlineViewModel.Eticket.Sequence</b></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col mb-25 hide-on-extra-large-only hide-on-large-only" style="margin-left: 30px;">
+                                <h5><b>@Model.MigratoryInfoAirlineViewModel.Eticket.Sequence</b></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#qrCode').focus()
+    })
+</script>

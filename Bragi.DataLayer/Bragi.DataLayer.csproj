@@ -1,0 +1,177 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200615013922_sectorMigra.cs" />
+    <Compile Remove="Migrations\20200615013922_sectorMigra.Designer.cs" />
+    <Compile Remove="Migrations\20200615015047_sectorMigra.cs" />
+    <Compile Remove="Migrations\20200615015047_sectorMigra.Designer.cs" />
+    <Compile Remove="Migrations\20200615015120_sectorMigra.cs" />
+    <Compile Remove="Migrations\20200615015120_sectorMigra.Designer.cs" />
+    <Compile Remove="Migrations\20200615020939_LimitColumns.cs" />
+    <Compile Remove="Migrations\20200615020939_LimitColumns.Designer.cs" />
+    <Compile Remove="Migrations\20200615021047_LimitColumns.cs" />
+    <Compile Remove="Migrations\20200615021047_LimitColumns.Designer.cs" />
+    <Compile Remove="Migrations\20200617203116_fixCondition.cs" />
+    <Compile Remove="Migrations\20200617203116_fixCondition.Designer.cs" />
+    <Compile Remove="Migrations\20200617211319_addPublicHealthModels.cs" />
+    <Compile Remove="Migrations\20200617211319_addPublicHealthModels.Designer.cs" />
+    <Compile Remove="Migrations\20200618045552_userTypes.cs" />
+    <Compile Remove="Migrations\20200618045552_userTypes.Designer.cs" />
+    <Compile Remove="Migrations\20200619015218_addTermsAndConditionAndHotels.cs" />
+    <Compile Remove="Migrations\20200619015218_addTermsAndConditionAndHotels.Designer.cs" />
+    <Compile Remove="Migrations\20200624195250_Ports.cs" />
+    <Compile Remove="Migrations\20200624195250_Ports.Designer.cs" />
+    <Compile Remove="Migrations\20200624201056_newTables.cs" />
+    <Compile Remove="Migrations\20200624201056_newTables.Designer.cs" />
+    <Compile Remove="Migrations\20200630123818_newColumns.cs" />
+    <Compile Remove="Migrations\20200630123818_newColumns.Designer.cs" />
+    <Compile Remove="Migrations\20201012164736_Remove_Unused_Columns.cs" />
+    <Compile Remove="Migrations\20201012164736_Remove_Unused_Columns.Designer.cs" />
+    <Compile Remove="Migrations\20201107212847_setcolumNullableDateTimer.cs" />
+    <Compile Remove="Migrations\20201107212847_setcolumNullableDateTimer.Designer.cs" />
+    <Compile Remove="Migrations\20210330024546_checkdb.cs" />
+    <Compile Remove="Migrations\20210330024546_checkdb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.22">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.12" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.16" />
+    <PackageReference Include="NetCoreUtilities" Version="1.4.8" />
+    <PackageReference Include="QRCoder" Version="1.3.9" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="20.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Views\Home\Index.en.Designer.cs">
+      <DependentUpon>Index.en.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Pages\Account\ScanQrModel.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\ScanQrModel.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\ScanQrModel.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Pages\ScanQrModel.fr.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Auth\TravelLogin.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Auth\TravelLogin.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Auth\TravelLogin.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.de.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.en.resx">
+      <LastGenOutput>Index.en.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.it.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.pt.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\Index.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\Index.en.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\Index.es.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\Index.fr.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\Index.it.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\Index.ru.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.de.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.en.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.es.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.fr.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.it.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.pt.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\TravelTicket\TicketEmision.ru.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>TicketEmision.es.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

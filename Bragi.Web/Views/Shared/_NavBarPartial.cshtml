@@ -1,0 +1,25 @@
+﻿<link href="~/css/site.css" rel="stylesheet" />
+
+<header class="navegation">
+    <nav class="navbar navbar-expand-lg" role="navigation" aria-label="main navegation">
+        <div class="container-fluid">
+            <a asp-controller="Home" asp-action="Index" class="brand-logo">
+                <div class="">
+                    <img src="~/img/top_banner.svg" width="250" alt="escudo.png"/>
+                </div>
+            </a>
+            <ul id="languaje-nav" class="right ml-auto">
+                <li>
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<script>
+    //document.addEventListener('DOMContentLoaded', () => {
+    //    const elems = document.querySelectorAll('.sidenav');
+    //    const instances = M.Sidenav.init(elems, {});
+    //});
+</script>

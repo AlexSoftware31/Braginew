@@ -1,0 +1,23 @@
+[
+  {
+    "Spanish": "Soltero(a)",
+    "English": "Single"
+  },
+  {
+    "Spanish": "Casado(a)",
+    "English": "Married"
+  },
+  {
+    "Spanish": "Concubinato",
+    "English": "Concubinage"
+  },
+  {
+    "Spanish": "Union Libre",
+    "English": "Free Union"
+  },
+  {
+    "Spanish": "Otros",
+    "English": "Others"
+  }
+
+]

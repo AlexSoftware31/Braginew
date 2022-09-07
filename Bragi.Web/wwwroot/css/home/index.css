@@ -1,0 +1,129 @@
+/*typographys*/
+@font-face {
+    font-family: "Roboto-Light";
+    src: url(../fonts/Roboto-Light.ttf)
+}
+
+@font-face {
+    font-family: "Roboto-bold";
+    src: url(../fonts/Roboto-Bold.ttf)
+}
+
+/*section-home*/
+h2 {
+    font-size: 39px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    margin-top: 100px;
+}
+
+.btn-header {
+   /* margin: 36px 0;*/
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background: #10439C;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;   
+}
+.btn-Consult {
+  /*  margin: 36px 0;*/
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background: #D37228;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+    .btn-header:hover,
+    .btn-Consult:hover {
+        color: #fff;
+    }
+
+.imagen-mitur:hover {
+    
+    background-color: #16385d;
+
+}
+/*section-ticket*/
+.section-ticket {
+    font-family: Roboto;
+    background: #16385d;
+}
+.section-ticket p {
+        font-size: 19px;
+        font-weight: 300;
+        margin: 30px 0;
+}
+    .section-ticket h2 {
+        font-size: 34px;
+        font-weight: 300;
+        margin: 30px 0;
+    }
+/*section request*/
+
+.section-request{
+    margin: 20px 0;
+}
+
+.section-request .card {
+
+    height: 520px
+}
+.card-list {
+    list-style-type:decimal;
+}
+.cardHeaderLine {
+    border-bottom: 1px solid gray;
+}
+.section-request .card ul li {
+    float: left;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 3px 0;
+    color:#000000;
+
+}
+
+    .section-request .card ul li:hover {
+        background-color: #cccccc !important;
+        cursor: pointer;
+    }
+
+.card-title {
+    border-bottom: 1px solid #394867;
+}
+.card-body i {
+    color: #163861;
+    padding-bottom: 40px;
+    padding-top: 20px;
+    font-size: 70px;
+}
+
+.title-section-card{
+
+    font-size: 34px;
+    font-weight:300;
+}
+
+
+
+@media(min-width: 568px) {
+
+    .section-request .card {
+        height: 500px
+    }
+
+    h2 {
+        font-size: 48px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        margin-top: 100px;
+    }
+}
+
+
+
+
+
+

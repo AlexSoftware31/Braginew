@@ -1,0 +1,41 @@
+[
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "United States Dollar",
+    "Code": "USD"
+  },
+
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "Euro",
+    "Code": "EUR"
+  },
+
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "New Zealand Dollar",
+    "Code": "NZD"
+  },
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "Canada Dollar",
+    "Code": "CAD"
+  },
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "Japan Yen",
+    "Code": "JPY"
+  },
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "Brazilian Real",
+    "Code": "BRL"
+  },
+  {
+    "CreatedBy": "DataSeed",
+    "Name": "Pound Sterling",
+    "Code": "GBP"
+  },
+
+
+]

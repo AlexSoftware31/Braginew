@@ -1,0 +1,193 @@
+﻿.container-travel {
+    margin: 30px !important;
+}
+/**Section steps 1**/
+.section-step-1 {
+    font-family: 'Roboto', sans-serif;
+}
+.section-step-1 .form-control {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid gray;
+        border-radius: 0;
+    }
+.section-step-1 .toggle.ios, .toggle-on.ios, .toggle-off.ios {
+        border-radius: 20px;
+    }
+.titles {
+       
+        font-size: 25px;
+            
+    }
+.section-step-1 .toggle.ios .toggle-handle {
+    border-radius: 20px;
+}
+.section-step-1 .dropdown-toggle {
+        background: transparent;
+        border: none;
+        margin-top: 1px;
+    }
+.section-step-1 .dropdown-toggle:hover {
+            background: transparent;
+        }
+.section-step-1 .dropdown-toggle.active {
+            background: transparent;
+        }
+.section-step-1 .state,
+.section-step-1 .city {
+        background: transparent;
+        border: none;
+        border-bottom: 1px dotted gray;
+        border-radius: 0;
+    }
+.section-step-1 .filter-option-inner-inner {
+        background: transparent;
+    }
+.section-step-1 .form-check-label,
+.section-step-1 .check-label {
+        font-size: 18px;
+        color: #686d76;
+    }
+.section-step-1 form .form-row {
+        margin: 50px 0;
+    }
+.section-step-1 form .form-check {
+        margin: 10px 0;
+    }
+.section-step-1 .btn-next {
+    background: #10439C;
+    color: #fff;
+    font-weight: 300;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.section-step-1 .dropdown-menu {
+        width: 150px;
+    }
+.section-step-1 .modal .modal-header {
+        background: #0D2D8D;
+        color: #fff;
+    }
+.section-step-1 .modal ul li {
+        cursor: pointer;
+        list-style: none;
+        border: none;
+        font-weight: 300;
+        border-color: #fff;
+        list-style-type: none;
+    }
+.section-step-1 .modal-dialog {
+        overflow-y: initial !important
+    }
+.section-step-1 .modal-body {
+    height: 50vh;
+    overflow-y: auto;
+
+}
+.section-step-1 .entry,
+.section-step-1 .exit {
+        margin-bottom: 20px;
+        font-weight: 300;
+    }
+.section-step-1 .entry b {
+            font-weight: 600;
+            color: #DF8A04;
+        }
+.section-step-1 .exit b {
+            font-weight: 600;
+            color: #358435;
+        }
+.section-step-1 .check-alt {
+    margin-top: 33px;
+}
+
+/**Section steps 2**/
+.section-step-2 {
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+}
+.section-step-2 .nav-tabs {
+        border-radius: 3px;
+        border: none;
+   
+    }
+.section-step-2 .nav-tabs .nav-link, .nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+            border: 0;
+            border-bottom: none;
+            color: gray;
+            text-align: center;
+        
+        }
+.section-step-2 .nav-tabs .nav-link {
+            /*   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
+            margin: 0 5px;
+            border: 1px solid #F0F0F0;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border-radius: 5px;
+        }
+    .section-step-2 .nav-tabs .nav-link.active {
+        color: #fff;
+        border: none;
+        background: #10439C;
+        border-radius: 5px;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+    .section-step-2 .nav-tabs .nav-link:hover {
+        background: #10439C;
+        color: #fff;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+        border: none;
+    } 
+.section-step-2 .form-control {
+        background: transparent;
+        border: none;
+        font-size: 16px;
+        border-bottom: 1px solid gray;
+        border-radius: 0;
+    }
+.section-step-2 .dropdown-menu {
+        width: 150px;
+    }
+.section-step-2 .dropdown-toggle {
+        background: transparent;
+        border: none;
+        margin-top: 1px;
+    }
+.section-step-2 .control-label {
+        font-size: 18px;
+        color: #686d76;
+        font-weight: 300;
+    }
+.section-step-2 .form-check-label {
+        font-size: 18px;
+        color: #686d76;
+        font-weight: 300;
+    }
+.section-step-2 .dropdown-toggle:hover {
+        background: transparent;
+    }
+.section-step-2 .dropdown-toggle.active {
+        background: transparent;
+    }
+.section-step-2 .form-group {
+        margin: 30px 0;
+    }
+.section-step-2 .migratory-info {
+        margin-top: 20px;
+    }
+.content-title-img {
+    display: flex;
+    flex-direction: column;
+}
+
+@media(min-width: 576px) {
+.titles {
+        font-size: 40px;
+    }
+.section-step-2 {
+    font-family: 'Roboto', sans-serif;
+    margin: 50px 0;
+}
+.section-step-2 .migratory-info {
+        margin-top: 50px;
+    }
+}

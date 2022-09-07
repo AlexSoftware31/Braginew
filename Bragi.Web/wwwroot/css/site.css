@@ -1,0 +1,31 @@
+﻿.navegation nav {
+    background: #060554;
+    background: linear-gradient(90deg,#060554 0%, #0d2f90 80%);
+    background: -webkit-linear-gradient(90deg,#060554 0%, #0d2f90 80%);
+    background: -moz-linear-gradient(90deg,#060554 0%, #0d2f90 80%);
+}
+
+.navegation nav ul li {
+    list-style: none;
+}
+
+.footer {
+    line-height: 60px;
+    color: #fff;
+    background: #13171A;
+    text-align: center;
+}
+
+.footer .row a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 14px;
+}
+
+.bootstrap-select > .btn {
+    max-height: 37px !important;
+}
+
+.bootstrap-select > .btn > .filter-option {
+    max-height: 25px !important;
+}

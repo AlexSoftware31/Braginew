@@ -1,0 +1,116 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "materialize@1.0.0",
+      "destination": "wwwroot/lib/materialize/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "materialize-stepper@3.1.0",
+      "destination": "wwwroot/lib/materialize-stepper/",
+      "files": [
+        "dist/js/mstepper.min.js",
+        "dist/css/mstepper.min.css"
+      ]
+    },
+    {
+      "library": "limonte-sweetalert2@8.11.8",
+      "destination": "wwwroot/lib/limonte-sweetalert2/"
+    },
+    {
+      "library": "vue@2.6.11",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "axios@0.19.2",
+      "destination": "wwwroot/lib/axios/",
+      "files": [
+        "axios.min.js"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "vuelidate@0.7.5",
+      "destination": "wwwroot/lib/vuelidate/",
+      "files": [
+        "dist/validators.min.js"
+      ]
+    },
+    {
+      "library": "moment.js@2.26.0",
+      "destination": "wwwroot/lib/moment.js/",
+      "files": [
+        "moment.min.js"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "qrious@4.0.2",
+      "destination": "wwwroot/lib/qrious/",
+      "files": [
+        "dist/qrious.min.js"
+      ]
+    },
+    {
+      "library": "jQuery.print@1.6.0",
+      "destination": "wwwroot/lib/jQuery.print/",
+      "files": [
+        "jQuery.print.min.js"
+      ]
+    },
+    {
+      "library": "print-js@1.0.63",
+      "destination": "wwwroot/lib/print-js/"
+    },
+    {
+      "library": "jspdf@1.5.3",
+      "destination": "wwwroot/lib/jspdf/"
+    },
+    {
+      "library": "dom-to-image@2.6.0",
+      "destination": "wwwroot/lib/dom-to-image/"
+    },
+    {
+      "library": "jquery.mask@1.14.16",
+      "destination": "wwwroot/lib/jquery.mask/"
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "jquery.cookie@1.4.1",
+      "destination": "wwwroot/lib/jquery.cookie/",
+      "files": [
+        "jquery.cookie.min.js"
+      ]
+    },
+    {
+      "library": "driver.js@0.9.8",
+      "destination": "wwwroot/lib/driver.js/"
+    },
+    {
+      "library": "babel-polyfill@7.10.1",
+      "destination": "wwwroot/lib/babel-polyfill/"
+    },
+    {
+      "library": "bootstrap-select@1.13.18",
+      "destination": "wwwroot/lib/bootstrap-select/"
+    },
+    {
+      "library": "bootstrap4-toggle@3.6.1",
+      "destination": "wwwroot/lib/bootstrap4-toggle/"
+    },
+    {
+      "library": "bootstrap-datepicker@1.9.0",
+      "destination": "wwwroot/lib/bootstrap-datepicker/"
+    },
+    {
+      "library": "font-awesome@5.15.3",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "animate.css@4.1.1",
+      "destination": "wwwroot/animate.css/"
+    }
+  ]
+}

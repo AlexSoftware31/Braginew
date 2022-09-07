@@ -1,0 +1,17 @@
+[
+  //Es
+  {
+    "Spanish": "Aereo",
+    "English": "Air Transport"
+  },
+  {
+    "Spanish": "Maritimo",
+    "English": "Marine Transport"
+
+  },
+  {
+    "Spanish": "Terrestre",
+    "English": "Ground Transportation"
+
+  }
+]

@@ -1,0 +1,53 @@
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UsrManager;
+@{
+
+    var info = await UsrManager.GetUserAsync(User);
+    var isAdmin = User.IsInRole("Administrator");
+}
+@{
+    if (!isAdmin)
+    {
+        <ul class="collection">
+            <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">account_box</i>
+                    <span class="title">My Profile</span>
+                </li>
+            </a>
+            
+            <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle orange">security</i>
+                    <span class="title">Change Password</span>
+                </li>
+            </a>
+        </ul>
+    }
+    else
+    {
+        <ul class="collection">
+            <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./CreateAirlines">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle green">person_add</i>
+                    <span class="title">Create Airlines</span>
+                </li>
+            </a>
+            @*<a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">account_box</i>
+                    <span class="title">My Profile</span>
+                </li>
+            </a>*@
+
+            <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle orange">security</i>
+                    <span class="title">Change Password</span>
+                </li>
+            </a>
+        </ul>
+    }
+}
